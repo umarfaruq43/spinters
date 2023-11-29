@@ -1,0 +1,49 @@
+import { Box, Image, Flex, Text, Stack, Icon } from "@chakra-ui/react";
+import React from "react";
+import Container from "../Container";
+import { BiSolidCheckboxChecked } from "react-icons/bi";
+
+const GetToKnowUs = () => {
+    return (
+        <Box py={["4rem", "5rem", "7rem"]}>
+            <Container>
+                <Flex
+                    flexDir={["column", null, "row"]}
+                    gap={["4rem", null, "4rem", "8rem"]}
+                >
+                    <Box w={["100%"]}>
+                        <Image src="/images/knowUs.svg" alt="" />
+                    </Box>
+                    <Stack w={["100%"]} spacing="1.5rem">
+                        <Text
+                            fontSize={["2rem", null, "3rem"]}
+                            fontWeight="700"
+                        >
+                            Get to{" "}
+                            <Text as="i" color="primary_10">
+                                Know Us
+                            </Text>
+                        </Text>
+
+                        <Text fontSize={["1.125rem"]} lineHeight={["155.556%"]}>
+                            Sprinters technologies was born out of a vision to
+                            bridge the gap between technology and human
+                            potential. We believe that technology when harnessed
+                            intelligently, can revolutionize businesses, elevate
+                            experiences, and transform the way we live and work.
+                            Our core values include:
+                        </Text>
+
+                        <Stack>
+                            <Flex>
+                                <Icon as={BiSolidCheckboxChecked} />
+                            </Flex>
+                        </Stack>
+                    </Stack>
+                </Flex>
+            </Container>
+        </Box>
+    );
+};
+
+export default GetToKnowUs;
