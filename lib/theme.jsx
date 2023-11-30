@@ -16,6 +16,7 @@ const colors = {
 
     light_1: "#E6E6E6",
     light_2: "#F2F3F4",
+    light_3: "#EAECF0",
 
     dark_1: "#222",
     dark_2: "#000000",

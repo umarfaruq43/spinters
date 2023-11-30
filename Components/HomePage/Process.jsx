@@ -34,8 +34,8 @@ const Process = () => {
                         what’s possible in the digital world.
                     </Text>
                 </Box>
-                <Box mt="4.5rem">
-                    <Flex></Flex>
+                <Box mt={["2rem", "4.5rem"]}>
+                    <Image src="/images/process.svg" alt="process image" />
                 </Box>
             </Container>
         </Box>
