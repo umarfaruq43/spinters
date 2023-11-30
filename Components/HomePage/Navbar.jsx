@@ -1,3 +1,4 @@
+import { navItemData } from "@/lib/data";
 import {
     Box,
     Button,
@@ -112,29 +113,6 @@ const NavItem = ({ activeNav, href, key, title }) => {
         </Link>
     );
 };
-
-const navItemData = [
-    {
-        activeNo: 1,
-        title: "About Us",
-        href: "/",
-    },
-    {
-        activeNo: 2,
-        title: "Services",
-        href: "/service",
-    },
-    {
-        activeNo: 3,
-        title: "Case Study",
-        href: "/case_study",
-    },
-    {
-        activeNo: 4,
-        title: "FAQs",
-        href: "/faqs",
-    },
-];
 
 const MobileNav = ({ showNav, activeNav }) => {
     return (

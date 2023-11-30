@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 const Hero = () => {
     return (
-        <Box bgColor={"neutral_10"}>
+        <Box bgColor={"dark_2"}>
             <Container>
                 <Box py={["2rem", "3rem", "4rem"]}>
                     <Navbar activeNav={"/"} />
@@ -65,7 +65,7 @@ const Hero = () => {
                     </Stack>
 
                     <Box pt="4rem">
-                        <Image src="/images/heroimg.svg" alt="" />
+                        <Image src="/images/heroimg.svg" alt="hero image" />
                     </Box>
                 </Box>
             </Container>

@@ -9,10 +9,10 @@ const GetToKnowUs = () => {
             <Container>
                 <Flex
                     flexDir={["column", null, "row"]}
-                    gap={["4rem", null, "4rem", "8rem"]}
+                    gap={["2rem", null, "3rem", null, "8rem"]}
                 >
                     <Box w={["100%"]}>
-                        <Image src="/images/knowUs.svg" alt="" />
+                        <Image src="/images/knowUs.svg" alt="about us Image" />
                     </Box>
                     <Stack w={["100%"]} spacing="1.5rem">
                         <Text
@@ -34,10 +34,23 @@ const GetToKnowUs = () => {
                             Our core values include:
                         </Text>
 
-                        <Stack>
-                            <Flex>
-                                <Icon as={BiSolidCheckboxChecked} />
-                            </Flex>
+                        <Stack spacing="1.5rem" maxW={["25.8rem"]}>
+                            {data.map((item) => {
+                                return (
+                                    <Flex
+                                        gap="0.5rem"
+                                        align={["center"]}
+                                        key={item}
+                                    >
+                                        <Icon
+                                            color="primary_10"
+                                            as={BiSolidCheckboxChecked}
+                                            boxSize={"1.8rem"}
+                                        />
+                                        <Text fontSize="1.125rem">{item}</Text>
+                                    </Flex>
+                                );
+                            })}
                         </Stack>
                     </Stack>
                 </Flex>
@@ -47,3 +60,10 @@ const GetToKnowUs = () => {
 };
 
 export default GetToKnowUs;
+
+const data = [
+    "We pursue excellence in everything we do.",
+    "We embrace innovation as a way of life.",
+    "In a world where data is a prime target, we take security seriously.",
+    "Our customized solutions are tailored to your specific requirements.",
+];
