@@ -10,7 +10,7 @@ import {
     Stack,
 } from "@chakra-ui/react";
 import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 import { LuMinusCircle } from "react-icons/lu";
 import { MdAddCircleOutline } from "react-icons/md";
 import { testimonyData } from "@/lib/data";

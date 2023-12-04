@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Stack, Text, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Container from "../Container";
-import Navbar from "./Navbar";
+import Container from "../common/Container";
+import Navbar from "../common/Navbar";
 
 const Hero = () => {
     return (

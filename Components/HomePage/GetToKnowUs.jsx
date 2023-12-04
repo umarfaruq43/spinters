@@ -1,6 +1,6 @@
 import { Box, Image, Flex, Text, Stack, Icon } from "@chakra-ui/react";
 import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 import { BiSolidCheckboxChecked } from "react-icons/bi";
 
 const GetToKnowUs = () => {
@@ -12,7 +12,7 @@ const GetToKnowUs = () => {
                     gap={["2rem", null, "3rem", null, "8rem"]}
                 >
                     <Box w={["100%"]}>
-                        <Image src="/images/knowUs.svg" alt="about us Image" />
+                        <Image src="/images/about.svg" alt="about us Image" />
                     </Box>
                     <Stack w={["100%"]} spacing="1.5rem">
                         <Text

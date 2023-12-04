@@ -1,6 +1,6 @@
 import { Box, Button, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 
 const Service = () => {
     return (

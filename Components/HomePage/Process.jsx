@@ -1,6 +1,6 @@
 import { Box, Flex, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 
 const Process = () => {
     return (

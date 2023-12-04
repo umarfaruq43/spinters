@@ -1,4 +1,4 @@
-import Navbar from "@/Components/HomePage/Navbar";
+import Navbar from "@/Components/Navbar";
 import React from "react";
 
 const services = () => {
