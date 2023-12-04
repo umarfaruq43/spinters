@@ -15,10 +15,14 @@ const ContactLabel = () => {
         <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
                 <Flex
-                    bgColor={"dark_2"}
+                    bgImage={"/images/lineBg.svg"}
+                    bgColor="dark_2"
+                    bgRepeat={"no-repeat"}
+                    bgSize="cover"
+                    bgPos={"center"}
                     w="100%"
                     rounded={"0.9375rem"}
-                    py={["3.19rem", null, "6.19rem"]}
+                    py={["3.19rem", null, "5rem"]}
                     px={["2rem"]}
                 >
                     <Box maxW="37.2rem" mx="auto">

@@ -56,7 +56,9 @@ const WhyChooseUs = () => {
                                         {item.title}
                                     </Text>
 
-                                    <Text maxW="19.4rem">{item.des}</Text>
+                                    <Text maxW={["100%", "19.4rem"]}>
+                                        {item.des}
+                                    </Text>
                                 </Stack>
                             );
                         })}
