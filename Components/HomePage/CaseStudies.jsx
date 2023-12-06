@@ -73,14 +73,14 @@ const CaseStudies = () => {
                     <Box overflowX={"auto"}>
                         <Flex
                             mt="4.5rem"
-                            justify={"center"}
+                            justify={["auto", null, "center"]}
                             align="flex-start"
                             gap="1.2rem"
                             // overflowX={"scroll"}
                             maxW={["51rem"]}
                             w={["100%"]}
                             mx="auto"
-                            pl={{ base: "350px", sm: "200px", md: "0px" }}
+                            // pl={{ base: "350px", sm: "200px", md: "0px" }}
                         >
                             {navData.map((item) => {
                                 return (
