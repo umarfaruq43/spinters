@@ -10,7 +10,7 @@ import {
 import React from "react";
 import Container from "../common/Container";
 
-const ContactLabel = () => {
+const ContactLabel = ({ data }) => {
     return (
         <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
@@ -32,16 +32,36 @@ const ContactLabel = () => {
                             color={"white"}
                             textAlign={"center"}
                         >
-                            Want to Build Something{" "}
+                            {data === "faq"
+                                ? "Still have"
+                                : "Want to Build Something"}{" "}
+                            <Text as="span" color="primary_10">
+                                {data === "faq"
+                                    ? "Questions?"
+                                    : "Great Together?"}{" "}
+                            </Text>
                         </Text>
-                        <Text
-                            fontSize={["2rem", null, "3rem"]}
-                            fontWeight="700"
-                            textAlign={"center"}
-                            color="primary_10"
-                        >
-                            <i> Great Together?</i>
-                        </Text>
+                        {data !== "faq" && (
+                            <Text
+                                fontSize={["2rem", null, "3rem"]}
+                                fontWeight="700"
+                                textAlign={"center"}
+                                color="primary_10"
+                            >
+                                <i>Great Together? </i>
+                            </Text>
+                        )}
+
+                        {data === "faq" && (
+                            <Text
+                                color="light_1"
+                                fontSize="1.125rem"
+                                textAlign="center"
+                            >
+                                Can’t find the answer you’re looking for? Please
+                                contact our friendly team.
+                            </Text>
+                        )}
 
                         <Button
                             mt={["1.81rem", null, "2.81rem"]}

@@ -18,13 +18,13 @@ const HomePage = () => {
             <Hero heroData={HeroData.landingPage} />
             <GetToKnowUs />
             <Service />
-            <CaseStudies />
+            <CaseStudies theme="dark" />
             <WhyChooseUs />
             <Process />
-            <Testimonies />
+            {/* <Testimonies /> */}
             <Faq />
 
-            <ContactLabel />
+            <ContactLabel data={"homepage"} />
             <Footer />
         </Box>
     );

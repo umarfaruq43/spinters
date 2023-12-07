@@ -14,9 +14,12 @@ import Container from "../common/Container";
 import { LuMinusCircle } from "react-icons/lu";
 import { MdAddCircleOutline } from "react-icons/md";
 import { testimonyData } from "@/lib/data";
-const Faq = () => {
+const Faq = ({ theme = "dark" }) => {
     return (
-        <Box py={["4rem", "5rem", "6rem"]} bgColor="primary_30">
+        <Box
+            py={["4rem", "5rem", "6rem"]}
+            bgColor={theme === "dark" ? "primary_30" : "white"}
+        >
             <Container>
                 <Box>
                     <Text
@@ -30,15 +33,17 @@ const Faq = () => {
                         </Text>{" "}
                     </Text>
 
-                    <Text
-                        fontSize={["1.125rem"]}
-                        lineHeight={["155.556%"]}
-                        textAlign={"center"}
-                        mt="1.25rem"
-                    >
-                        Everything you need to know about the product and
-                        billing.
-                    </Text>
+                    {theme === "dark" && (
+                        <Text
+                            fontSize={["1.125rem"]}
+                            lineHeight={["155.556%"]}
+                            textAlign={"center"}
+                            mt="1.25rem"
+                        >
+                            Everything you need to know about the product and
+                            billing.
+                        </Text>
+                    )}
                 </Box>
                 <Box mt={["2rem", "4.5rem"]}>
                     <Box maxW="48rem" mx="auto">
