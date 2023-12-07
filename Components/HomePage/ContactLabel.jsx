@@ -36,9 +36,7 @@ const ContactLabel = ({ data }) => {
                                 ? "Still have"
                                 : "Want to Build Something"}{" "}
                             <Text as="span" color="primary_10">
-                                {data === "faq"
-                                    ? "Questions?"
-                                    : "Great Together?"}{" "}
+                                {data === "faq" ? "Questions?" : ""}{" "}
                             </Text>
                         </Text>
                         {data !== "faq" && (
