@@ -35,16 +35,20 @@ a {
     text-decoration: none;
 }
 
-.blurNav {
+.blurDarkNav {
     background: rgb(255, 255, 255, 0.12);
-
-    /* backdrop-filter: blur(20px); */
 }
 
-.navItem {
-    background: rgb(255, 255, 255, 0.12);
+.blurLightNav {
+    background: rgba(214, 209, 222, 0.12);
+    border: 1px solid rgba(214, 209, 222, 0.21);
+}
 
-    /* backdrop-filter: blur(20px); */
+.darkNavItem {
+    background: rgba(255, 255, 255, 0.12);
+}
+.lightNavItem {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .rounded_min {

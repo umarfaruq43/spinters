@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import Container from "../common/Container";
 import { ProjectData } from "@/lib/data";
 
-const CaseStudies = () => {
+const CaseStudies = ({ theme = "light" }) => {
     const [activeNav, setActiveNav] = useState(1);
 
     const [filteredData, setFilteredData] = useState(ProjectData);
@@ -39,40 +39,45 @@ const CaseStudies = () => {
     ];
 
     return (
-        <Box py={["4rem", "5rem", "6rem"]} bgColor="dark_2">
+        <Box
+            py={["4rem", "5rem", "6rem"]}
+            bgColor={theme === "dark" ? "dark_2" : "white"}
+        >
             <Container>
-                <Box color="white">
-                    <Box>
-                        <Text
-                            fontSize={["2rem", null, "3rem"]}
-                            fontWeight="700"
-                            textAlign={"center"}
-                        >
-                            Case Studies, showcasing some of our
-                            <Text as="i" display="block" color="primary_10">
-                                finest works
-                            </Text>{" "}
-                        </Text>
+                <Box color={theme === "dark" ? "white" : "dark_2"}>
+                    {theme === "dark" && (
+                        <Box>
+                            <Text
+                                fontSize={["2rem", null, "3rem"]}
+                                fontWeight="700"
+                                textAlign={"center"}
+                            >
+                                Case Studies, showcasing some of our
+                                <Text as="i" display="block" color="primary_10">
+                                    finest works
+                                </Text>{" "}
+                            </Text>
 
-                        <Text
-                            mt="1.5rem"
-                            color="light_1"
-                            maxW="50.3rem"
-                            fontSize={"1.1rem"}
-                            mx="auto"
-                            textAlign={"center"}
-                        >
-                            Elevating our clients product with unparalleled
-                            Value. Our case studies are a testament to our
-                            unwavering commitment to creativity, innovation, and
-                            delivering exceptional results.
-                        </Text>
-                    </Box>
+                            <Text
+                                mt="1.5rem"
+                                color="light_1"
+                                maxW="50.3rem"
+                                fontSize={"1.1rem"}
+                                mx="auto"
+                                textAlign={"center"}
+                            >
+                                Elevating our clients product with unparalleled
+                                Value. Our case studies are a testament to our
+                                unwavering commitment to creativity, innovation,
+                                and delivering exceptional results.
+                            </Text>
+                        </Box>
+                    )}
 
                     {/* Work Nav */}
                     <Box overflowX={"auto"}>
                         <Flex
-                            mt="4.5rem"
+                            mt={theme === "dark" ? "4.5rem" : ""}
                             justify={["auto", null, "center"]}
                             align="flex-start"
                             gap="1.2rem"
@@ -99,7 +104,20 @@ const CaseStudies = () => {
                                             bgColor={
                                                 activeNav === item.navValue
                                                     ? "primary_10"
-                                                    : "gray_1"
+                                                    : `${
+                                                          theme === "dark"
+                                                              ? "gray_1"
+                                                              : "primary_30"
+                                                      }`
+                                            }
+                                            color={
+                                                activeNav === item.navValue
+                                                    ? "white"
+                                                    : `${
+                                                          theme === "dark"
+                                                              ? "white"
+                                                              : "dark_2"
+                                                      }`
                                             }
                                             align="center"
                                             justify={"center"}
@@ -121,7 +139,11 @@ const CaseStudies = () => {
                                                 mt="1rem"
                                                 w="2.5rem"
                                                 h="0.9rem"
-                                                bgColor="primary_40"
+                                                bgColor={
+                                                    theme === "dark"
+                                                        ? "primary_40"
+                                                        : "primary_10"
+                                                }
                                                 rounded="6.25rem"
                                             />
                                         )}
@@ -153,25 +175,31 @@ const CaseStudies = () => {
                                             <Text
                                                 fontSize={"2.25rem"}
                                                 fontWeight={700}
-                                                color={"light_1"}
+                                                color={
+                                                    theme === "dark"
+                                                        ? "light_1"
+                                                        : "primary_10"
+                                                }
                                             >
                                                 {title}
                                             </Text>
                                             <Text mt="1rem">{des}</Text>
-                                            <Button
-                                                mt="2.5rem"
-                                                boxShadow={
-                                                    "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
-                                                }
-                                                bgColor="gray_1"
-                                                color="white"
-                                                _hover={{ opacity: 0.8 }}
-                                                _active={{}}
-                                                as="a"
-                                                href={projectLink}
-                                            >
-                                                Read Case Study
-                                            </Button>
+                                            {theme === "dark" && (
+                                                <Button
+                                                    mt="2.5rem"
+                                                    boxShadow={
+                                                        "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
+                                                    }
+                                                    bgColor="gray_1"
+                                                    color="white"
+                                                    _hover={{ opacity: 0.8 }}
+                                                    _active={{}}
+                                                    as="a"
+                                                    href={projectLink}
+                                                >
+                                                    Read Case Study
+                                                </Button>
+                                            )}
                                         </Box>
                                     </Box>
                                 );

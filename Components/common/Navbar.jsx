@@ -9,9 +9,10 @@ import {
     Stack,
     Text,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
-const Navbar = ({ activeNav }) => {
+const Navbar = ({ activeNav, theme }) => {
     const [showNav, setShowNav] = useState(false);
     const toggleNav = () => {
         setShowNav(!showNav);
@@ -24,20 +25,25 @@ const Navbar = ({ activeNav }) => {
                 justify={{ base: "space-between", md: "flex-start" }}
                 pos={"relative"}
             >
-                <Image
-                    src="/images/greenLogo.svg"
-                    alt="Spinters Logo"
-                    w={["5rem", "6rem", "7rem"]}
-                />
+                <Link href="/">
+                    <Image
+                        src="/images/greenLogo.svg"
+                        alt="Spinters Logo"
+                        w={["5rem", "6rem", "7rem"]}
+                    />
+                </Link>
                 <Box
                     w="fit-content"
                     maxW="45rem"
-                    color="white"
+                    // color="white"
+                    color={theme === "dark" ? "white" : "dark_2"}
                     display={{ base: "none", md: "block" }}
                 >
                     <Flex
                         rounded={"6.25rem"}
-                        className="blurNav"
+                        className={
+                            theme === "dark" ? "blurDarkNav" : "blurLightNav"
+                        }
                         py="1.06rem"
                         px="1.56rem"
                         gap="2.44rem"
@@ -45,12 +51,15 @@ const Navbar = ({ activeNav }) => {
                     >
                         <Flex flexShrink={1}>
                             {navItemData.map((item) => {
+                                console.log(item);
                                 return (
                                     <NavItem
                                         activeNav={activeNav}
                                         href={item.href}
                                         key={item.activeNo}
                                         title={item.title}
+                                        theme={theme}
+                                        href_2={item.href_2}
                                     />
                                 );
                             })}
@@ -76,7 +85,7 @@ const Navbar = ({ activeNav }) => {
                 <Icon
                     as={FaBars}
                     boxSize="1.5rem"
-                    color="white"
+                    color={theme === "dark" ? "white" : "dark"}
                     display={{ base: "block", md: "none", lg: "none" }}
                     cursor="pointer"
                     onClick={toggleNav}
@@ -91,14 +100,32 @@ const Navbar = ({ activeNav }) => {
 
 export default Navbar;
 
-const NavItem = ({ activeNav, href, title }) => {
-    const isActive = activeNav === href;
+const NavItem = ({ activeNav, href, title, theme, href_2 }) => {
+    const router = useRouter();
+    let isActive = activeNav === href;
+    if (router.asPath === "/" && href === "/about") {
+        isActive = true;
+    }
     return (
         <Link
             flexShrink={0}
-            className={`${isActive ? "navItem " : ""} rounded_min `}
-            color={isActive ? "white" : "light_1"}
-            borderColor={isActive ? "white" : "transparent"}
+            className={`${
+                isActive
+                    ? theme === "dark"
+                        ? "darkNavItem "
+                        : "lightNavItem"
+                    : ""
+            } rounded_min`}
+            color={
+                isActive
+                    ? `${theme === "dark" ? "white" : "dark_1"}`
+                    : `${theme === "dark" ? "light_1" : "dark_1"}`
+            }
+            borderColor={
+                isActive
+                    ? `${theme === "dark" ? "white" : "dark_1"}`
+                    : "transparent"
+            }
             rounded={"6.25rem"}
             opacity={isActive ? "1" : "0.5"}
             py="0.7rem"

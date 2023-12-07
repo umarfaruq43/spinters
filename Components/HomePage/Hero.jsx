@@ -3,12 +3,21 @@ import React, { useState } from "react";
 import Container from "../common/Container";
 import Navbar from "../common/Navbar";
 
-const Hero = () => {
+const Hero = ({ heroData }) => {
+    const {
+        theme,
+        activeNav,
+        normalText_1,
+        normalText_2,
+        editedText,
+        des,
+        btnfunc,
+    } = heroData;
     return (
-        <Box bgColor={"dark_2"}>
+        <Box bgColor={theme === "dark" ? "dark_2" : "light_1"}>
             <Container>
                 <Box py={["2rem", "3rem", "4rem"]}>
-                    <Navbar activeNav={"/"} />
+                    <Navbar activeNav={activeNav} theme={theme} />
                     <Stack
                         mt={["3rem", "4rem", "5rem", "6rem"]}
                         bgColor={""}
@@ -18,50 +27,55 @@ const Hero = () => {
                     >
                         <Box
                             fontSize={["2rem", "3rem", "4.5rem"]}
-                            color="white"
+                            color={theme === "dark" ? "white" : "dark_2"}
                             fontWeight={"700"}
+                            maxW="70rem"
+                            mx="auto"
                             textAlign={"center"}
                         >
-                            <Text>Welcome to Sprinters,</Text>
+                            {/* <Text>Welcome to Sprinters,</Text> */}
 
-                            <Text>
-                                Your{" "}
+                            <Text letterSpacing={"-0.09rem"}>
+                                {normalText_1}{" "}
                                 <Text as="i" color="primary_10">
-                                    Tech Solutions{" "}
+                                    {editedText}{" "}
                                 </Text>
-                                Partner
+                                {normalText_2}
                             </Text>
                         </Box>
 
                         <Text
-                            color="light_1"
+                            color={theme === "dark" ? "light_1" : "dark_2"}
                             textAlign={"center"}
                             fontSize={["", "", "1.125rem"]}
                             opacity="0.85"
                             pb="1rem"
+                            maxW="50.5rem"
+                            mx="auto"
                         >
-                            We specialize in Tech consultation, web development,
-                            mobile development, automation, cybersecurity, and
-                            data analytics. Let us bring your digital dreams to
-                            life!
+                            {des}
                         </Text>
 
-                        <Button
-                            display={"block"}
-                            mx="auto"
-                            py="1rem"
-                            px="1.75rem"
-                            maxW="10rem"
-                            h="3.75rem"
-                            fontSize={"1.125rem"}
-                            bgColor={"primary_10"}
-                            color="white"
-                            _focus={{}}
-                            _hover={{ opacity: "0.9" }}
-                            _active={{ opacity: "0.8" }}
-                        >
-                            Explore More
-                        </Button>
+                        {btnfunc && (
+                            <Button
+                                display={"block"}
+                                mx="auto"
+                                py="1rem"
+                                px="1.75rem"
+                                maxW="10rem"
+                                h="auto"
+                                fontSize={["1rem", "1.125rem"]}
+                                bgColor={"primary_10"}
+                                color="white"
+                                _focus={{}}
+                                _hover={{ opacity: "0.9" }}
+                                _active={{ opacity: "0.8" }}
+                                as="a"
+                                href={btnfunc}
+                            >
+                                Explore More
+                            </Button>
+                        )}
                     </Stack>
 
                     <Box pt="4rem">

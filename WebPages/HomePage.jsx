@@ -8,13 +8,14 @@ import Service from "@/Components/HomePage/Service";
 import Testimonies from "@/Components/HomePage/Testimonies";
 import WhyChooseUs from "@/Components/HomePage/WhyChooseUs";
 import Footer from "@/Components/common/Footer";
+import { HeroData } from "@/lib/data";
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
 const HomePage = () => {
     return (
         <Box>
-            <Hero />
+            <Hero heroData={HeroData.landingPage} />
             <GetToKnowUs />
             <Service />
             <CaseStudies />
@@ -22,6 +23,7 @@ const HomePage = () => {
             <Process />
             <Testimonies />
             <Faq />
+
             <ContactLabel />
             <Footer />
         </Box>
