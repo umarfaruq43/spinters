@@ -3,8 +3,50 @@ import React from "react";
 import Container from "../common/Container";
 import { FiBriefcase, FiSmartphone, FiShield } from "react-icons/fi";
 import { GoGlobe } from "react-icons/go";
+import { useRouter } from "next/router";
 
 const Service = () => {
+    const router = useRouter();
+
+    const data = [
+        {
+            title: "Tech Consultation",
+            des: "Navigating the Digital Landscape. Our seasoned consultants provide expert guidance for technology decisions, digital transformation, IT optimization, and strategic planning. Let us lead the way.",
+            action: () => router.push("/service"),
+            icon: FiBriefcase,
+        },
+        {
+            title: "Web Development",
+            des: "We specialize in creating visually appealing and highly functional websites that align with your brand identity and business objectives,ensuring your website is optimized for various devices,  phones.",
+            action: () => router.push("/service"),
+            icon: GoGlobe,
+        },
+        {
+            title: "Mobile Development",
+            des: "We create custom mobile applications for iOS and Android platforms, designed to meet your unique business needs and user expectations. We provide both cross-platform development and user- centric designs",
+            action: () => router.push("/service"),
+            icon: FiSmartphone,
+        },
+        {
+            title: "Data Analytics",
+            des: "From data exploration to advanced analytics, we transform information into innovation. Our experts collect, clean, and visualize data, unlocking insights for smarter decisions with custom dashboards.",
+            action: () => router.push("/service"),
+            img: "/images/s_2.svg",
+        },
+        {
+            title: "Cybersecurity",
+            des: "We perform thorough cybersecurity assessments to spot vulnerabilities and risks within your digital infrastructure, we implement data encryption, security authentication process, and access controls to safeguard your sensitive information.",
+            action: () => router.push("/service"),
+            icon: FiShield,
+        },
+        {
+            title: "Automation",
+            des: "We offer automation solutions to streamline your business operations, reduce manual tasks, and improve efficiency. AI and Machine Learning Integration, Chatbots and Virtual Assistants.",
+            action: () => router.push("/service"),
+            img: "/images/s_1.svg",
+        },
+    ];
+
     return (
         <Box pb={["4rem", "5rem", "6rem"]}>
             <Container>
@@ -101,7 +143,8 @@ const Service = () => {
                                             _hover={{ opacity: "0.9" }}
                                             _active={{ opacity: "0.8" }}
                                             rounded="0.5rem"
-                                            onClick={item.action}
+                                            as="a"
+                                            href="/service"
                                         >
                                             Learn more
                                         </Button>
@@ -117,42 +160,3 @@ const Service = () => {
 };
 
 export default Service;
-
-const data = [
-    {
-        title: "Tech Consultation",
-        des: "Navigating the Digital Landscape. Our seasoned consultants provide expert guidance for technology decisions, digital transformation, IT optimization, and strategic planning. Let us lead the way.",
-        action: () => console.log("ji"),
-        icon: FiBriefcase,
-    },
-    {
-        title: "Web Development",
-        des: "We specialize in creating visually appealing and highly functional websites that align with your brand identity and business objectives,ensuring your website is optimized for various devices,  phones.",
-        action: () => console.log("ji"),
-        icon: GoGlobe,
-    },
-    {
-        title: "Mobile Development",
-        des: "We create custom mobile applications for iOS and Android platforms, designed to meet your unique business needs and user expectations. We provide both cross-platform development and user- centric designs",
-        action: () => console.log("ji"),
-        icon: FiSmartphone,
-    },
-    {
-        title: "Data Analytics",
-        des: "From data exploration to advanced analytics, we transform information into innovation. Our experts collect, clean, and visualize data, unlocking insights for smarter decisions with custom dashboards.",
-        action: () => console.log("ji"),
-        img: "/images/s_2.svg",
-    },
-    {
-        title: "Cybersecurity",
-        des: "We perform thorough cybersecurity assessments to spot vulnerabilities and risks within your digital infrastructure, we implement data encryption, security authentication process, and access controls to safeguard your sensitive information.",
-        action: () => console.log("ji"),
-        icon: FiShield,
-    },
-    {
-        title: "Automation",
-        des: "We offer automation solutions to streamline your business operations, reduce manual tasks, and improve efficiency. AI and Machine Learning Integration, Chatbots and Virtual Assistants.",
-        action: () => console.log("ji"),
-        img: "/images/s_1.svg",
-    },
-];

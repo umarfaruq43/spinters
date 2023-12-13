@@ -20,6 +20,7 @@ const colors = {
     light_3: "#EAECF0",
     light_4: "#F6F8FF",
     light_5: "#737373",
+    light_6: "#667085",
 
     dark_1: "#222",
     dark_2: "#000000",

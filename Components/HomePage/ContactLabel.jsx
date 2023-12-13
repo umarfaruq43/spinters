@@ -76,6 +76,9 @@ const ContactLabel = ({ data }) => {
                             _hover={{ opacity: "0.9" }}
                             _active={{ opacity: "0.8" }}
                             rounded="0.5rem"
+                            as="a"
+                            href="/contact"
+                            maxW="fit-content"
                         >
                             Get in Touch
                         </Button>

@@ -9,12 +9,23 @@ import {
     Icon,
     Stack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import { LuMinusCircle } from "react-icons/lu";
 import { MdAddCircleOutline } from "react-icons/md";
 import { testimonyData } from "@/lib/data";
-const Faq = ({ theme = "dark" }) => {
+const Faq = ({ theme = "dark", homePage }) => {
+    const [currentData, setCurrentData] = useState([]);
+    const halfData = testimonyData.slice(0, 5);
+
+    useEffect(() => {
+        if (homePage) {
+            setCurrentData(halfData);
+        } else {
+            setCurrentData(testimonyData);
+        }
+    }, []);
+
     return (
         <Box
             py={["4rem", "5rem", "6rem"]}
@@ -49,7 +60,7 @@ const Faq = ({ theme = "dark" }) => {
                     <Box maxW="48rem" mx="auto">
                         <Accordion allowMultiple>
                             <Stack spacing={""}>
-                                {testimonyData.map(({ que, ans }) => {
+                                {currentData.map(({ que, ans }) => {
                                     return (
                                         <AccordionItem
                                             border="0px"

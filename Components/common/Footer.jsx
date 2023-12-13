@@ -64,7 +64,7 @@ const Footer = () => {
                                         return (
                                             <Link
                                                 key={item.text}
-                                                href="#"
+                                                href={item.href}
                                                 color={"light_4"}
                                             >
                                                 {item.text}
@@ -90,7 +90,7 @@ const Footer = () => {
                                         return (
                                             <Link
                                                 key={item.text}
-                                                href="#"
+                                                href={item.href}
                                                 color={"light_4"}
                                             >
                                                 {item.text}
@@ -116,7 +116,7 @@ const Footer = () => {
                                         return (
                                             <Link
                                                 key={item.text}
-                                                href="#"
+                                                href={item.href}
                                                 color={"light_4"}
                                             >
                                                 {item.text}

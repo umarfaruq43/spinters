@@ -76,6 +76,8 @@ const Navbar = ({ activeNav, theme }) => {
                             _focus={{}}
                             _active={{}}
                             fontSize={[""]}
+                            as="a"
+                            href="/contact"
                         >
                             Contact Us
                         </Button>

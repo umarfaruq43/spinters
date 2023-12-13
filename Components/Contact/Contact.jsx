@@ -6,17 +6,17 @@ import ContactLabel from "../HomePage/ContactLabel";
 import Footer from "../common/Footer";
 
 import { HeroData } from "@/lib/data";
-import Faq from "../HomePage/Faq";
+import GetInTouch from "./GetInTouch";
 
-const Faqs = () => {
+const Contact = () => {
     return (
         <Box>
-            <Hero heroData={HeroData.faq} />
-            <Faq theme="light" homePage={false} />
-            <ContactLabel data={"faq"} />
+            <Hero heroData={HeroData.contact} />
+            <GetInTouch />
+
             <Footer />
         </Box>
     );
 };
 
-export default Faqs;
+export default Contact;

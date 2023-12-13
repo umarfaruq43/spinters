@@ -1,8 +1,13 @@
 import { Box, Flex, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Container from "../common/Container";
+import { clientsData } from "@/lib/data";
 
 const Testimonies = () => {
+    const [activeClient, setActiveClient] = useState(1);
+    const [activeData, setActiveData] = useState(clientsData[0]);
+    console.log(activeData);
+
     return (
         <Box pb={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
@@ -26,10 +31,10 @@ const Testimonies = () => {
                             borderBottom={"1px"}
                             borderBottomColor={"rgba(189, 189, 189, 0.50)"}
                         >
-                            {[1, 2, 3, 4].map((item) => {
+                            {clientsData?.map((item) => {
                                 return (
                                     <Flex
-                                        key={item}
+                                        key={item.activeNo}
                                         pos="relative"
                                         gap="0.88rem"
                                         w="fit-content"
@@ -37,6 +42,11 @@ const Testimonies = () => {
                                         pb={["0.9rem", null, "1.5rem"]}
                                         pr="2rem"
                                         flexShrink={0}
+                                        onClick={() => {
+                                            setActiveClient(item.activeNo);
+                                            setActiveData(item);
+                                        }}
+                                        className="testimonyNav"
                                     >
                                         <Image
                                             src="/images/u_1.svg"
@@ -51,7 +61,7 @@ const Testimonies = () => {
                                                 fontSize={["0.9rem", "1.5rem"]}
                                                 fontWeight="500"
                                             >
-                                                Usman
+                                                {item.name}
                                             </Text>
                                             <Text
                                                 color="rgba(0,0,0,.50)"
@@ -60,12 +70,17 @@ const Testimonies = () => {
                                                     "1.125rem",
                                                 ]}
                                             >
-                                                Art director
+                                                {item.role}
                                             </Text>
                                         </Stack>
-                                        {item === 1 && (
+                                        {
                                             <Box
-                                                w="100%"
+                                                w={
+                                                    activeClient ===
+                                                    item.activeNo
+                                                        ? "100%"
+                                                        : "0%"
+                                                }
                                                 h="0.25rem"
                                                 bgColor="primary_10"
                                                 pos="absolute"
@@ -73,8 +88,9 @@ const Testimonies = () => {
                                                 borderRadius={
                                                     "0.1875rem 0.1875rem 0rem 0rem"
                                                 }
+                                                className="indicator"
                                             />
-                                        )}
+                                        }
                                     </Flex>
                                 );
                             })}
@@ -108,19 +124,10 @@ const Testimonies = () => {
                                 boxSize={["3rem", "5rem"]}
                             />
                             <Box maxW="36.8rem" fontSize={["1.2rem", "1.5rem"]}>
-                                <Text mt="1rem">
-                                    I wanted to express my sincere appreciation
-                                    for the outstanding job your team did on our
-                                    recent project. Your dedication and
-                                    professionalism were truly impressive, and
-                                    the exceptional quality of work exceeded our
-                                    expectations. Thank you for your remarkable
-                                    performance; it was a pleasure working with
-                                    your team!
-                                </Text>
+                                <Text mt="1rem">{activeData?.comment}</Text>
 
                                 <Text mt="1rem">Best regards</Text>
-                                <Text>Usman</Text>
+                                <Text>{activeData?.name}</Text>
                             </Box>
                         </Flex>
                     </Flex>

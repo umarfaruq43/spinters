@@ -96,11 +96,13 @@ const CaseStudies = ({ theme = "light" }) => {
                                         flexShrink={0}
                                     >
                                         <Flex
+                                            className="projectNav"
                                             w="fit-content"
                                             px="0.95rem"
                                             fontWeight="400"
                                             py="0.65rem"
                                             minW="6.2rem"
+                                            // _hover={{ bgColor: "primary_10" }}
                                             bgColor={
                                                 activeNav === item.navValue
                                                     ? "primary_10"

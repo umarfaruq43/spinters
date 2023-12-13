@@ -8,15 +8,14 @@ import Footer from "../common/Footer";
 import { HeroData } from "@/lib/data";
 import Faq from "../HomePage/Faq";
 
-const Faqs = () => {
+const Policies = () => {
     return (
         <Box>
-            <Hero heroData={HeroData.faq} />
-            <Faq theme="light" homePage={false} />
-            <ContactLabel data={"faq"} />
+            <Hero heroData={HeroData.policies} />
+
             <Footer />
         </Box>
     );
 };
 
-export default Faqs;
+export default Policies;
