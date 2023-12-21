@@ -2,9 +2,9 @@ import { Box, Flex, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "../common/Container";
 
-const Process = () => {
+const Process = ({ bg }) => {
     return (
-        <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
+        <Box py={["4rem", "5rem", "6rem"]} bgColor={bg || "white"}>
             <Container>
                 <Box>
                     <Text

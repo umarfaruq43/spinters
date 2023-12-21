@@ -3,21 +3,15 @@ import React, { useState } from "react";
 import Container from "../common/Container";
 import Navbar from "../common/Navbar";
 
-const Hero = ({ heroData }) => {
-    const {
-        theme,
-        activeNav,
-        normalText_1,
-        normalText_2,
-        editedText,
-        des,
-        btnfunc,
-    } = heroData;
+const Hero = ({ heroData, type = "normal" }) => {
     return (
-        <Box bgColor={theme === "dark" ? "dark_2" : "light_1"}>
+        <Box bgColor={heroData?.theme === "dark" ? "dark_2" : "light_1"}>
             <Container>
                 <Box py={["2rem", "3rem", "4rem"]}>
-                    <Navbar activeNav={activeNav} theme={theme} />
+                    <Navbar
+                        activeNav={heroData?.activeNav}
+                        theme={heroData?.theme}
+                    />
                     <Stack
                         mt={["3rem", "4rem", "5rem", "6rem"]}
                         bgColor={""}
@@ -27,25 +21,39 @@ const Hero = ({ heroData }) => {
                     >
                         <Box
                             fontSize={["2rem", "3rem", "4.5rem"]}
-                            color={theme === "dark" ? "white" : "dark_2"}
+                            color={
+                                heroData?.theme === "dark" ? "white" : "dark_2"
+                            }
                             fontWeight={"700"}
                             maxW="70rem"
                             mx="auto"
                             textAlign={"center"}
                         >
                             {/* <Text>Welcome to Sprinters,</Text> */}
-
-                            <Text letterSpacing={"-0.09rem"}>
-                                {normalText_1}{" "}
-                                <Text as="i" color="primary_10">
-                                    {editedText}{" "}
+                            {type === "normal" ? (
+                                <Text letterSpacing={"-0.09rem"}>
+                                    {heroData?.normalText_1}{" "}
+                                    <Text as="i" color="primary_10">
+                                        {heroData?.editedText}{" "}
+                                    </Text>
+                                    {heroData?.normalText_2}
                                 </Text>
-                                {normalText_2}
-                            </Text>
+                            ) : (
+                                <Text letterSpacing={"-0.09rem"}>
+                                    <Text as="i" color="primary_10">
+                                        {heroData?.projectTitle}{" "}
+                                    </Text>
+                                    - {heroData?.projectSubTitle}
+                                </Text>
+                            )}
                         </Box>
 
                         <Text
-                            color={theme === "dark" ? "light_1" : "dark_2"}
+                            color={
+                                heroData?.theme === "dark"
+                                    ? "light_1"
+                                    : "dark_2"
+                            }
                             textAlign={"center"}
                             fontSize={["", "", "1.125rem"]}
                             opacity="0.85"
@@ -53,10 +61,10 @@ const Hero = ({ heroData }) => {
                             maxW="50.5rem"
                             mx="auto"
                         >
-                            {des}
+                            {heroData?.des}
                         </Text>
 
-                        {btnfunc && (
+                        {heroData?.btnfunc && (
                             <Button
                                 display={"block"}
                                 mx="auto"
@@ -71,7 +79,7 @@ const Hero = ({ heroData }) => {
                                 _hover={{ opacity: "0.9" }}
                                 _active={{ opacity: "0.8" }}
                                 as="a"
-                                href={btnfunc}
+                                href={heroData?.btnfunc}
                             >
                                 Explore More
                             </Button>
@@ -79,7 +87,14 @@ const Hero = ({ heroData }) => {
                     </Stack>
 
                     <Box pt="4rem">
-                        <Image src="/images/heroimg.svg" alt="hero image" />
+                        <Image
+                            src={heroData?.img || "/images/heroimg.svg"}
+                            alt="hero image"
+                            w="100%"
+                            h={["20rem", "35.1875rem", "100%"]}
+                            objectFit={"cover"}
+                            rounded={type === "normal" ? "0.9375rem" : "2rem"}
+                        />
                     </Box>
                 </Box>
             </Container>

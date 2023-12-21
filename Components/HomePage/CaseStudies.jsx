@@ -10,9 +10,11 @@ import {
 import React, { useState } from "react";
 import Container from "../common/Container";
 import { ProjectData } from "@/lib/data";
+import { useRouter } from "next/router";
 
 const CaseStudies = ({ theme = "light" }) => {
     const [activeNav, setActiveNav] = useState(1);
+    const router = useRouter();
 
     const [filteredData, setFilteredData] = useState(ProjectData);
 
@@ -162,7 +164,11 @@ const CaseStudies = ({ theme = "light" }) => {
                                 const { title, des, projectLink, imgUrl } =
                                     item;
                                 return (
-                                    <Box key={item.title}>
+                                    <Box
+                                        key={item.title}
+                                        onClick={() => router.push(projectLink)}
+                                        cursor="pointer"
+                                    >
                                         <Image
                                             src={imgUrl}
                                             alt="img"
@@ -171,7 +177,7 @@ const CaseStudies = ({ theme = "light" }) => {
                                             // maxH="37.4rem"
                                             maxW="100%"
                                             borderRadius={"2rem"}
-                                            // objectFit={"cover"}
+                                            objectFit={"cover"}
                                         />
                                         <Box mt={["2.5rem"]}>
                                             <Text

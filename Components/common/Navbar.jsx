@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
+import MobileNav from "./MobileNav";
 const Navbar = ({ activeNav, theme }) => {
     const [showNav, setShowNav] = useState(false);
     const toggleNav = () => {
@@ -55,7 +56,6 @@ const Navbar = ({ activeNav, theme }) => {
                     >
                         <Flex flexShrink={1}>
                             {navItemData.map((item) => {
-                                console.log(item);
                                 return (
                                     <NavItem
                                         activeNav={activeNav}
@@ -88,17 +88,7 @@ const Navbar = ({ activeNav, theme }) => {
                     </Flex>
                 </Box>
 
-                <Icon
-                    as={FaBars}
-                    boxSize="1.5rem"
-                    color={theme === "dark" ? "white" : "dark"}
-                    display={{ base: "block", md: "none", lg: "none" }}
-                    cursor="pointer"
-                    onClick={toggleNav}
-                />
-                {showNav && (
-                    <MobileNav showNav={showNav} activeNav={activeNav} />
-                )}
+                <MobileNav theme={theme} activeNav={activeNav} />
             </Flex>
         </Box>
     );
@@ -108,10 +98,12 @@ export default Navbar;
 
 const NavItem = ({ activeNav, href, title, theme, href_2 }) => {
     const router = useRouter();
+    console.log(router);
     let isActive = activeNav === href;
     if (router.asPath === "/" && href === "/about") {
         isActive = true;
     }
+
     return (
         <Link
             flexShrink={0}
@@ -147,7 +139,7 @@ const NavItem = ({ activeNav, href, title, theme, href_2 }) => {
     );
 };
 
-const MobileNav = ({ showNav, activeNav }) => {
+const MobileNavd = ({ showNav, activeNav }) => {
     return (
         <Box
             pos="absolute"

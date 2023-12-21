@@ -3,16 +3,29 @@ import {
     Button,
     Checkbox,
     Flex,
+    FormLabel,
     Select,
     Stack,
     Text,
+    useCheckbox,
 } from "@chakra-ui/react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../common/CutomInputs";
 import CustomTextarea from "../common/CustomTextarea";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const ContactForm = () => {
+    const [phone, setPhone] = useState("");
+    const [err, setErr] = useState(false);
+    const handleBlur = () => {
+        if (phone.length < 7) {
+            setErr(true);
+        } else {
+            setErr(false);
+        }
+    };
     return (
         <Box>
             <Formik
@@ -20,7 +33,7 @@ const ContactForm = () => {
                     firstName: "",
                     lastName: "",
                     email: "",
-                    number: "",
+                    phoneNumber: "",
                     category: "",
                     message: "",
                 }}
@@ -40,11 +53,17 @@ const ContactForm = () => {
                     if (!values.message) {
                         errors.message = "Message is required";
                     }
-                    console.log(errors);
+                    if (phone.length < 7) {
+                        setErr(true);
+                        errors.phoneNumber = "phone is invalid";
+                    } else {
+                        setErr(false);
+                    }
 
                     return errors;
                 }}
                 onSubmit={(values) => {
+                    values.phoneNumber = phone;
                     console.log(values);
                 }}
             >
@@ -84,14 +103,34 @@ const ContactForm = () => {
                                 touched={touched}
                             />
 
-                            {/* Number 
-                            <CustomInput
-                                name="Phone number"
-                                type="number"
-                                placeholder="Input phone number"
-                                errors={errors}
-                                touched={touched}
-                            /> */}
+                            <Box>
+                                <FormLabel
+                                    htmlFor={"phoneNumber"}
+                                    color="gray_4"
+                                    fontSize={"0.875rem"}
+                                    fontWeight={500}
+                                >
+                                    Phone number
+                                </FormLabel>
+                                <PhoneInput
+                                    country={"ng"}
+                                    value={phone}
+                                    onChange={(phone) => setPhone(phone)}
+                                    placeholder="+234"
+                                    className={`${err ? "error" : ""}`}
+                                    onBlur={handleBlur}
+                                />
+                                {err && (
+                                    <Text
+                                        color={"red.500"}
+                                        mt="4px"
+                                        fontSize={"12px"}
+                                    >
+                                        {" "}
+                                        Invalid phone number{" "}
+                                    </Text>
+                                )}
+                            </Box>
 
                             <CustomTextarea
                                 label="Tell Us More About your Idea"
@@ -101,7 +140,12 @@ const ContactForm = () => {
                                 touched={touched}
                                 minH="8rem"
                             />
-                            <Checkbox defaultChecked size="lg" color="light_6">
+                            <Checkbox
+                                size="lg"
+                                color="light_6"
+                                spacing={"0.75rem"}
+                                fontSize="1rem"
+                            >
                                 You agree to our friendly{" "}
                                 <Text as="a" href="#" textDecor={"underline"}>
                                     privacy policy
@@ -117,7 +161,7 @@ const ContactForm = () => {
                                 color="white"
                                 w="100%"
                                 h="auto"
-                                py="0.75rem"
+                                py="1rem"
                                 px="1.25rem"
                                 bgColor={"primary_10"}
                                 boxShadow={
