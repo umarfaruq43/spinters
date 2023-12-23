@@ -16,10 +16,11 @@ import {
     Button,
     Text,
 } from "@chakra-ui/react";
-import { FaBars } from "react-icons/fa";
+import React from "react";
 import { CgChevronRight, CgMenuRight } from "react-icons/cg";
 
 export default function MobileNav({ theme, activeNav }) {
+    const firstField = React.useRef();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
@@ -33,10 +34,22 @@ export default function MobileNav({ theme, activeNav }) {
                 onClick={onOpen}
             />
 
-            <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+            <Drawer
+                isOpen={isOpen}
+                placement="right"
+                onClose={onClose}
+                initialFocusRef={firstField}
+            >
                 <DrawerOverlay />
                 <DrawerContent bgColor={theme === "dark" ? "white" : "dark_1"}>
-                    <DrawerHeader borderBottomWidth="1px">
+                    <DrawerHeader
+                        borderBottomWidth="1px"
+                        borderBottomColor={
+                            theme === "dark"
+                                ? "rgba(0,0,0,.2)"
+                                : "rgba(255,255,255,.2)"
+                        }
+                    >
                         <Flex
                             pos="relative"
                             align="center"

@@ -88,7 +88,8 @@ const Hero = ({ heroData, type = "normal" }) => {
 
                     <Box pt="4rem">
                         <Image
-                            src={heroData?.img || "/images/heroimg.svg"}
+                            src={"/images/test.jpg"}
+                            // src={heroData?.img || "/images/heroimg.svg"}
                             alt="hero image"
                             w="100%"
                             h={["20rem", "35.1875rem", "100%"]}

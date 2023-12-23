@@ -54,6 +54,7 @@ const Testimonies = () => {
                                             boxSize={["3rem", "5rem"]}
                                             rounded={"full"}
                                             objectFit={"cover"}
+                                            _focusVisible={{}}
                                         />{" "}
                                         <Stack spacing={["0.2rem", "auto"]}>
                                             <Text
