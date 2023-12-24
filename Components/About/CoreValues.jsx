@@ -3,7 +3,7 @@ import React from "react";
 import Container from "../common/Container";
 import { BiSolidCheckboxChecked } from "react-icons/bi";
 
-const CoreValues = () => {
+const CoreValues = ({ about = "false" }) => {
     return (
         <Box py={["4rem", "5rem", "7rem"]} bgColor="primary_30">
             <Container>
@@ -19,15 +19,27 @@ const CoreValues = () => {
                         />
                     </Box>
                     <Box w={["100%"]}>
-                        <Text
-                            fontSize={["2rem", null, "3rem"]}
-                            fontWeight="700"
-                        >
-                            Who{" "}
-                            <Text as="i" color="primary_10">
-                                We Are
+                        {about ? (
+                            <Text
+                                fontSize={["2rem", null, "3rem"]}
+                                fontWeight="700"
+                            >
+                                Our{" "}
+                                <Text as="i" color="primary_10">
+                                    Core Values
+                                </Text>
                             </Text>
-                        </Text>
+                        ) : (
+                            <Text
+                                fontSize={["2rem", null, "3rem"]}
+                                fontWeight="700"
+                            >
+                                Who{" "}
+                                <Text as="i" color="primary_10">
+                                    We Are
+                                </Text>
+                            </Text>
+                        )}
                         <Stack spacing="1.5rem" mt={["1.5rem"]}>
                             {data.map((item) => {
                                 return (
