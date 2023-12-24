@@ -192,22 +192,22 @@ const CaseStudies = ({ theme = "light" }) => {
                                                 {title}
                                             </Text>
                                             <Text mt="1rem">{des}</Text>
-                                            {theme === "dark" && (
-                                                <Button
-                                                    mt="2.5rem"
-                                                    boxShadow={
-                                                        "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
-                                                    }
-                                                    bgColor="gray_1"
-                                                    color="white"
-                                                    _hover={{ opacity: 0.8 }}
-                                                    _active={{}}
-                                                    as="a"
-                                                    href={projectLink}
-                                                >
-                                                    Read Case Study
-                                                </Button>
-                                            )}
+                                            {/* {theme === "dark" && ( */}
+                                            <Button
+                                                mt="2.5rem"
+                                                boxShadow={
+                                                    "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
+                                                }
+                                                bgColor="gray_1"
+                                                color="white"
+                                                _hover={{ opacity: 0.8 }}
+                                                _active={{}}
+                                                as="a"
+                                                href={projectLink}
+                                            >
+                                                Read Case Study
+                                            </Button>
+                                            {/* )} */}
                                         </Box>
                                     </Box>
                                 );
