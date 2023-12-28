@@ -1,8 +1,10 @@
+import Blogs from "@/Components/HomePage/Blogs";
 import CaseStudies from "@/Components/HomePage/CaseStudies";
 import ContactLabel from "@/Components/HomePage/ContactLabel";
 import Faq from "@/Components/HomePage/Faq";
 import GetToKnowUs from "@/Components/HomePage/GetToKnowUs";
 import Hero from "@/Components/HomePage/Hero";
+import NewsLetter from "@/Components/HomePage/NewsLetter";
 import Process from "@/Components/HomePage/Process";
 import Service from "@/Components/HomePage/Service";
 import Testimonies from "@/Components/HomePage/Testimonies";
@@ -21,7 +23,9 @@ const HomePage = () => {
             <CaseStudies theme="dark" />
             <WhyChooseUs />
             <Process />
+            <NewsLetter />
             <Testimonies />
+            <Blogs />
             <Faq homePage={true} />
 
             <ContactLabel data={"homepage"} />
