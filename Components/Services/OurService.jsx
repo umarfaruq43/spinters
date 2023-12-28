@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -95,11 +95,33 @@ const OurService = () => {
                                         editableTitle,
                                         des,
                                         title,
+                                        icon,
+                                        img,
                                     }) => {
                                         return (
                                             <Box key={title} px="1rem">
                                                 <Box>
+                                                    <Box textAlign="center">
+                                                        {icon && (
+                                                            <Icon
+                                                                as={icon}
+                                                                boxSize="4rem"
+                                                                color="primary_10"
+                                                            />
+                                                        )}
+
+                                                        {img && (
+                                                            <Image
+                                                                src={img}
+                                                                alt={title}
+                                                                boxSize={"4rem"}
+                                                                display="block"
+                                                                mx="auto"
+                                                            />
+                                                        )}
+                                                    </Box>
                                                     <Text
+                                                        mt="1.5rem"
                                                         fontSize={[
                                                             "2rem",
                                                             null,

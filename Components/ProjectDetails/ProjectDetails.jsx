@@ -6,6 +6,7 @@ import OtherDetails from "./OtherDetails";
 import Process from "../HomePage/Process";
 import ContactLabel from "../HomePage/ContactLabel";
 import Footer from "../common/Footer";
+import OtherProject from "./OtherProject";
 
 const ProjectDetails = () => {
     return (
@@ -13,7 +14,9 @@ const ProjectDetails = () => {
             <Hero heroData={caseStudy.Payme} type="projectDetails" />
             <OtherDetails data={caseStudy.Payme} />
             <Process bg="primary_30" />
+            <OtherProject />
             <ContactLabel data={"homepage"} />
+
             <Footer />
         </Box>
     );
