@@ -70,11 +70,11 @@ const Navbar = ({ activeNav, theme }) => {
                         </Flex>
 
                         <Button
-                            h="3rem"
+                            h="auto"
+                            py="0.75rem"
                             bgColor="gray_1"
                             color="white"
                             px="1.25rem"
-                            py="0.75rem"
                             display={"block"}
                             _hover={{}}
                             _focus={{}}
