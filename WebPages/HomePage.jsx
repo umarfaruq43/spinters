@@ -23,9 +23,9 @@ const HomePage = () => {
             <CaseStudies theme="dark" />
             <WhyChooseUs />
             <Process />
-            <NewsLetter />
             <Testimonies />
             <Blogs />
+            <NewsLetter />
             <Faq homePage={true} />
 
             <ContactLabel data={"homepage"} />

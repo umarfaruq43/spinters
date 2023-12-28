@@ -152,3 +152,8 @@ a {
 .react-tel-input.error {
     border: 1px solid red !important;
 }
+
+image {
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+}
