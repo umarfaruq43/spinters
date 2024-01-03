@@ -1,7 +1,7 @@
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "../common/Container";
-import BlogCard from "./BlogCard";
+import BlogCard from "../common/BlogCard";
 
 const Blogs = () => {
     return (
@@ -50,6 +50,8 @@ const Blogs = () => {
                         _hover={{}}
                         _focus={{}}
                         _active={{}}
+                        as="a"
+                        href="/blogs"
                     >
                         See more
                     </Button>
