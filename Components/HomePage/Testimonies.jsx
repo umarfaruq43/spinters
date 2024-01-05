@@ -49,8 +49,9 @@ const Testimonies = () => {
                                         className="testimonyNav"
                                     >
                                         <Image
-                                            src="/images/u_1.svg"
-                                            alt=""
+                                            // src="/images/u_1.svg"
+                                            src={item.imgUrl}
+                                            alt="images"
                                             boxSize={["3rem", "5rem"]}
                                             rounded={"full"}
                                             objectFit={"cover"}

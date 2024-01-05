@@ -1,17 +1,36 @@
 import { Box, Button, Flex, Icon, Input, SimpleGrid } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import { CiSearch } from "react-icons/ci";
 import BlogCard from "../common/BlogCard";
 const BlogsContainer = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [fetchBlogs, setFetchBlogs] = useState(blogData);
+    const [filterBlog, setFilterBlog] = useState(blogData);
+
+    const handleChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    useEffect(() => {
+        const fBlog = fetchBlogs.filter((item) => {
+            return (
+                item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.des.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        });
+        setFilterBlog(fBlog);
+    }, [searchQuery]);
+    console.log(filterBlog);
+
     return (
         <Box pt={["4rem", "5rem", "6rem"]} bgColor={"white"}>
             <Container>
                 <Box maxW="20rem" mx="auto" pos="relative">
                     <Input
-                        // value={searchQuery}
-                        // onChange={(e) => setSearchQuery(e.target.value)}
+                        value={searchQuery}
+                        onChange={handleChange}
+                        type="text"
                         px="1rem"
                         py="0.75rem"
                         pl="2.75rem"
@@ -33,13 +52,17 @@ const BlogsContainer = () => {
 
                 <Box mt="3rem">
                     <SimpleGrid columns={[1, 2, null, 3]} spacing="2rem">
-                        {blogData.map((item) => {
+                        {filterBlog.map((item) => {
                             return <BlogCard key={item.id} blogData={item} />;
                         })}
                     </SimpleGrid>
                 </Box>
 
-                <Flex justify={"center"} mt="3rem">
+                <Flex
+                    justify={"center"}
+                    mt="3rem"
+                    display={fetchBlogs > filterBlog ? "none" : "flex"}
+                >
                     <Button
                         color="primary_10"
                         border="1px"

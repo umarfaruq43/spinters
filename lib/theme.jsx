@@ -6,6 +6,7 @@ const colors = {
     primary_30: "#ECF8ED",
     primary_40: "#296D2C",
     primary_50: "#E3F4E4",
+    primary_60: "#36923A",
 
     neutral_20: "#ffffff",
     neutral_30: "#595959",
@@ -18,6 +19,7 @@ const colors = {
     gray_4: "#344054",
     gray_5: "#D0D5DD",
     gray_6: "#666",
+    gray_7: "#98A2B3",
 
     light_1: "#E6E6E6",
     light_2: "#F2F3F4",
@@ -30,6 +32,12 @@ const colors = {
     dark_1: "#222",
     dark_2: "#000000",
     dark_3: "#101828",
+
+    blue_1: "#3538CD",
+    blue_2: "#EEF4FF",
+
+    pink_1: "#C11574",
+    pink_2: "#FDF2FA",
 };
 
 export const theme = extendTheme({ colors });
