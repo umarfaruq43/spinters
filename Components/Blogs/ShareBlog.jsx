@@ -60,9 +60,11 @@ const ShareBlog = () => {
             borderTop="1px"
             pt="1.5rem"
             borderTopColor={"light_3"}
-            align="center"
+            align={["", "center"]}
             justify={"space-between"}
             gap="1rem"
+            flexDir={["column", "row"]}
+            w="100%"
         >
             <Flex gap="0.75rem" align="center">
                 <Image

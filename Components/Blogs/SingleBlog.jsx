@@ -7,6 +7,7 @@ import BlogContent from "./BlogContent";
 import ShareBlog from "./ShareBlog";
 import NewsLetter from "../HomePage/NewsLetter";
 import ContactLabel from "../HomePage/ContactLabel";
+import RelatedBlogs from "./RelatedBlogs";
 
 const SingleBlog = () => {
     const data = {
@@ -29,6 +30,7 @@ const SingleBlog = () => {
                         <ShareBlog />
                     </Box>
                 </Container>
+                <RelatedBlogs />
                 <NewsLetter />
                 <ContactLabel data={"homepage"} />
 

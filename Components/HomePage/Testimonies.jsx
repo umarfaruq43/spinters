@@ -107,7 +107,8 @@ const Testimonies = () => {
                     >
                         <Image
                             w="100%"
-                            src="/images/t_1.svg"
+                            // src="/images/t_1.svg"
+                            src={activeData.imgUrl}
                             alt="images"
                             rounded="2rem"
                             objectFit={"cover"}

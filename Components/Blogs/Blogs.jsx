@@ -6,6 +6,7 @@ import { HeroData } from "@/lib/data";
 import BlogsContainer from "./BlogsContainer";
 import NewsLetter from "../HomePage/NewsLetter";
 import ContactLabel from "../HomePage/ContactLabel";
+import RelatedBlogs from "./RelatedBlogs";
 
 const Blogs = () => {
     return (
@@ -13,6 +14,7 @@ const Blogs = () => {
             <Hero heroData={HeroData.blogs} />
             <BlogsContainer />
             <NewsLetter />
+
             <ContactLabel />
             <Footer />
         </Box>
