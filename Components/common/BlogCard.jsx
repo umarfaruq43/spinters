@@ -27,7 +27,7 @@ const BlogCard = ({ blogData }) => {
                     </Text>
                     <Flex
                         as="a"
-                        href="#"
+                        href="/blogs/123"
                         mt="0.75rem"
                         gap="1rem"
                         justify="space-between"
