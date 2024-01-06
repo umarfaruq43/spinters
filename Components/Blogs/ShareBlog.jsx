@@ -26,14 +26,14 @@ const ShareBlog = () => {
         {
             icon: BiLogoTwitter,
             clickFunc: () => {
-                const tweetUrl = `https://twitter.com/intent/tweet?url=${value}&text=${"A blog from Spinters /n"}`;
+                const tweetUrl = `https://twitter.com/intent/tweet?url=${value}&text=${"A blog from Spinters"}`;
                 window.open(tweetUrl, "_blank");
             },
         },
         {
             icon: BiLogoFacebookCircle,
             clickFunc: () => {
-                const linkToShare = "https://www.yourwebsite.com/page-to-share";
+                const linkToShare = value;
                 const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${linkToShare}`;
                 window.open(shareUrl, "_blank");
             },
@@ -42,9 +42,8 @@ const ShareBlog = () => {
         {
             icon: BiLogoLinkedinSquare,
             clickFunc: () => {
-                const linkToShare = "https://www.yourwebsite.com/page-to-share"; // Replace with your actual link
-                const shareTitle = "Spinters"; // Replace with desired title
-                const shareSummary = "A brief description of your spinters"; // Replace with desired summary
+                const shareTitle = "Spinters Blog";
+                const shareSummary = "A brief description of spinters"; // Replace with desired summary
                 const shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${value}&title=${shareTitle}&summary=${shareSummary}`;
                 window.open(shareUrl, "_blank");
             },
