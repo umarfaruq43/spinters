@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Flex,
+    Icon,
+    Image,
+    SimpleGrid,
+    Text,
+} from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -70,20 +78,9 @@ const OurService = () => {
                         justify="space-between"
                         mt="3.75rem"
                     >
-                        <CustomArrow
-                            onClick={() => sliderRef.current.slickPrev()}
-                            icon={
-                                <Icon
-                                    as={FiArrowLeft}
-                                    boxSize="1.5rem"
-                                    color="neutral_30"
-                                />
-                            }
-                            flexShrink={1}
-                        />
                         <Box
                             pos="relative"
-                            maxW={["38rem", null, "40rem", "48rem", "58rem"]}
+                            // maxW={["38rem", null, "40rem", "48rem", "58rem"]}
                             mx="auto"
                             flexShrink={1}
                             w="100%"
@@ -95,65 +92,94 @@ const OurService = () => {
                                         editableTitle,
                                         des,
                                         title,
-                                        icon,
+
                                         img,
+                                        des2,
                                     }) => {
                                         return (
                                             <Box key={title} px="1rem">
                                                 <Box>
-                                                    <Box textAlign="center">
-                                                        {icon && (
-                                                            <Icon
-                                                                as={icon}
-                                                                boxSize="4rem"
-                                                                color="primary_10"
-                                                            />
-                                                        )}
-
-                                                        {img && (
+                                                    <Flex
+                                                        mt="1.5rem"
+                                                        align="center"
+                                                        justify="space-between"
+                                                        gap={[
+                                                            "1.5rem",
+                                                            null,
+                                                            null,
+                                                            "5rem",
+                                                        ]}
+                                                        flexDir={[
+                                                            "column",
+                                                            null,
+                                                            "row",
+                                                        ]}
+                                                    >
+                                                        <Box
+                                                            w="100%"
+                                                            maxW="37.1rem"
+                                                        >
                                                             <Image
                                                                 src={img}
                                                                 alt={title}
-                                                                boxSize={"4rem"}
+                                                                // boxSize={"4rem"}
                                                                 display="block"
                                                                 mx="auto"
                                                             />
-                                                        )}
-                                                    </Box>
-                                                    <Text
-                                                        mt="1.5rem"
-                                                        fontSize={[
-                                                            "2rem",
-                                                            null,
-                                                            "3rem",
-                                                        ]}
-                                                        fontWeight="700"
-                                                        textAlign={"center"}
-                                                        w="100%"
-                                                        mx="auto"
-                                                    >
-                                                        {normalTitle}{" "}
-                                                        <Text
-                                                            as="i"
-                                                            color="primary_10"
-                                                        >
-                                                            {editableTitle}
-                                                        </Text>{" "}
-                                                    </Text>
+                                                        </Box>
 
-                                                    <Box mt="1.5rem">
-                                                        <Text
-                                                            fontSize={[
-                                                                "1rem",
-                                                                null,
-                                                                "1.87rem",
-                                                            ]}
-                                                            color={"light_5"}
-                                                            textAlign={"center"}
-                                                        >
-                                                            {des}
-                                                        </Text>
-                                                    </Box>
+                                                        <Box w="100%">
+                                                            <Text
+                                                                fontSize={[
+                                                                    "2rem",
+                                                                    null,
+                                                                    "3rem",
+                                                                ]}
+                                                                fontWeight="700"
+                                                                w="100%"
+                                                                mx="auto"
+                                                            >
+                                                                {normalTitle}{" "}
+                                                                <Text
+                                                                    as="i"
+                                                                    color="primary_10"
+                                                                >
+                                                                    {
+                                                                        editableTitle
+                                                                    }
+                                                                </Text>{" "}
+                                                            </Text>
+                                                            <Text
+                                                                mt="1.5rem"
+                                                                fontSize={[
+                                                                    "1rem",
+                                                                    null,
+                                                                    "1.12rem",
+                                                                ]}
+                                                                color={
+                                                                    "light_5"
+                                                                }
+                                                                // textAlign={"center"}
+                                                            >
+                                                                {des}
+                                                            </Text>
+
+                                                            <Text
+                                                                mt="1.5rem"
+                                                                fontSize={[
+                                                                    "1rem",
+                                                                    null,
+                                                                    "1.12rem",
+                                                                ]}
+                                                                color={
+                                                                    "light_5"
+                                                                }
+                                                                // textAlign={"center"}
+                                                            >
+                                                                {des2}
+                                                            </Text>
+                                                        </Box>
+                                                    </Flex>
                                                 </Box>
                                             </Box>
                                         );
@@ -161,16 +187,6 @@ const OurService = () => {
                                 )}
                             </Slider>
                         </Box>
-                        <CustomArrow
-                            onClick={() => sliderRef.current.slickNext()}
-                            icon={
-                                <Icon
-                                    as={FiArrowRight}
-                                    boxSize="1.5rem"
-                                    color="neutral_30"
-                                />
-                            }
-                        />
                     </Flex>
                 </Box>
                 <CustomPagination

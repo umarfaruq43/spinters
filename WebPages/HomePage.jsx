@@ -19,10 +19,10 @@ const HomePage = () => {
         <Box>
             <Hero heroData={HeroData.landingPage} />
             <GetToKnowUs />
-            <Service />
-            <CaseStudies theme="dark" />
             <WhyChooseUs />
             <Process />
+            <Service />
+            <CaseStudies theme="dark" />
             <Testimonies />
             <Blogs />
             <NewsLetter />

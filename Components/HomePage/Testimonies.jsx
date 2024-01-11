@@ -9,7 +9,7 @@ const Testimonies = () => {
     console.log(activeData);
 
     return (
-        <Box pb={["4rem", "5rem", "6rem"]} bgColor="white">
+        <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
                 <Box>
                     <Text
