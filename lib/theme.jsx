@@ -38,6 +38,8 @@ const colors = {
 
     pink_1: "#C11574",
     pink_2: "#FDF2FA",
+
+    rgba_1: "rgba(0,0,0,.5)",
 };
 
 export const theme = extendTheme({ colors });

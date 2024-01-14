@@ -14,7 +14,7 @@ const CoreValues = ({ about = "false" }) => {
                 >
                     <Box w={["100%"]}>
                         <Image
-                            src="/images/our_value.svg"
+                            src="/images/our_value.png"
                             alt="about us Image"
                         />
                     </Box>

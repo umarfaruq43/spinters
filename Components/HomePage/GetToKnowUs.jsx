@@ -12,7 +12,7 @@ const GetToKnowUs = () => {
                     gap={["2rem", null, "3rem", null, "8rem"]}
                 >
                     <Box w={["100%"]}>
-                        <Image src="/images/about.svg" alt="about us Image" />
+                        <Image src="/images/about.png" alt="about us Image" />
                     </Box>
                     <Stack w={["100%"]} spacing="1.5rem">
                         <Text

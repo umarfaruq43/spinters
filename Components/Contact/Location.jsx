@@ -9,24 +9,27 @@ const Location = () => {
                 <Flex
                     gap={["2rem", "4rem", "8rem"]}
                     flexDir={["column", null, "row"]}
+                    justify={"center"}
                 >
                     <Box>
-                        <Image
-                            src="/images/location.svg"
-                            alt="Spinters location"
-                            boxSize={["100%", null, "18rem"]}
-                            objectFit={"cover"}
-                            rounded={"2rem"}
-                        />
+                        <Text
+                            fontSize={["2rem", null, "3rem"]}
+                            fontWeight={600}
+                        >
+                            Lagos, Nigeria
+                        </Text>
                     </Box>
                     <Stack>
-                        <Text fontSize={"1.5rem"} color="gray_6">
+                        <Text
+                            fontSize={["1rem", null, "1.5rem"]}
+                            color="gray_6"
+                        >
                             CONTACT
                         </Text>{" "}
                         <Text
                             as="a"
                             href="mailto:sprinters.techagency@gmail.com"
-                            fontSize={"1.5rem"}
+                            fontSize={["1rem", null, "1.5rem"]}
                             color="dark_1"
                             fontWeight={"500"}
                         >
@@ -35,7 +38,7 @@ const Location = () => {
                         <Text
                             as="a"
                             href="tel:+234910227406"
-                            fontSize={"1.5rem"}
+                            fontSize={["1rem", null, "1.5rem"]}
                             color="dark_1"
                             fontWeight={"500"}
                         >

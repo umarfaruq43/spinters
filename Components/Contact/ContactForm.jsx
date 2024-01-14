@@ -4,12 +4,10 @@ import {
     Checkbox,
     Flex,
     FormLabel,
-    Select,
     Stack,
     Text,
-    useCheckbox,
 } from "@chakra-ui/react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import CustomInput from "../common/CutomInputs";
 import CustomTextarea from "../common/CustomTextarea";
@@ -144,10 +142,14 @@ const ContactForm = () => {
                                 size="lg"
                                 color="light_6"
                                 spacing={"0.75rem"}
-                                fontSize="1rem"
+                                fontSize=".91rem"
                             >
                                 You agree to our friendly{" "}
-                                <Text as="a" href="#" textDecor={"underline"}>
+                                <Text
+                                    as="a"
+                                    href="/policies"
+                                    textDecor={"underline"}
+                                >
                                     privacy policy
                                 </Text>
                             </Checkbox>

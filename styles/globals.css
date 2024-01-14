@@ -157,3 +157,25 @@ image {
     transform: translate3d(0, 0, 0) !important;
     -webkit-transform: translate3d(0, 0, 0) !important;
 }
+
+.otherProject:hover {
+}
+.otherProject_overlay {
+    padding-bottom: 0px;
+    visibility: hidden;
+    transition: all 0.2s ease 0s;
+}
+/* .otherProject_text {
+    visibility: hidden;
+    transition: 0.2s ease 0s;
+} */
+
+.otherProject:hover .otherProject_overlay {
+    visibility: visible;
+    padding-bottom: 3.19rem;
+    transition: all 0.2s ease-in-out 0s;
+}
+/* 
+.otherProject:hover .otherProject_overlay .otherProject_text {
+    visibility: visible;
+} */

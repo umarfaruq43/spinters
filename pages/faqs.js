@@ -3,7 +3,7 @@ import Faqs from "@/Components/Faq/Faqs";
 import Layout from "@/Layout/Layout";
 import React from "react";
 
-const services = () => {
+const faqs = () => {
     return (
         <Layout>
             <Faqs />
@@ -11,4 +11,4 @@ const services = () => {
     );
 };
 
-export default services;
+export default faqs;

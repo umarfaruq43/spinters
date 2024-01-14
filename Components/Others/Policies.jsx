@@ -26,8 +26,7 @@ const Policies = () => {
                                 {`This Privacy Policy (the "Policy") describes how
                             Sprinters Technologies ("Company", "we", "us", or
                             "our") collects, uses, and discloses your personal
-                            information when youvisit or use our website,
-                            www.sprinterstechnologies.com (the "Website"). It
+                            information when you visit or use our website, (the "Website"). It
                             alsodescribes the categories of information we
                             collect, and our processes and policiesregarding the
                             use and protection of that information. We collect

@@ -55,7 +55,7 @@ export default function MobileNav({ theme, activeNav }) {
                             align="center"
                             justify="space-between"
                         >
-                            <Link href="/">
+                            <Link href="/" _focusVisible={{}}>
                                 <Image
                                     src={`${
                                         theme !== "dark"

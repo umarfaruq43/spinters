@@ -15,7 +15,7 @@ const GetInTouch = () => {
                     >
                         <Box w={["100%"]}>
                             <Image
-                                src="/images/whoWeAre.svg"
+                                src="/images/whoWeAre.png"
                                 alt="about us Image"
                             />
                         </Box>
