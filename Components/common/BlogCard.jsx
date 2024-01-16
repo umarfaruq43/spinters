@@ -13,7 +13,7 @@ const BlogCard = ({ blogData }) => {
         >
             <Box>
                 <Image
-                    src={true ? blogData?.authorImg : "/images/b_1.png"}
+                    src={blogData ? blogData?.authorImg : "/images/b_1.png"}
                     alt=""
                     w="100%"
                     minH="15rem"

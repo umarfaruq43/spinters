@@ -10,7 +10,7 @@ import { HeroData } from "@/lib/data";
 const CaseStudy = () => {
     return (
         <Box>
-            <Hero heroData={HeroData.caseStudy} />
+            <Hero heroData={HeroData.caseStudy} type="caseStudy" />
             <CaseStudies />
             <ContactLabel />
             <Footer />

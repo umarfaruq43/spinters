@@ -11,7 +11,7 @@ import OtherProject from "./OtherProject";
 const ProjectDetails = () => {
     return (
         <Box>
-            <Hero heroData={caseStudy.Payme} type="projectDetails" />
+            <Hero heroData={caseStudy.Payme} type="caseStudy" />
             <OtherDetails data={caseStudy.Payme} />
             <Process bg="primary_30" />
             <OtherProject />

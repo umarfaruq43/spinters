@@ -28,9 +28,10 @@ const Hero = ({ heroData, type = "normal" }) => {
                             maxW="70rem"
                             mx="auto"
                             textAlign={"center"}
+                        // lineHeight={"5.625rem"}
                         >
                             {/* <Text>Welcome to Sprinters,</Text> */}
-                            {type === "normal" ? (
+                            {type === "normal" && (
                                 <Text letterSpacing={"-0.09rem"}>
                                     {heroData?.normalText_1}{" "}
                                     <Text as="i" color="primary_10">
@@ -38,14 +39,23 @@ const Hero = ({ heroData, type = "normal" }) => {
                                     </Text>
                                     {heroData?.normalText_2}
                                 </Text>
-                            ) : (
-                                <Text letterSpacing={"-0.09rem"}>
-                                    <Text as="i" color="primary_10">
-                                        {heroData?.projectTitle}{" "}
-                                    </Text>
-                                    - {heroData?.projectSubTitle}
-                                </Text>
                             )}
+
+                            {type === "caseStudy" && <Text letterSpacing={"-0.09rem"}>
+                                <Text as="i" color="primary_10">
+                                    {heroData?.projectTitle}{" "}
+                                </Text>
+                                - {heroData?.projectSubTitle}
+                            </Text>}
+
+                            {type === "homePage" && <Text letterSpacing={"-0.09rem"}>
+
+                                Welcome to Sprinters,  <br />   Your
+                                <Text as="i" color="primary_10">
+                                    Tech Solutions {" "}
+                                </Text>
+                                Partner
+                            </Text>}
                         </Box>
 
                         <Text

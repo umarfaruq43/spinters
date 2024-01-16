@@ -38,7 +38,7 @@ const Footer = () => {
                                 <Socials />
                             </Box>
                             <Box>
-                                <Text> 2023 Sprinters Agency</Text>
+                                <Text>© 2023 Sprinters Agency</Text>
                             </Box>
                         </Stack>
 

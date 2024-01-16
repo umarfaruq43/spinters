@@ -15,6 +15,7 @@ import CustomPagination from "../common/CustomPagination";
 import Container from "../common/Container";
 import { ServiceDetailData } from "@/lib/data";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { FaBars } from "react-icons/fa";
 
 const CustomArrow = ({ onClick, icon, ...props }) => (
     <Button
@@ -47,7 +48,7 @@ const OurService = () => {
         // speed: 1000,
         pauseOnFocus: false,
         pauseOnHover: true,
-        arrows: false,
+        arrows: true,
     };
 
     const goToSlide = (slideIndex) => {
@@ -84,7 +85,10 @@ const OurService = () => {
                             mx="auto"
                             flexShrink={1}
                             w="100%"
+
                         >
+
+                            {/* <CustomArrow icon={FaBars} /> */}
                             <Slider ref={sliderRef} {...settings}>
                                 {ServiceDetailData.map(
                                     ({
@@ -98,7 +102,9 @@ const OurService = () => {
                                     }) => {
                                         return (
                                             <Box key={title} px="1rem">
+                                                <CustomArrow icon={FaBars} />
                                                 <Box>
+
                                                     <Flex
                                                         mt="1.5rem"
                                                         align="center"
@@ -159,7 +165,7 @@ const OurService = () => {
                                                                 color={
                                                                     "light_5"
                                                                 }
-                                                                // textAlign={"center"}
+                                                            // textAlign={"center"}
                                                             >
                                                                 {des}
                                                             </Text>
@@ -174,7 +180,7 @@ const OurService = () => {
                                                                 color={
                                                                     "light_5"
                                                                 }
-                                                                // textAlign={"center"}
+                                                            // textAlign={"center"}
                                                             >
                                                                 {des2}
                                                             </Text>

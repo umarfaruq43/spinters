@@ -17,7 +17,7 @@ import React from "react";
 const HomePage = () => {
     return (
         <Box>
-            <Hero heroData={HeroData.landingPage} />
+            <Hero heroData={HeroData.landingPage} type="homePage" />
             <GetToKnowUs />
             <Service />
             <CaseStudies theme="dark" />

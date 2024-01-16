@@ -30,9 +30,9 @@ const Policies = () => {
                             alsodescribes the categories of information we
                             collect, and our processes and policiesregarding the
                             use and protection of that information. We collect
-                            information to provideour services, which include
+                            information to provide our services, which include
                             creation and maintenance of technological
-                            applications andsoftwares, and to perform other
+                            applications and softwares, and to perform other
                             functions related to those services (collectively,
                             the“Services”).`}
                             </Text>

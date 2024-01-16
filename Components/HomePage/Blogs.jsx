@@ -38,7 +38,7 @@ const Blogs = () => {
                     </SimpleGrid>
                 </Box>
 
-                <Flex justify={"center"} mt="3rem">
+                {blogData.lenght > 3 && <Flex justify={"center"} mt="3rem"  >
                     <Button
                         color="primary_10"
                         border="1px"
@@ -56,7 +56,7 @@ const Blogs = () => {
                     >
                         See more
                     </Button>
-                </Flex>
+                </Flex>}
             </Container>
         </Box>
     );

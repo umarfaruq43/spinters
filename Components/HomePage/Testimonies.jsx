@@ -79,7 +79,7 @@ const Testimonies = () => {
                                             <Box
                                                 w={
                                                     activeClient ===
-                                                    item.activeNo
+                                                        item.activeNo
                                                         ? "100%"
                                                         : "0%"
                                                 }
