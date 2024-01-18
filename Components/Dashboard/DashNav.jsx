@@ -24,8 +24,8 @@ import {
 } from "react-icons/fi";
 
 const LinkItems = [
-    { name: "Blog", icon: FiHome, href: "#" },
-    { name: "Case Study", icon: FiTrendingUp, href: "#" },
+    { name: "Blog", icon: FiHome, href: "/secure/upload/dashboard" },
+    { name: "Case Study", icon: FiTrendingUp, href: "/secure/upload/case_study" },
 ];
 
 export default function DashNav({ children }) {
@@ -86,7 +86,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             </Flex>
             <Box mt="2rem">
                 {LinkItems.map((link) => (
-                    <NavItem key={link.name} icon={link.icon}>
+                    <NavItem key={link.name} icon={link.icon} href={link.href} >
                         {link.name}
                     </NavItem>
                 ))}
@@ -99,7 +99,7 @@ const NavItem = ({ icon, children, href, ...rest }) => {
     return (
         <Box
             as="a"
-            href="#"
+            href={href}
             style={{ textDecoration: "none" }}
             _focus={{ boxShadow: "none" }}
         >

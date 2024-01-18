@@ -11,22 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import React, { useRef, useState } from "react";
-import CustomInput from "../common/CutomInputs";
+import CustomInput from "../../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
-
-import 'react-quill/dist/quill.snow.css';
-
-import dynamic from 'next/dynamic';
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 // import CKEditor from "@ckeditor/ckeditor5-react";
 // // import Editor from "ckeditor5-custom-build";
 
-const BlogForm = () => {
-    const [value, setValue] = useState('');
-
-    console.log(value);
+const CaseStudyForm = () => {
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -53,40 +44,6 @@ const BlogForm = () => {
             fileInputRef.current.click();
         }
     };
-    // ****************** tex editor
-
-
-    const quillModules = {
-        toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image'],
-            [{ align: [] }],
-            [{ color: [] }],
-            ['code-block'],
-            ['clean'],
-        ],
-    };
-
-
-    const quillFormats = [
-        'header',
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'blockquote',
-        'list',
-        'bullet',
-        'link',
-        'image',
-        'align',
-        'color',
-        'code-block',
-    ];
-
-
 
     return (
         <Formik
@@ -199,19 +156,6 @@ const BlogForm = () => {
                             )}
                         </Box>
                         {/* Image  */}
-
-
-                        <Box>
-                            <Text color="gray_4"
-                                fontSize={"0.875rem"}
-                                fontWeight={500} >
-                                Blog Content
-                            </Text>
-                        </Box>
-
-
-                        <ReactQuill value={value} onChange={setValue} modules={quillModules}
-                            formats={quillFormats} />
                         {/* Submit  */}
                         <Box mt="2rem">
                             <Button
@@ -239,4 +183,4 @@ const BlogForm = () => {
     );
 };
 
-export default BlogForm;
+export default CaseStudyForm;
