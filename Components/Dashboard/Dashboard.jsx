@@ -6,7 +6,7 @@ import Blog from "./Blog";
 
 const Dashboard = () => {
     return (
-        <DashNav>
+        <DashNav activeNav={"blog"}>
             <TopNav />
             <Blog />
         </DashNav>

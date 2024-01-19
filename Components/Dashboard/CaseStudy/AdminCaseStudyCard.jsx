@@ -11,9 +11,9 @@ import {
     Flex,
     Image,
 } from "@chakra-ui/react";
-import { BiPencil, BiTrash } from "react-icons/bi";
+import { BiPencil, BiTrash, BiWindowOpen } from "react-icons/bi";
 
-const AdminCaseStudyCard = ({ blogData, onDelete, onEdit }) => {
+const AdminCaseStudyCard = ({ caseStudyData, onDelete, onEdit }) => {
     return (
         <Card
             bg="white"
@@ -21,9 +21,9 @@ const AdminCaseStudyCard = ({ blogData, onDelete, onEdit }) => {
             rounded="md"
             overflow="hidden"
             p={4}
-        // maxW="30rem"
-        // mr={4}
-        // mb={4}
+            // maxW="30rem"
+            // mr={4}
+            // mb={4}
         >
             <Flex gap="1.2rem" align="center">
                 <Image
@@ -38,10 +38,10 @@ const AdminCaseStudyCard = ({ blogData, onDelete, onEdit }) => {
                 />
                 <Box>
                     <Text fontSize="sm" fontWeight="bold" noOfLines={"2"}>
-                        {blogData.title}
+                        {caseStudyData.title}
                     </Text>
                     <Text noOfLines={"2"} maxW="15rem" fontSize=".8rem">
-                        {blogData.excerpt}
+                        {caseStudyData.excerpt}
                     </Text>
                     <HStack spacing={4} mt={"1rem"} alignItems="center">
                         <IconButton
@@ -51,6 +51,11 @@ const AdminCaseStudyCard = ({ blogData, onDelete, onEdit }) => {
                         <IconButton
                             icon={<Icon as={BiPencil} />}
                             onClick={onEdit}
+                        />{" "}
+                        <IconButton
+                            icon={<Icon as={BiWindowOpen} />}
+                            as="a"
+                            href={caseStudyData.href}
                         />
                     </HStack>
                 </Box>

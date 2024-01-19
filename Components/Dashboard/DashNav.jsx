@@ -24,17 +24,28 @@ import {
 } from "react-icons/fi";
 
 const LinkItems = [
-    { name: "Blog", icon: FiHome, href: "/secure/upload/dashboard" },
-    { name: "Case Study", icon: FiTrendingUp, href: "/secure/upload/case_study" },
+    {
+        name: "Blog",
+        icon: FiHome,
+        href: "/secure/upload/dashboard",
+        activeUrl: "blog",
+    },
+    {
+        name: "Case Study",
+        icon: FiTrendingUp,
+        href: "/secure/upload/case_study",
+        activeUrl: "case_study",
+    },
 ];
 
-export default function DashNav({ children }) {
+export default function DashNav({ activeNav, children }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={"light_7"}>
             <SidebarContent
                 onClose={() => onClose}
                 display={{ base: "none", md: "block" }}
+                activeNav={activeNav}
             />
             <Drawer
                 isOpen={isOpen}
@@ -45,7 +56,7 @@ export default function DashNav({ children }) {
                 size="full"
             >
                 <DrawerContent>
-                    <SidebarContent onClose={onClose} />
+                    <SidebarContent onClose={onClose} activeNav={activeNav} />
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
@@ -58,7 +69,7 @@ export default function DashNav({ children }) {
     );
 }
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, activeNav, ...rest }) => {
     return (
         <Box
             bg={"gray.900"}
@@ -86,7 +97,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
             </Flex>
             <Box mt="2rem">
                 {LinkItems.map((link) => (
-                    <NavItem key={link.name} icon={link.icon} href={link.href} >
+                    <NavItem
+                        key={link.name}
+                        icon={link.icon}
+                        href={link.href}
+                        activeNav={activeNav}
+                        activeUrl={link.activeUrl}
+                    >
                         {link.name}
                     </NavItem>
                 ))}
@@ -95,7 +112,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     );
 };
 
-const NavItem = ({ icon, children, href, ...rest }) => {
+const NavItem = ({ icon, children, href, activeNav, activeUrl, ...rest }) => {
     return (
         <Box
             as="a"
@@ -110,6 +127,7 @@ const NavItem = ({ icon, children, href, ...rest }) => {
                 borderRadius="lg"
                 role="group"
                 cursor="pointer"
+                bgColor={activeNav === activeUrl ? "primary_10" : "transparent"}
                 _hover={{
                     bg: "primary_10",
                     color: "white",

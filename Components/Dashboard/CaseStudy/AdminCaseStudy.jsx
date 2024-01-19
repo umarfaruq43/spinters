@@ -6,44 +6,48 @@ import AdminCaseStudyCard from "./AdminCaseStudyCard";
 import CaseStudyForm from "./CaseStudyForm";
 
 const AdminCaseStudy = () => {
-    const [addBlog, setAddBlog] = useState(false);
+    const [addProject, setAddProject] = useState(false);
     return (
         <Box py="2rem">
             <Flex align="center" justify="space-between">
                 <Text fontSize={["2rem", "3rem"]}>
-                    {addBlog ? "Blog Form" : "Blogs"}
+                    {addProject ? "Case Study Form" : "Case Study"}
                 </Text>
                 <Button
                     _hover={{}}
                     _active={{}}
                     _focus={{}}
                     border="1px"
-                    borderColor={addBlog ? "red.500" : "primary_10"}
-                    color={addBlog ? "red.500" : "primary_10"}
+                    borderColor={addProject ? "red.500" : "primary_10"}
+                    color={addProject ? "red.500" : "primary_10"}
                     bg="transparent"
                     fontSize=".9rem"
-                    onClick={() => setAddBlog(!addBlog)}
+                    onClick={() => setAddProject(!addProject)}
                 >
-                    {addBlog ? "Cancle" : "Add Blog"}
+                    {addProject ? "Cancel" : "Add Case Study"}
                 </Button>
             </Flex>
 
             <Box mt="2rem">
-                {addBlog ? (
+                {addProject ? (
                     <CaseStudyForm />
                 ) : (
                     <SimpleGrid columns={[1, 2, 3]} spacing={4}>
-                        {data.map((blog) => (
-                            <AdminCaseStudyCard
-                                key={blog.id}
-                                blogData={blog}
-                                onDelete={() =>
-                                    console.log("Delete blog:", blog.id)
-                                }
-                                onEdit={() =>
-                                    console.log("Edit blog:", blog.id)
-                                }
-                            />
+                        {data.map((project) => (
+                            <Box key={project.id}>
+                                <AdminCaseStudyCard
+                                    caseStudyData={project}
+                                    onDelete={() =>
+                                        console.log(
+                                            "Delete project:",
+                                            project.id
+                                        )
+                                    }
+                                    onEdit={() => {
+                                        setAddProject(true);
+                                    }}
+                                />
+                            </Box>
                         ))}
                     </SimpleGrid>
                 )}

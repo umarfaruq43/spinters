@@ -6,8 +6,7 @@ import React from "react";
 const case_study = () => {
     return (
         <div>
-            <DashNav>
-
+            <DashNav activeNav="case_study">
                 <AdminCaseStudy />
             </DashNav>
         </div>
