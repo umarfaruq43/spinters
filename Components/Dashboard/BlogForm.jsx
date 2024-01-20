@@ -13,20 +13,13 @@ import { Formik } from "formik";
 import React, { useRef, useState } from "react";
 import CustomInput from "../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
-
-import 'react-quill/dist/quill.snow.css';
-
-import dynamic from 'next/dynamic';
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
-// import CKEditor from "@ckeditor/ckeditor5-react";
-// // import Editor from "ckeditor5-custom-build";
+import RichEditor from "../common/RichEditor";
 
 const BlogForm = () => {
-    const [value, setValue] = useState('');
+    const [contents, setContents] = useState("");
+    const [contentsErr, setContentsErr] = useState("");
+    const [err, setErr] = useState(false);
 
-    console.log(value);
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -55,66 +48,42 @@ const BlogForm = () => {
     };
     // ****************** tex editor
 
-
-    const quillModules = {
-        toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image'],
-            [{ align: [] }],
-            [{ color: [] }],
-            ['code-block'],
-            ['clean'],
-        ],
-    };
-
-
-    const quillFormats = [
-        'header',
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'blockquote',
-        'list',
-        'bullet',
-        'link',
-        'image',
-        'align',
-        'color',
-        'code-block',
-    ];
-
-
-
     return (
         <Formik
             initialValues={{
-                name: "",
-                email: "",
-                number: "",
-                category: "",
+                blogTitle: "",
+                blogDes: "",
+                blogContent: "",
+                imageUrl: "",
             }}
             validate={(values) => {
                 let errors = {};
-                if (!values.number) {
-                    errors.number = "Number is required";
+
+                if (!values.blogTitle) {
+                    errors.blogTitle = "Blog Title is required";
                 }
-                if (!values.email) {
-                    errors.email = "email is required";
+                if (!values.blogDes) {
+                    errors.blogDes = "Blog description is required";
                 }
-                if (!values.name) {
-                    errors.name = "Name is required";
+                if (!contents) {
+                    errors.blogContent = "Blog Content  is required";
+                    setContentsErr(true);
+                } else {
+                    setContentsErr(false);
                 }
 
-                if (!values.category) {
-                    errors.category = "Category is required";
+                if (!image) {
+                    errors.imageUrl = "image is required is required";
+                    setErr(true);
+                } else {
+                    setErr(false);
                 }
 
                 return errors;
             }}
             onSubmit={(values) => {
+                values.blogContent = contents;
+                values.imageUrl = image;
                 console.log(values);
             }}
         >
@@ -131,7 +100,7 @@ const BlogForm = () => {
                         />
                         <CustomInput
                             label="Blog Description"
-                            name="blogDescription"
+                            name="blogDes"
                             type="text"
                             placeholder="How do you create compelling presentations that..."
                             errors={errors}
@@ -164,7 +133,7 @@ const BlogForm = () => {
                                         bgColor="white"
                                         color="black"
                                         border="1px"
-                                        borderColor="gray_5"
+                                        borderColor={err ? "red.500" : "gray_5"}
                                         borderStyle={"dashed"}
                                         borderRadius={"0.5rem"}
                                         boxShadow={
@@ -181,6 +150,16 @@ const BlogForm = () => {
                                             />
                                         </Box>
                                     </Flex>
+                                    {err && (
+                                        <Text
+                                            fontSize="12px"
+                                            color="red.500"
+                                            mt="0.7rem"
+                                        >
+                                            {" "}
+                                            Cover photo is required{" "}
+                                        </Text>
+                                    )}
                                 </>
                             ) : (
                                 <Box>
@@ -198,20 +177,23 @@ const BlogForm = () => {
                                 </Box>
                             )}
                         </Box>
-                        {/* Image  */}
-
-
+                        {/* content   */}
                         <Box>
-                            <Text color="gray_4"
+                            <Text
+                                color="gray_4"
                                 fontSize={"0.875rem"}
-                                fontWeight={500} >
+                                fontWeight={500}
+                            >
                                 Blog Content
                             </Text>
                         </Box>
-
-
-                        <ReactQuill value={value} onChange={setValue} modules={quillModules}
-                            formats={quillFormats} />
+                        <RichEditor value={contents} setValue={setContents} />
+                        {contentsErr && (
+                            <Text fontSize="12px" color="red.500" mt="0.5rem">
+                                {" "}
+                                Blog Content cannot be empty{" "}
+                            </Text>
+                        )}
                         {/* Submit  */}
                         <Box mt="2rem">
                             <Button

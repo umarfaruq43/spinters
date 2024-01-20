@@ -13,6 +13,7 @@ import { Formik } from "formik";
 import React, { useRef, useState } from "react";
 import CustomInput from "../../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
+import RichEditor from "@/Components/common/RichEditor";
 
 // import CKEditor from "@ckeditor/ckeditor5-react";
 // // import Editor from "ckeditor5-custom-build";
@@ -156,6 +157,16 @@ const CaseStudyForm = () => {
                             )}
                         </Box>
                         {/* Image  */}
+                        <Box>
+                            <Text
+                                color="gray_4"
+                                fontSize={"0.875rem"}
+                                fontWeight={500}
+                            >
+                                Blog Content
+                            </Text>
+                        </Box>
+                        <RichEditor />
                         {/* Submit  */}
                         <Box mt="2rem">
                             <Button

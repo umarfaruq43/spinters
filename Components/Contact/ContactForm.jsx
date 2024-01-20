@@ -13,6 +13,7 @@ import CustomInput from "../common/CutomInputs";
 import CustomTextarea from "../common/CustomTextarea";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { endpointUrl } from "@/lib/data";
 
 const ContactForm = () => {
     const [phone, setPhone] = useState("");
@@ -24,6 +25,31 @@ const ContactForm = () => {
             setErr(false);
         }
     };
+
+    async function getIntouch(payload) {
+        try {
+            const options = {
+                method: "POST",
+                body: JSON.stringify(payload), // Convert data to JSON format
+                headers: {
+                    "Content-Type": "application/json", // Specify JSON content type
+                },
+            };
+
+            const response = await fetch(endpointUrl, options);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json(); // Parse the JSON response
+
+            console.log("Success! API response:", data);
+        } catch (error) {
+            console.error("Error sending data:", error);
+        }
+    }
+
     return (
         <Box>
             <Formik
@@ -31,8 +57,8 @@ const ContactForm = () => {
                     firstName: "",
                     lastName: "",
                     email: "",
-                    phoneNumber: "",
-                    category: "",
+                    phone: "",
+
                     message: "",
                 }}
                 validate={(values) => {
@@ -53,7 +79,7 @@ const ContactForm = () => {
                     }
                     if (phone.length < 7) {
                         setErr(true);
-                        errors.phoneNumber = "phone is invalid";
+                        errors.phone = "phone is invalid";
                     } else {
                         setErr(false);
                     }
@@ -61,8 +87,8 @@ const ContactForm = () => {
                     return errors;
                 }}
                 onSubmit={(values) => {
-                    values.phoneNumber = phone;
-                    console.log(values);
+                    values.phone = phone;
+                    getIntouch(values);
                 }}
             >
                 {({ handleSubmit, errors, touched, isValid, dirty }) => (
@@ -103,7 +129,7 @@ const ContactForm = () => {
 
                             <Box>
                                 <FormLabel
-                                    htmlFor={"phoneNumber"}
+                                    htmlFor={"phone"}
                                     color="gray_4"
                                     fontSize={"0.875rem"}
                                     fontWeight={500}

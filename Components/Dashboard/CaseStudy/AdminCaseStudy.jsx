@@ -44,7 +44,7 @@ const AdminCaseStudy = () => {
                                         )
                                     }
                                     onEdit={() => {
-                                        setAddProject(true);
+                                        // setAddProject(true);
                                     }}
                                 />
                             </Box>

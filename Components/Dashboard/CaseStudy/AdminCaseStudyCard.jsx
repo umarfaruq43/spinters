@@ -12,8 +12,14 @@ import {
     Image,
 } from "@chakra-ui/react";
 import { BiPencil, BiTrash, BiWindowOpen } from "react-icons/bi";
+import EditModal from "./EditModal";
 
-const AdminCaseStudyCard = ({ caseStudyData, onDelete, onEdit }) => {
+const AdminCaseStudyCard = ({
+    caseStudyData,
+    onDelete,
+    onEdit,
+    editableData,
+}) => {
     return (
         <Card
             bg="white"
@@ -48,10 +54,8 @@ const AdminCaseStudyCard = ({ caseStudyData, onDelete, onEdit }) => {
                             icon={<Icon as={BiTrash} />}
                             onClick={onDelete}
                         />
-                        <IconButton
-                            icon={<Icon as={BiPencil} />}
-                            onClick={onEdit}
-                        />{" "}
+
+                        <EditModal caseStudyData={caseStudyData} />
                         <IconButton
                             icon={<Icon as={BiWindowOpen} />}
                             as="a"

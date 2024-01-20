@@ -179,3 +179,7 @@ image {
 .otherProject:hover .otherProject_overlay .otherProject_text {
     visibility: visible;
 } */
+.ql-editor {
+    min-height: 300px;
+    background-color: white;
+}

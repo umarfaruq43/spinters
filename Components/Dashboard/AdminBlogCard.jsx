@@ -12,6 +12,7 @@ import {
     Image,
 } from "@chakra-ui/react";
 import { BiPencil, BiTrash } from "react-icons/bi";
+import EditModal from "./EditBlogModal";
 
 const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
     return (
@@ -27,7 +28,7 @@ const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
         >
             <Flex gap="1.2rem" align="center">
                 <Image
-                    src="/images/b_1.svg"
+                    src={blogData?.imageUrl || "/images/b_1.svg"}
                     fallbackSrc="https://via.placeholder.com/150"
                     alt="image"
                     maxW={"7rem"}
@@ -41,17 +42,18 @@ const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
                         {blogData.title}
                     </Text>
                     <Text noOfLines={"2"} maxW="15rem" fontSize=".8rem">
-                        {blogData.excerpt}
+                        {blogData.des}
                     </Text>
                     <HStack spacing={4} mt={"1rem"} alignItems="center">
                         <IconButton
                             icon={<Icon as={BiTrash} />}
                             onClick={onDelete}
                         />
-                        <IconButton
+                        {/* <IconButton
                             icon={<Icon as={BiPencil} />}
                             onClick={onEdit}
-                        />
+                        /> */}
+                        <EditModal blogData={blogData} />
                     </HStack>
                 </Box>
             </Flex>
