@@ -8,6 +8,7 @@ import {
     Spinner,
     Stack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Container from "../common/Container";
@@ -15,6 +16,7 @@ import { endpointUrl } from "@/lib/data";
 
 const NewsLetter = ({ data }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast();
 
     async function subscribe(payload) {
         const url = `https://sprinters-api.onrender.com/v1/users/subscribe`;
@@ -40,6 +42,11 @@ const NewsLetter = ({ data }) => {
             console.log("Success! API response:", data);
         } catch (error) {
             console.error("Error sending data:", error);
+            toast({
+                title: "Unable to fecth data.",
+                status: "error",
+                position: "top-left",
+            });
         } finally {
             setIsLoading(false);
         }
