@@ -19,6 +19,7 @@ const BlogCard = ({ blogData }) => {
                     minH="15rem"
                     h="100%"
                     rounded="0.4375rem"
+                    objectFit="cover"
                 />
 
                 <Box pt="2rem">
