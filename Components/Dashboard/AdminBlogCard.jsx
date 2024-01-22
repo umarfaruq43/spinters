@@ -12,7 +12,8 @@ import {
     Image,
 } from "@chakra-ui/react";
 import { BiPencil, BiTrash } from "react-icons/bi";
-import EditModal from "./EditBlogModal";
+
+import EditBlogModal from "./EditBlogModal";
 
 const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
     return (
@@ -53,7 +54,7 @@ const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
                             icon={<Icon as={BiPencil} />}
                             onClick={onEdit}
                         /> */}
-                        <EditModal blogData={blogData} />
+                        <EditBlogModal blogData={blogData} />
                     </HStack>
                 </Box>
             </Flex>

@@ -37,17 +37,17 @@ const AdminCaseStudyCard = ({
                     fallbackSrc="https://via.placeholder.com/150"
                     alt="image"
                     maxW={"7rem"}
-                    maxH={"7rem"}
+                    // maxH={"7rem"}
+                    minH="100%"
                     w="100%"
-                    h="100%"
                     objectFit={"cover"}
                 />
                 <Box>
                     <Text fontSize="sm" fontWeight="bold" noOfLines={"2"}>
-                        {caseStudyData.title}
+                        {caseStudyData.projectTitle}
                     </Text>
                     <Text noOfLines={"2"} maxW="15rem" fontSize=".8rem">
-                        {caseStudyData.excerpt}
+                        {caseStudyData.projectSubTitle}
                     </Text>
                     <HStack spacing={4} mt={"1rem"} alignItems="center">
                         <IconButton

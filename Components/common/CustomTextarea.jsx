@@ -47,10 +47,11 @@ const CustomTextarea = ({ label, name, errors, touched, ...props }) => {
                     borderColor="gray_5"
                     rounded="0.5rem"
                     color="gray.600"
-                    h="auto"
+                    // h="auto"
                     fontWeight="400"
                     boxShadow="0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                     bgColor="white"
+                    h="8rem"
                 />
             </Box>
             <FormErrorMessage fontSize={["12px"]}>

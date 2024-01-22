@@ -23,7 +23,6 @@ const BlogsContainer = () => {
         });
         setFilterBlog(fBlog);
     }, [searchQuery]);
-    console.log(filterBlog);
 
     return (
         <Box pt={["4rem", "5rem", "6rem"]} bgColor={"white"}>

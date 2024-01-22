@@ -27,15 +27,15 @@ import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "@/Components/common/RichEditor";
 import CustomInput from "../common/CutomInputs";
 
-const EditModal = ({ blogData }) => {
+const EditBlogModal = ({ blogData }) => {
     console.log("blogData", blogData);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [contents, setContents] = useState("");
+    const [contents, setContents] = useState(blogData?.content || "");
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(blogData?.imageUrl || null);
     const fileInputRef = useRef(null);
 
     const handleImageChange = (event) => {
@@ -71,12 +71,12 @@ const EditModal = ({ blogData }) => {
                 <ModalContent>
                     <ModalHeader> Blog Edit </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
+                    <ModalBody pb="2rem">
                         <Formik
                             initialValues={{
                                 blogTitle: blogData?.title || "",
-                                blogDes: blogData?.blogDes || "",
-                                blogContent: blogData?.blogContent || "",
+                                blogDes: blogData?.des || "",
+                                blogContent: blogData?.content || "",
                                 imageUrl: blogData?.imageUrl || "",
                             }}
                             validate={(values) => {
@@ -287,4 +287,4 @@ const EditModal = ({ blogData }) => {
     );
 };
 
-export default EditModal;
+export default EditBlogModal;

@@ -53,7 +53,6 @@ export default function DashNav({ activeNav, children }) {
                 onClose={onClose}
                 returnFocusOnClose={false}
                 onOverlayClick={onClose}
-                size="full"
             >
                 <DrawerContent>
                     <SidebarContent onClose={onClose} activeNav={activeNav} />
@@ -160,7 +159,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             bg={"gray.900"}
             borderBottomWidth="1px"
             borderBottomColor={"gray.700"}
-            justifyContent="flex-start"
+            justifyContent="space-between"
             {...rest}
             color="white"
         >
@@ -172,14 +171,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 color="white"
             />
 
-            <Text
-                fontSize="2xl"
-                ml="8"
-                fontFamily="monospace"
-                fontWeight="bold"
-            >
-                Logo
-            </Text>
+            <Image src="/images/greenLogo.svg" alt="logo" w="5rem" />
         </Flex>
     );
 };

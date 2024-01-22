@@ -32,18 +32,25 @@ const NewsLetter = ({ data }) => {
             };
 
             const response = await fetch(url, options);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
             const data = await response.json(); // Parse the JSON response
 
-            console.log("Success! API response:", data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                setEmail("");
+            }
         } catch (error) {
-            console.error("Error sending data:", error);
             toast({
-                title: "Unable to fecth data.",
+                title: "Error sending data",
                 status: "error",
                 position: "top-left",
             });
@@ -129,7 +136,7 @@ const NewsLetter = ({ data }) => {
                                     color="light_6"
                                     h="3rem"
                                     w="100%"
-                                    maxW="22.3rem"
+                                    maxW={["100%", "22.3rem"]}
                                     fontWeight={"400"}
                                     boxShadow={
                                         "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
@@ -170,6 +177,7 @@ const NewsLetter = ({ data }) => {
                                     _hover={{ opacity: "0.9" }}
                                     _active={{ opacity: "0.8" }}
                                     rounded="0.5rem"
+                                    minW="7.4rem"
                                     maxW="7.4rem"
                                     w="100%"
                                     type="submit"

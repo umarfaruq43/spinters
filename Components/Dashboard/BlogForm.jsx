@@ -84,7 +84,6 @@ const BlogForm = () => {
             onSubmit={(values) => {
                 values.blogContent = contents;
                 values.imageUrl = image;
-                console.log(values);
             }}
         >
             {({ handleSubmit, errors, touched, isValid, dirty }) => (

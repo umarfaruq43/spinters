@@ -14,6 +14,7 @@ import React, { useRef, useState } from "react";
 import CustomInput from "../../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "@/Components/common/RichEditor";
+import CustomTextarea from "@/Components/common/CustomTextarea";
 
 // import CKEditor from "@ckeditor/ckeditor5-react";
 // // import Editor from "ckeditor5-custom-build";
@@ -49,25 +50,52 @@ const CaseStudyForm = () => {
     return (
         <Formik
             initialValues={{
-                name: "",
-                email: "",
-                number: "",
-                category: "",
+                projectTitle: "",
+                projectSubTitle: "",
+                projectDescription: "",
+                projectOverview: "",
+                projectPro: "",
+                projectSolution: "",
+                clientName: "",
+                projectTimeline: "",
+                projectCategory: "",
+                servicesProvided: "",
+                imageUrl: "",
             }}
             validate={(values) => {
                 let errors = {};
-                if (!values.number) {
-                    errors.number = "Number is required";
+                if (!values.projectTitle) {
+                    errors.projectTitle = "Number is required";
                 }
-                if (!values.email) {
-                    errors.email = "email is required";
+                if (!values.projectSubTitle) {
+                    errors.projectSubTitle = "Number is required";
                 }
-                if (!values.name) {
-                    errors.name = "Name is required";
+                if (!values.projectDescription) {
+                    errors.projectDescription = "Number is required";
                 }
-
-                if (!values.category) {
-                    errors.category = "Category is required";
+                if (!values.projectOverview) {
+                    errors.projectOverview = "Number is required";
+                }
+                if (!values.projectPro) {
+                    errors.projectPro = "Number is required";
+                }
+                if (!values.projectSolution) {
+                    errors.projectSolution = "Number is required";
+                }
+                if (!values.clientName) {
+                    errors.clientName = "Number is required";
+                }
+                if (!values.projectTimeline) {
+                    errors.projectTimeline = "Number is required";
+                }
+                if (!values.projectCategory) {
+                    errors.projectCategory = "Number is required";
+                }
+                if (!values.servicesProvided) {
+                    errors.servicesProvided = "Number is required";
+                }
+                if (!values.imageUrl) {
+                    errors.imageUrl = "Number is required";
                 }
 
                 return errors;
@@ -80,21 +108,85 @@ const CaseStudyForm = () => {
                 <form onSubmit={handleSubmit}>
                     <Stack maxW="56rem" mx="auto" spacingY={"2rem"}>
                         <CustomInput
-                            label="Blog Title"
-                            name="blogTitle"
+                            label="Project Title"
+                            name="projectTitle"
                             type="text"
-                            placeholder="UX Review Presentations"
-                            errors={errors}
-                            touched={touched}
-                        />
-                        <CustomInput
-                            label="Blog Description"
-                            name="blogDescription"
-                            type="text"
-                            placeholder="How do you create compelling presentations that..."
+                            placeholder=""
                             errors={errors}
                             touched={touched}
                         />{" "}
+                        <CustomInput
+                            label="Project Subtitle"
+                            name="projectSubTitle"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomTextarea
+                            label="Project Description"
+                            name="projectDescription"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomTextarea
+                            label="Project Overview"
+                            name="projectOverview"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomTextarea
+                            label="The Problem"
+                            name="projectPro"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomTextarea
+                            label="Our Solution"
+                            name="projectSolution"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Client Name"
+                            name="clientName"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Project Timeline"
+                            name="projectTimeline"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Project Category"
+                            name="projectCategory"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Services Provided"
+                            name="servicesProvided"
+                            type="text"
+                            placeholder=""
+                            errors={errors}
+                            touched={touched}
+                        />
                         {/* Photo Upload */}
                         <Box>
                             <FormLabel
@@ -156,17 +248,6 @@ const CaseStudyForm = () => {
                                 </Box>
                             )}
                         </Box>
-                        {/* Image  */}
-                        <Box>
-                            <Text
-                                color="gray_4"
-                                fontSize={"0.875rem"}
-                                fontWeight={500}
-                            >
-                                Blog Content
-                            </Text>
-                        </Box>
-                        <RichEditor />
                         {/* Submit  */}
                         <Box mt="2rem">
                             <Button

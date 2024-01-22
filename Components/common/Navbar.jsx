@@ -98,7 +98,7 @@ export default Navbar;
 
 const NavItem = ({ activeNav, href, title, theme, href_2 }) => {
     const router = useRouter();
-    console.log(router);
+
     let isActive = activeNav === href;
     if (router.asPath === "/" && href === "/about") {
         isActive = true;

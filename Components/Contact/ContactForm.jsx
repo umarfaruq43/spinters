@@ -4,8 +4,10 @@ import {
     Checkbox,
     Flex,
     FormLabel,
+    Spinner,
     Stack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
@@ -16,10 +18,12 @@ import "react-phone-input-2/lib/style.css";
 import { endpointUrl } from "@/lib/data";
 
 const ContactForm = () => {
-    const [phone, setPhone] = useState("");
+    const [phoneNo, setPhoneNo] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState(false);
+    const toast = useToast();
     const handleBlur = () => {
-        if (phone.length < 7) {
+        if (phoneNo.length < 7) {
             setErr(true);
         } else {
             setErr(false);
@@ -27,6 +31,8 @@ const ContactForm = () => {
     };
 
     async function getIntouch(payload) {
+        setIsLoading(true);
+        const url = `${endpointUrl}/users/get-in-touch`;
         try {
             const options = {
                 method: "POST",
@@ -36,17 +42,26 @@ const ContactForm = () => {
                 },
             };
 
-            const response = await fetch(endpointUrl, options);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
+            const response = await fetch(url, options);
             const data = await response.json(); // Parse the JSON response
 
-            console.log("Success! API response:", data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+            }
         } catch (error) {
             console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -57,8 +72,7 @@ const ContactForm = () => {
                     firstName: "",
                     lastName: "",
                     email: "",
-                    phone: "",
-
+                    phoneNo: "",
                     message: "",
                 }}
                 validate={(values) => {
@@ -77,9 +91,9 @@ const ContactForm = () => {
                     if (!values.message) {
                         errors.message = "Message is required";
                     }
-                    if (phone.length < 7) {
+                    if (phoneNo.length < 7) {
                         setErr(true);
-                        errors.phone = "phone is invalid";
+                        errors.phoneNo = "phone is invalid";
                     } else {
                         setErr(false);
                     }
@@ -87,7 +101,7 @@ const ContactForm = () => {
                     return errors;
                 }}
                 onSubmit={(values) => {
-                    values.phone = phone;
+                    values.phoneNo = `+${phoneNo}`;
                     getIntouch(values);
                 }}
             >
@@ -129,7 +143,7 @@ const ContactForm = () => {
 
                             <Box>
                                 <FormLabel
-                                    htmlFor={"phone"}
+                                    htmlFor={"phoneNo"}
                                     color="gray_4"
                                     fontSize={"0.875rem"}
                                     fontWeight={500}
@@ -138,8 +152,15 @@ const ContactForm = () => {
                                 </FormLabel>
                                 <PhoneInput
                                     country={"ng"}
-                                    value={phone}
-                                    onChange={(phone) => setPhone(phone)}
+                                    value={phoneNo}
+                                    onChange={(phone) => {
+                                        setPhoneNo(phone);
+                                        if (phoneNo.length <= 12) {
+                                            setErr(true);
+                                        } else {
+                                            setErr(false);
+                                        }
+                                    }}
                                     placeholder="+234"
                                     className={`${err ? "error" : ""}`}
                                     onBlur={handleBlur}
@@ -195,8 +216,9 @@ const ContactForm = () => {
                                 boxShadow={
                                     "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                                 }
+                                isDisabled={isLoading}
                             >
-                                Send message
+                                {isLoading ? <Spinner /> : " Send message"}
                             </Button>
                         </Box>
                     </Form>
