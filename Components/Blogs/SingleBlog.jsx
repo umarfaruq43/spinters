@@ -9,24 +9,14 @@ import NewsLetter from "../HomePage/NewsLetter";
 import ContactLabel from "../HomePage/ContactLabel";
 import RelatedBlogs from "./RelatedBlogs";
 
-const SingleBlog = () => {
-    const data = {
-        theme: "light",
-        activeNav: "/blogs",
-        normalText_1: "Discover ",
-        normalText_2: "at Sprinters Technologies!",
-        editedText: " our Tech services ",
-        des: "We’ve Got You Covered",
-        btnfunc: null,
-    };
-
+const SingleBlog = ({ blogData }) => {
     return (
         <div>
             <Box>
-                <BlogHero heroData={data} />
+                <BlogHero heroData={blogData} />
                 <Container py="3rem">
                     <Box maxW="45rem" mx="auto">
-                        <BlogContent />
+                        <BlogContent blogData={blogData} />
                         <ShareBlog />
                     </Box>
                 </Container>

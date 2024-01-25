@@ -6,31 +6,79 @@ import {
     Icon,
     Image,
     Input,
+    Spinner,
     Stack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CustomInput from "../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "../common/RichEditor";
+import { endpointUrl } from "@/lib/data";
 
-const BlogForm = () => {
+const BlogForm = ({ setAddBlog, fetchBlogs }) => {
+    const toast = useToast();
     const [contents, setContents] = useState("");
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
+    // const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
 
+    // useEffect(() => {
+    //     async function upLoadImage() {
+    //         const url = `${endpointUrl}/blog/upload/image`;
+    //         const payload = {
+    //             blogImage: image,
+    //         };
+    //         try {
+    //             const options = {
+    //                 method: "POST",
+    //                 body: JSON.stringify(payload), // Convert data to JSON format
+    //                 headers: {
+    //                     "Content-Type": "multipart/form-data", // Specify JSON content type
+    //                 },
+    //             };
+    //             const response = await fetch(url, options);
+    //             const data = await response.json(); // Parse the JSON response
+    //             console.log(data);
+    //             // if (!response.ok) {
+    //             //     toast({
+    //             //         title: data.message,
+    //             //         status: "error",
+    //             //         position: "top-left",
+    //             //     });
+    //             // } else {
+    //             //     toast({
+    //             //         title: data.message,
+    //             //         status: "success",
+    //             //         position: "top-left",
+    //             //     });
+    //             // }
+    //         } catch (error) {
+    //             console.error("Error sending data:", error);
+    //         } finally {
+    //             // setIsLoading(false);
+    //         }
+    //     }
+    //     // image && upLoadImage();
+    //     console.log(image);
+    // }, [image]);
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
+        //  if (selectedFile && allowedTypes.includes(selectedFile.type)) {
+        //      setFile(selectedFile);
+        //      // toast.error("Please select a valid PNG or JPEG file")
+        //  }
         const reader = new FileReader();
-
         reader.onloadend = () => {
             setImage(reader.result);
         };
-
         if (file) {
             reader.readAsDataURL(file);
         }
@@ -48,12 +96,65 @@ const BlogForm = () => {
     };
     // ****************** tex editor
 
+    const UploadBlog = async (values) => {
+        setIsLoading(true);
+
+        let formatedBlogTags = values?.blogTags?.split(",");
+        const payload = {
+            title: values?.blogTitle,
+            description: values?.blogDes,
+            tags: formatedBlogTags,
+            content: values?.blogContent,
+            image: {
+                imageId: "sprinters/b4129df28e55301c",
+                imageUrl:
+                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706013508/sprinters/b4129df28e55301c.jpg",
+            },
+        };
+        console.log(payload);
+
+        const url = `${endpointUrl}/blog`;
+
+        try {
+            const options = {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                fetchBlogs();
+                setAddBlog();
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <Formik
             initialValues={{
                 blogTitle: "",
                 blogDes: "",
                 blogContent: "",
+                blogTags: "",
                 imageUrl: "",
             }}
             validate={(values) => {
@@ -64,6 +165,9 @@ const BlogForm = () => {
                 }
                 if (!values.blogDes) {
                     errors.blogDes = "Blog description is required";
+                }
+                if (!values.blogTags) {
+                    errors.blogTags = "Blog Tags are required";
                 }
                 if (!contents) {
                     errors.blogContent = "Blog Content  is required";
@@ -83,7 +187,8 @@ const BlogForm = () => {
             }}
             onSubmit={(values) => {
                 values.blogContent = contents;
-                values.imageUrl = image;
+
+                UploadBlog(values);
             }}
         >
             {({ handleSubmit, errors, touched, isValid, dirty }) => (
@@ -104,7 +209,15 @@ const BlogForm = () => {
                             placeholder="How do you create compelling presentations that..."
                             errors={errors}
                             touched={touched}
-                        />{" "}
+                        />
+                        <CustomInput
+                            label="Blog Tags"
+                            name="blogTags"
+                            type="text"
+                            placeholder="Design, Book, Stage"
+                            errors={errors}
+                            touched={touched}
+                        />
                         {/* Photo Upload */}
                         <Box>
                             <FormLabel
@@ -162,14 +275,14 @@ const BlogForm = () => {
                                 </>
                             ) : (
                                 <Box>
-                                    <Image
+                                    {/* <Image
                                         src={image}
                                         alt="Preview"
                                         style={{
                                             maxWidth: "100%",
                                             maxHeight: "200px",
                                         }}
-                                    />
+                                    /> */}
                                     <button onClick={handleRemoveImage}>
                                         <Text color="red">Remove Image</Text>
                                     </button>
@@ -209,8 +322,10 @@ const BlogForm = () => {
                                 boxShadow={
                                     "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                                 }
+                                _disabled={{ opacity: ".6" }}
+                                isDisabled={isLoading}
                             >
-                                Send message
+                                {isLoading ? <Spinner /> : "Send message"}
                             </Button>
                         </Box>
                     </Stack>

@@ -13,27 +13,33 @@ const BlogCard = ({ blogData }) => {
         >
             <Box>
                 <Image
-                    src={blogData ? blogData?.authorImg : "/images/b_1.png"}
+                    src={blogData?.image?.imageUrl}
                     alt=""
                     w="100%"
                     minH="15rem"
                     h="100%"
                     rounded="0.4375rem"
                     objectFit="cover"
+                    fallbackSrc="https://via.placeholder.com/150"
                 />
 
                 <Box pt="2rem">
                     <Text fontSize="0.875rem" fontWeight={600}>
-                        {blogData?.tag}
+                        {blogData?.tags?.[0]}
                     </Text>
                     <Flex
                         as="a"
-                        href="/blogs/123"
+                        href={`/blogs/${blogData?._id}`}
                         mt="0.75rem"
                         gap="1rem"
                         justify="space-between"
                     >
-                        <Text as="span" fontSize="1.5rem" fontWeight="600">
+                        <Text
+                            as="span"
+                            fontSize="1.5rem"
+                            fontWeight="600"
+                            noOfLines={1}
+                        >
                             {blogData?.title}
                         </Text>
                         <Icon
@@ -45,7 +51,7 @@ const BlogCard = ({ blogData }) => {
                     </Flex>
                     <Box mt="0.75rem">
                         <Text fontSize="1rem" noOfLines={3}>
-                            {blogData?.des}
+                            {blogData?.description}
                         </Text>
                     </Box>
 

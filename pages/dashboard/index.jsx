@@ -1,7 +1,7 @@
 import Dashboard from "@/Components/Dashboard/Dashboard";
 import React from "react";
 
-const dashboard = () => {
+const index = () => {
     return (
         <div>
             <Dashboard />
@@ -9,4 +9,4 @@ const dashboard = () => {
     );
 };
 
-export default dashboard;
+export default index;

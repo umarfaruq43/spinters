@@ -75,7 +75,7 @@ const EditBlogModal = ({ blogData }) => {
                         <Formik
                             initialValues={{
                                 blogTitle: blogData?.title || "",
-                                blogDes: blogData?.des || "",
+                                blogDes: blogData?.description || "",
                                 blogContent: blogData?.content || "",
                                 imageUrl: blogData?.imageUrl || "",
                             }}

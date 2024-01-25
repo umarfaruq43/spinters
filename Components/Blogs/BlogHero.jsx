@@ -2,8 +2,16 @@ import { Box, Button, Flex, Stack, Text, Image, Badge } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Container from "../common/Container";
 import Navbar from "../common/Navbar";
+import { format } from "date-fns";
 
 const BlogHero = ({ heroData, type = "normal" }) => {
+    const originalDate = heroData?.createdAt;
+
+    // Assuming you want to preserve the year as 2024:
+    const formattedDate = format(
+        new Date(originalDate || "2024-01-25T00:46:29.599Z"),
+        "dd MMM yyyy"
+    );
     return (
         <Box bgColor={heroData?.theme === "dark" ? "dark_2" : "light_1"}>
             <Container>
@@ -34,11 +42,11 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                                 fontWeight="600"
                                 color="primary_60"
                             >
-                                Published 20 Jan 2022
+                                Published {formattedDate}
                             </Text>
                             <Text letterSpacing={"-0.09rem"} mt="0.75rem">
                                 {/* <Text as="i" color="primary_10"> */}
-                                {"UX review presentations"}
+                                {heroData?.title}
                                 {/* </Text> */}
                             </Text>
 
@@ -48,8 +56,7 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                                 fontSize="1.25rem"
                                 fontWeight={"400"}
                             >
-                                How do you create compelling presentations that
-                                wow your colleagues and impress your managers?
+                                {heroData?.description}
                             </Text>
 
                             <Box>
@@ -69,34 +76,38 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                                         bgColor="primary_30"
                                         textTransform={"capitalize"}
                                     >
-                                        Design
+                                        {heroData?.tags?.[0]}
                                     </Badge>
 
-                                    <Badge
-                                        px="0.62rem"
-                                        rounded="1rem"
-                                        py="0.12rem"
-                                        fontSize="0.875rem"
-                                        fontWeight="500"
-                                        color="blue_1"
-                                        bgColor="blue_2"
-                                        textTransform={"capitalize"}
-                                    >
-                                        Research
-                                    </Badge>
+                                    {heroData?.tags?.length > 1 && (
+                                        <Badge
+                                            px="0.62rem"
+                                            rounded="1rem"
+                                            py="0.12rem"
+                                            fontSize="0.875rem"
+                                            fontWeight="500"
+                                            color="blue_1"
+                                            bgColor="blue_2"
+                                            textTransform={"capitalize"}
+                                        >
+                                            {heroData?.tags?.[1]}
+                                        </Badge>
+                                    )}
 
-                                    <Badge
-                                        px="0.62rem"
-                                        rounded="1rem"
-                                        py="0.12rem"
-                                        fontSize="0.875rem"
-                                        fontWeight="500"
-                                        color="pink_1"
-                                        bgColor="pink_2"
-                                        textTransform={"capitalize"}
-                                    >
-                                        Presentation
-                                    </Badge>
+                                    {heroData?.tags?.length > 2 && (
+                                        <Badge
+                                            px="0.62rem"
+                                            rounded="1rem"
+                                            py="0.12rem"
+                                            fontSize="0.875rem"
+                                            fontWeight="500"
+                                            color="pink_1"
+                                            bgColor="pink_2"
+                                            textTransform={"capitalize"}
+                                        >
+                                            {heroData?.tags?.[2]}
+                                        </Badge>
+                                    )}
                                 </Flex>
                             </Box>
                         </Box>
@@ -104,10 +115,11 @@ const BlogHero = ({ heroData, type = "normal" }) => {
 
                     <Box pt="4rem">
                         <Image
-                            src={heroData?.img || "/images/heroimg.png"}
+                            src={heroData?.image?.imageUrl}
                             alt="hero image"
                             w="100%"
                             h={["20rem", "35.1875rem", "100%"]}
+                            maxH="36.43rem"
                             objectFit={"cover"}
                             rounded={type === "normal" ? "0.9375rem" : "2rem"}
                         />

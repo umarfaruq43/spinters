@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Card,
@@ -10,12 +10,50 @@ import {
     HStack,
     Flex,
     Image,
+    Spinner,
+    useToast,
 } from "@chakra-ui/react";
 import { BiPencil, BiTrash } from "react-icons/bi";
 
 import EditBlogModal from "./EditBlogModal";
+import { endpointUrl } from "@/lib/data";
 
-const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
+const AdminBlogCard = ({ blogData, fetchBlogs }) => {
+    const [isDeleting, setIsDeleting] = useState(false);
+    const toast = useToast();
+
+    const deleteBlog = async (blogId) => {
+        setIsDeleting(true);
+        const url = `${endpointUrl}/blog/${blogId}`;
+
+        try {
+            const options = {
+                method: "DELETE",
+            };
+            const response = await fetch(url, options);
+            const data = await response.json(); // Parse the JSON response
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                fetchBlogs();
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <Card
             bg="white"
@@ -43,12 +81,14 @@ const AdminBlogCard = ({ blogData, onDelete, onEdit }) => {
                         {blogData.title}
                     </Text>
                     <Text noOfLines={"2"} maxW="15rem" fontSize=".8rem">
-                        {blogData.des}
+                        {blogData.description}
                     </Text>
                     <HStack spacing={4} mt={"1rem"} alignItems="center">
                         <IconButton
-                            icon={<Icon as={BiTrash} />}
-                            onClick={onDelete}
+                            icon={
+                                isDeleting ? <Spinner /> : <Icon as={BiTrash} />
+                            }
+                            onClick={() => deleteBlog(blogData?._id)}
                         />
                         {/* <IconButton
                             icon={<Icon as={BiPencil} />}
