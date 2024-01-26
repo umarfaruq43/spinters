@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
     const blogId = context.query.index;
 
     // Fetch the specific blog using the ID
-    const res = await fetch(`${endpointUrl}/blog?blog_id=${blogId}`);
+    const res = await fetch(`${endpointUrl}/blog?blog_id=${"65b1af65815e81e648eadd4b"}`);
     const data = await res.json();
 
     if (!data) {
