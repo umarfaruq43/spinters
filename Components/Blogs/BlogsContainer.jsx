@@ -13,12 +13,12 @@ import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import { CiSearch } from "react-icons/ci";
 import BlogCard from "../common/BlogCard";
-import { blogData, endpointUrl } from "@/lib/data";
+import { endpointUrl } from "@/lib/data";
 const BlogsContainer = () => {
     const toast = useToast();
     const [searchQuery, setSearchQuery] = useState("");
     const [fetchedBlogs, setFetchedBlogs] = useState([]);
-    const [filterBlog, setFilterBlog] = useState(blogData);
+    const [filterBlog, setFilterBlog] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {

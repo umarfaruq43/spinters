@@ -7,13 +7,11 @@ import React from "react";
 import { endpointUrl } from "@/lib/data";
 
 const index = ({ blog }) => {
-    // console.log("blog", blog);
+    console.log("blog", blog);
     return (
         <Layout>
             <Box>
-                {/* <SingleBlog blogData={blog?.data} /> */}
-
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, expedita modi! At, aspernatur veniam ut aperiam maiores magni officia temporibus nisi ullam illum itaque culpa voluptatum ipsa quis. Accusamus, ullam?
+                <SingleBlog blogData={blog?.data} />
             </Box>
         </Layout>
     );
@@ -26,7 +24,7 @@ export async function getServerSideProps(context) {
     const blogId = context.query.index;
 
     // Fetch the specific blog using the ID
-    const res = await fetch(`${endpointUrl}/blog?blog_id=${"65b1af65815e81e648eadd4b"}`);
+    const res = await fetch(`${endpointUrl}/blog?blog_id=${blogId}`);
     const data = await res.json();
 
     if (!data) {
