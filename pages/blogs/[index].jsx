@@ -7,7 +7,7 @@ import React from "react";
 import { endpointUrl } from "@/lib/data";
 
 const index = ({ blog }) => {
-    console.log("blog", blog);
+
     return (
         <Layout>
             <Box>

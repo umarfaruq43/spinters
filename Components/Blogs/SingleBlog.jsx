@@ -16,8 +16,8 @@ const SingleBlog = ({ blogData }) => {
                 <BlogHero heroData={blogData} />
                 <Container py="3rem">
                     <Box maxW="45rem" mx="auto">
-                        <BlogContent blogData={blogData} />
-                        <ShareBlog />
+                        {/* <BlogContent blogData={blogData} /> */}
+                        {/* <ShareBlog /> */}
                     </Box>
                 </Container>
                 <RelatedBlogs />
