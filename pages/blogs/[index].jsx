@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
     const blogId = context.query.index;
 
     // Fetch the specific blog using the ID
-    const res = await fetch(`${endpointUrl}/blog?blog_id=${blogId}`);
+    const res = await fetch(`https://sprinters-api.onrender.com/v1/blog?blog_id=${blogId}`);
     const data = await res.json();
 
     if (!data) {
