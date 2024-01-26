@@ -7,11 +7,13 @@ import React from "react";
 import { endpointUrl } from "@/lib/data";
 
 const index = ({ blog }) => {
-    console.log("blog", blog);
+    // console.log("blog", blog);
     return (
         <Layout>
             <Box>
-                <SingleBlog blogData={blog?.data} />
+                {/* <SingleBlog blogData={blog?.data} /> */}
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, expedita modi! At, aspernatur veniam ut aperiam maiores magni officia temporibus nisi ullam illum itaque culpa voluptatum ipsa quis. Accusamus, ullam?
             </Box>
         </Layout>
     );
