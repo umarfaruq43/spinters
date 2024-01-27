@@ -1,65 +1,169 @@
+import { endpointUrl } from "@/lib/data";
 import {
     Flex,
     Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
     Stack,
     Button,
     Heading,
-    Text,
     useColorModeValue,
+    useToast,
+    Spinner,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import CustomInput from "../common/CutomInputs";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export default function Login() {
+    const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast();
+    const navigate = useRouter();
+
+    async function login(payload) {
+        setIsLoading(true);
+        const url = `${endpointUrl}/auth/login`;
+        try {
+            const options = {
+                method: "POST",
+                body: JSON.stringify(payload), // Convert data to JSON format
+                headers: {
+                    "Content-Type": "application/json", // Specify JSON content type
+                },
+            };
+
+            const response = await fetch(url, options);
+            const data = await response.json(); // Parse the JSON response
+
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                Cookies.set("token", data?.data?.token, { expires: 1 });
+                navigate.push("/dashboard");
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
-        <Flex
-            minH={"100vh"}
-            align={"center"}
-            justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
-        >
-            <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-                <Stack align={"center"}>
-                    <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-                </Stack>
-                <Box
-                    rounded={"lg"}
-                    bg={useColorModeValue("white", "gray.700")}
-                    boxShadow={"lg"}
-                    p={8}
+        <Box>
+            <Flex
+                minH={"100vh"}
+                align={"center"}
+                justify={"center"}
+                bg={useColorModeValue("gray.50", "gray.800")}
+            >
+                <Stack
+                    spacing={8}
+                    mx={"auto"}
+                    maxW={"lg"}
+                    w="100%"
+                    py={12}
+                    px={6}
                 >
-                    <Stack spacing={4}>
-                        <FormControl id="email">
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
-                        <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" />
-                        </FormControl>
-                        <Stack spacing={10}>
-                            <Stack
-                                direction={{ base: "column", sm: "row" }}
-                                align={"start"}
-                                justify={"space-between"}
-                            >
-                                <Checkbox>Remember me</Checkbox>
-                            </Stack>
-                            <Button
-                                bg={"primary_10"}
-                                color={"white"}
-                                _hover={{
-                                    opacity: 0.8,
-                                }}
-                            >
-                                Sign in
-                            </Button>
-                        </Stack>
+                    <Stack align={"center"}>
+                        <Heading fontSize={"4xl"}>
+                            Sign in to your account
+                        </Heading>
                     </Stack>
-                </Box>
-            </Stack>
-        </Flex>
+                    <Box
+                        rounded={"lg"}
+                        bg={useColorModeValue("white", "gray.700")}
+                        boxShadow={"lg"}
+                        p={8}
+                    >
+                        <Formik
+                            initialValues={{
+                                email: "",
+                                password: "",
+                            }}
+                            validate={(values) => {
+                                let errors = {};
+
+                                if (!values.email) {
+                                    errors.email = "email is required";
+                                }
+                                if (!values.password) {
+                                    errors.password = "Password is required";
+                                }
+
+                                return errors;
+                            }}
+                            onSubmit={(values) => {
+                                login(values);
+                            }}
+                        >
+                            {({
+                                handleSubmit,
+                                errors,
+                                touched,
+                                isValid,
+                                dirty,
+                            }) => (
+                                <Form onSubmit={handleSubmit}>
+                                    {/* store_name  */}
+
+                                    <Stack spacing={"1.5rem"}>
+                                        {/* Email Address  */}
+                                        <CustomInput
+                                            label="Email"
+                                            name="email"
+                                            type="email"
+                                            placeholder="you@company.com"
+                                            errors={errors}
+                                            touched={touched}
+                                        />
+                                        <CustomInput
+                                            name="password"
+                                            type="password"
+                                            label={"Password 🫣"}
+                                            placeholder={"🌝🌝🌝"}
+                                            errors={errors}
+                                            touched={touched}
+                                        />
+                                    </Stack>
+                                    <Box mt="2rem">
+                                        <Button
+                                            _focus={{}}
+                                            _hover={{}}
+                                            _active={{}}
+                                            type="submit"
+                                            color="white"
+                                            w="100%"
+                                            h="auto"
+                                            py="1rem"
+                                            px="1.25rem"
+                                            bgColor={"primary_10"}
+                                            boxShadow={
+                                                "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
+                                            }
+                                            isDisabled={isLoading}
+                                        >
+                                            {isLoading ? (
+                                                <Spinner />
+                                            ) : (
+                                                "Sign In"
+                                            )}
+                                        </Button>
+                                    </Box>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Box>
+                </Stack>
+            </Flex>
+        </Box>
     );
 }

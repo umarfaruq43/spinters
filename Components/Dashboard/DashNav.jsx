@@ -27,13 +27,13 @@ const LinkItems = [
     {
         name: "Blog",
         icon: FiHome,
-        href: "/secure/upload/dashboard",
+        href: "/dashboard",
         activeUrl: "blog",
     },
     {
         name: "Case Study",
         icon: FiTrendingUp,
-        href: "/secure/upload/case_study",
+        href: "/dashboard/case_study",
         activeUrl: "case_study",
     },
 ];

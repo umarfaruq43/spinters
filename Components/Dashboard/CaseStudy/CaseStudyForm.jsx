@@ -6,8 +6,10 @@ import {
     Icon,
     Image,
     Input,
+    Spinner,
     Stack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import React, { useRef, useState } from "react";
@@ -15,13 +17,16 @@ import CustomInput from "../../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "@/Components/common/RichEditor";
 import CustomTextarea from "@/Components/common/CustomTextarea";
+import { bearerToken, endpointUrl } from "@/lib/data";
 
 // import CKEditor from "@ckeditor/ckeditor5-react";
 // // import Editor from "ckeditor5-custom-build";
 
 const CaseStudyForm = () => {
+    const toast = useToast();
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -47,6 +52,61 @@ const CaseStudyForm = () => {
         }
     };
 
+    const UploadProject = async (values) => {
+        setIsLoading(true);
+
+        const payload = {
+            projectTitle: values?.projectTitle,
+            projectSubtitle: values?.projectSubTitle,
+            projectDescription: values?.projectDescription,
+            projectOverview: values?.projectOverview,
+            problem: values?.projectPro,
+            solution: values?.projectSolution,
+            clientName: values?.clientName,
+            projectTimeline: values?.projectTimeline,
+            projectCategory: values?.projectCategory,
+            servicesProvides: values?.servicesProvided,
+            coverPhoto: {
+                imageId: "sprinters/ec90aab48e9c60f9",
+                imageUrl:
+                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706014500/sprinters/ec90aab48e9c60f9.jpg",
+            },
+        };
+
+        const url = `${endpointUrl}/case-study`;
+
+        try {
+            const options = {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <Formik
             initialValues={{
@@ -65,43 +125,44 @@ const CaseStudyForm = () => {
             validate={(values) => {
                 let errors = {};
                 if (!values.projectTitle) {
-                    errors.projectTitle = "Number is required";
+                    errors.projectTitle = "Required";
                 }
                 if (!values.projectSubTitle) {
-                    errors.projectSubTitle = "Number is required";
+                    errors.projectSubTitle = "Required";
                 }
                 if (!values.projectDescription) {
-                    errors.projectDescription = "Number is required";
+                    errors.projectDescription = "Required";
                 }
                 if (!values.projectOverview) {
-                    errors.projectOverview = "Number is required";
+                    errors.projectOverview = "Required";
                 }
                 if (!values.projectPro) {
-                    errors.projectPro = "Number is required";
+                    errors.projectPro = "Required";
                 }
                 if (!values.projectSolution) {
-                    errors.projectSolution = "Number is required";
+                    errors.projectSolution = "Required";
                 }
                 if (!values.clientName) {
-                    errors.clientName = "Number is required";
+                    errors.clientName = "Required";
                 }
                 if (!values.projectTimeline) {
-                    errors.projectTimeline = "Number is required";
+                    errors.projectTimeline = "Required";
                 }
                 if (!values.projectCategory) {
-                    errors.projectCategory = "Number is required";
+                    errors.projectCategory = "Required";
                 }
                 if (!values.servicesProvided) {
-                    errors.servicesProvided = "Number is required";
+                    errors.servicesProvided = "Required";
                 }
-                if (!values.imageUrl) {
-                    errors.imageUrl = "Number is required";
-                }
+                // if (!values.imageUrl) {
+                //     errors.imageUrl = "Required";
+                // }
 
                 return errors;
             }}
             onSubmit={(values) => {
                 console.log(values);
+                UploadProject(values);
             }}
         >
             {({ handleSubmit, errors, touched, isValid, dirty }) => (
@@ -264,8 +325,9 @@ const CaseStudyForm = () => {
                                 boxShadow={
                                     "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                                 }
+                                isDisabled={isLoading}
                             >
-                                Send message
+                                {isLoading ? <Spinner /> : "Submit"}
                             </Button>
                         </Box>
                     </Stack>

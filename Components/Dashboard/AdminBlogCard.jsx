@@ -16,7 +16,7 @@ import {
 import { BiPencil, BiTrash } from "react-icons/bi";
 
 import EditBlogModal from "./EditBlogModal";
-import { endpointUrl } from "@/lib/data";
+import { bearerToken, endpointUrl } from "@/lib/data";
 
 const AdminBlogCard = ({ blogData, fetchBlogs }) => {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -29,6 +29,7 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
         try {
             const options = {
                 method: "DELETE",
+                Authorization: `Bearer ${bearerToken}`,
             };
             const response = await fetch(url, options);
             const data = await response.json(); // Parse the JSON response
@@ -67,7 +68,7 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
         >
             <Flex gap="1.2rem" align="center">
                 <Image
-                    src={blogData?.imageUrl || "/images/b_1.svg"}
+                    src={blogData?.image?.imageUrl}
                     fallbackSrc="https://via.placeholder.com/150"
                     alt="image"
                     maxW={"7rem"}
@@ -94,7 +95,10 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
                             icon={<Icon as={BiPencil} />}
                             onClick={onEdit}
                         /> */}
-                        <EditBlogModal blogData={blogData} />
+                        <EditBlogModal
+                            blogData={blogData}
+                            fetchBlogs={fetchBlogs}
+                        />
                     </HStack>
                 </Box>
             </Flex>

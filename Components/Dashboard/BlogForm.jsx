@@ -12,11 +12,11 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import CustomInput from "../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "../common/RichEditor";
-import { endpointUrl } from "@/lib/data";
+import { bearerToken, endpointUrl } from "@/lib/data";
 
 const BlogForm = ({ setAddBlog, fetchBlogs }) => {
     const toast = useToast();
@@ -24,68 +24,68 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
 
-    // const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
-    const [image, setImage] = useState(null);
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
     const fileInputRef = useRef(null);
 
-    // useEffect(() => {
-    //     async function upLoadImage() {
-    //         const url = `${endpointUrl}/blog/upload/image`;
-    //         const payload = {
-    //             blogImage: image,
-    //         };
-    //         try {
-    //             const options = {
-    //                 method: "POST",
-    //                 body: JSON.stringify(payload), // Convert data to JSON format
-    //                 headers: {
-    //                     "Content-Type": "multipart/form-data", // Specify JSON content type
-    //                 },
-    //             };
-    //             const response = await fetch(url, options);
-    //             const data = await response.json(); // Parse the JSON response
-    //             console.log(data);
-    //             // if (!response.ok) {
-    //             //     toast({
-    //             //         title: data.message,
-    //             //         status: "error",
-    //             //         position: "top-left",
-    //             //     });
-    //             // } else {
-    //             //     toast({
-    //             //         title: data.message,
-    //             //         status: "success",
-    //             //         position: "top-left",
-    //             //     });
-    //             // }
-    //         } catch (error) {
-    //             console.error("Error sending data:", error);
-    //         } finally {
-    //             // setIsLoading(false);
-    //         }
-    //     }
-    //     // image && upLoadImage();
-    //     console.log(image);
-    // }, [image]);
+    async function upLoadImage(file) {
+        setIsLoadingImage(true);
+        const url = `${endpointUrl}/blog/upload/image`;
+        const payload = new FormData();
+        payload.append("blogImage", file);
+
+        try {
+            const options = {
+                method: "POST",
+                body: payload,
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                setUploadedImage(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoadingImage(false);
+        }
+    }
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        //  if (selectedFile && allowedTypes.includes(selectedFile.type)) {
-        //      setFile(selectedFile);
-        //      // toast.error("Please select a valid PNG or JPEG file")
-        //  }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImage(reader.result);
-        };
-        if (file) {
-            reader.readAsDataURL(file);
+
+        if (file && allowedTypes.includes(file.type)) {
+            upLoadImage(file);
+        } else {
+            toast({
+                title: "Invalid Image",
+                position: "top-left",
+                status: "error",
+                description: "Please select a valid PNG, JPG or JPEG file",
+            });
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        setUploadedImage(null);
     };
 
     const handleUploadIconClick = () => {
@@ -105,11 +105,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
             description: values?.blogDes,
             tags: formatedBlogTags,
             content: values?.blogContent,
-            image: {
-                imageId: "sprinters/b4129df28e55301c",
-                imageUrl:
-                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706013508/sprinters/b4129df28e55301c.jpg",
-            },
+            image: values?.imageUrl,
         };
         console.log(payload);
 
@@ -121,6 +117,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                 body: JSON.stringify(payload),
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${bearerToken}`,
                 },
             };
             const response = await fetch(url, options);
@@ -176,7 +173,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                     setContentsErr(false);
                 }
 
-                if (!image) {
+                if (!uploadedImage) {
                     errors.imageUrl = "image is required is required";
                     setErr(true);
                 } else {
@@ -187,7 +184,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
             }}
             onSubmit={(values) => {
                 values.blogContent = contents;
-
+                values.imageUrl = uploadedImage;
                 UploadBlog(values);
             }}
         >
@@ -228,7 +225,8 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                             >
                                 Upload Cover Photo
                             </FormLabel>
-                            {!image ? (
+
+                            {!uploadedImage ? (
                                 <>
                                     <Input
                                         type="file"
@@ -255,13 +253,24 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                         justify="center"
                                         align="center"
                                     >
-                                        <Box>
-                                            <Icon
-                                                as={LuUploadCloud}
-                                                boxSize={"5rem"}
-                                            />
-                                        </Box>
+                                        <Flex align="center">
+                                            {isLoadingImage ? (
+                                                <Flex align="center" gap="1rem">
+                                                    <Text align="center">
+                                                        Uploading Image, please
+                                                        wait....
+                                                    </Text>
+                                                    <Spinner size="sm" />
+                                                </Flex>
+                                            ) : (
+                                                <Icon
+                                                    as={LuUploadCloud}
+                                                    boxSize={"5rem"}
+                                                />
+                                            )}
+                                        </Flex>
                                     </Flex>
+
                                     {err && (
                                         <Text
                                             fontSize="12px"
@@ -275,14 +284,14 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                 </>
                             ) : (
                                 <Box>
-                                    {/* <Image
-                                        src={image}
+                                    <Image
+                                        src={uploadedImage?.imageUrl}
                                         alt="Preview"
                                         style={{
                                             maxWidth: "100%",
                                             maxHeight: "200px",
                                         }}
-                                    /> */}
+                                    />
                                     <button onClick={handleRemoveImage}>
                                         <Text color="red">Remove Image</Text>
                                     </button>

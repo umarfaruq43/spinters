@@ -73,7 +73,7 @@ const Blog = () => {
 
             {isLoading ? (
                 <Box mt="2rem">
-                    <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+                    <SimpleGrid columns={[1, 2, null,3]} spacing={4}>
                         <Skeleton height="10rem" />
                         <Skeleton height="10rem" />
                         <Skeleton height="10rem" />
@@ -101,7 +101,10 @@ const Blog = () => {
                                 </Flex>
                             ) : (
                                 <Box>
-                                    <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+                                    <SimpleGrid
+                                        columns={[1, 2, null, 3]}
+                                        spacing={4}
+                                    >
                                         {blogs.map((blog) => (
                                             <AdminBlogCard
                                                 key={blog?.id}

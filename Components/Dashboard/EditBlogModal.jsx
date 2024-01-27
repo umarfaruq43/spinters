@@ -19,6 +19,8 @@ import {
     Input,
     Stack,
     Text,
+    useToast,
+    Spinner,
 } from "@chakra-ui/react";
 import { BiPencil } from "react-icons/bi";
 import { Formik } from "formik";
@@ -26,33 +28,39 @@ import { Formik } from "formik";
 import { LuUploadCloud } from "react-icons/lu";
 import RichEditor from "@/Components/common/RichEditor";
 import CustomInput from "../common/CutomInputs";
+import { bearerToken, endpointUrl } from "@/lib/data";
 
-const EditBlogModal = ({ blogData }) => {
-    console.log("blogData", blogData);
+const EditBlogModal = ({ blogData, fetchBlogs }) => {
+    console.log(blogData);
+    const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const [isLoading, setIsLoading] = useState(false);
     const [contents, setContents] = useState(blogData?.content || "");
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
-
+    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(blogData?.image);
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
     const [image, setImage] = useState(blogData?.imageUrl || null);
     const fileInputRef = useRef(null);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
 
-        reader.onloadend = () => {
-            setImage(reader.result);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
+        if (file && allowedTypes.includes(file.type)) {
+            upLoadImage(file);
+        } else {
+            toast({
+                title: "Invalid Image",
+                position: "top-left",
+                status: "error",
+                description: "Please select a valid PNG, JPG or JPEG file",
+            });
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        setUploadedImage(null);
     };
 
     const handleUploadIconClick = () => {
@@ -61,7 +69,102 @@ const EditBlogModal = ({ blogData }) => {
             fileInputRef.current.click();
         }
     };
-    // ****************** tex editor
+    // ****************** Deformat Blog tags
+    const tagsToString = blogData?.tags?.join(", "); // Join elements with a space as a separator
+
+    // ****************** edit IMAGE
+    async function upLoadImage(file) {
+        setIsLoadingImage(true);
+        const url = `${endpointUrl}/blog/upload/image`;
+        const payload = new FormData();
+        payload.append("blogImage", file);
+
+        try {
+            const options = {
+                method: "POST",
+                body: payload,
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                setUploadedImage(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoadingImage(false);
+        }
+    }
+
+    // ****************** edit Blog
+
+    const UploadBlog = async (values) => {
+        setIsLoading(true);
+
+        let formatedBlogTags = values?.blogTags?.split(",");
+        const payload = {
+            title: values?.blogTitle,
+            description: values?.blogDes,
+            tags: formatedBlogTags,
+            content: values?.blogContent,
+            image: {
+                imageId: "sprinters/b4129df28e55301c",
+                imageUrl:
+                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706013508/sprinters/b4129df28e55301c.jpg",
+            },
+        };
+        console.log(payload);
+
+        const url = `${endpointUrl}/blog/update/${blogData._id}`;
+
+        try {
+            const options = {
+                method: "PATCH",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                onClose();
+                fetchBlogs();
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return (
         <>
             <IconButton icon={<Icon as={BiPencil} />} onClick={onOpen} />
@@ -77,6 +180,7 @@ const EditBlogModal = ({ blogData }) => {
                                 blogTitle: blogData?.title || "",
                                 blogDes: blogData?.description || "",
                                 blogContent: blogData?.content || "",
+                                blogTags: tagsToString || "",
                                 imageUrl: blogData?.imageUrl || "",
                             }}
                             validate={(values) => {
@@ -89,6 +193,9 @@ const EditBlogModal = ({ blogData }) => {
                                     errors.blogDes =
                                         "Blog description is required";
                                 }
+                                if (!values.blogTags) {
+                                    errors.blogTags = "Blog Tags are required";
+                                }
                                 if (!contents) {
                                     errors.blogContent =
                                         "Blog Content  is required";
@@ -97,20 +204,19 @@ const EditBlogModal = ({ blogData }) => {
                                     setContentsErr(false);
                                 }
 
-                                if (!image) {
+                                if (!uploadedImage) {
                                     errors.imageUrl =
                                         "image is required is required";
                                     setErr(true);
                                 } else {
                                     setErr(false);
                                 }
-
+                                console.log(errors);
                                 return errors;
                             }}
                             onSubmit={(values) => {
                                 values.blogContent = contents;
-                                values.imageUrl = image;
-                                console.log(values);
+                                UploadBlog(values);
                             }}
                         >
                             {({
@@ -142,6 +248,14 @@ const EditBlogModal = ({ blogData }) => {
                                             errors={errors}
                                             touched={touched}
                                         />{" "}
+                                        <CustomInput
+                                            label="Blog Tags"
+                                            name="blogTags"
+                                            type="text"
+                                            placeholder="Design, Book, Stage"
+                                            errors={errors}
+                                            touched={touched}
+                                        />
                                         {/* Photo Upload */}
                                         <Box>
                                             <FormLabel
@@ -152,7 +266,8 @@ const EditBlogModal = ({ blogData }) => {
                                             >
                                                 Upload Cover Photo
                                             </FormLabel>
-                                            {!image ? (
+
+                                            {!uploadedImage ? (
                                                 <>
                                                     <Input
                                                         type="file"
@@ -189,15 +304,33 @@ const EditBlogModal = ({ blogData }) => {
                                                         justify="center"
                                                         align="center"
                                                     >
-                                                        <Box>
-                                                            <Icon
-                                                                as={
-                                                                    LuUploadCloud
-                                                                }
-                                                                boxSize={"5rem"}
-                                                            />
-                                                        </Box>
+                                                        <Flex align="center">
+                                                            {isLoadingImage ? (
+                                                                <Flex
+                                                                    align="center"
+                                                                    gap="1rem"
+                                                                >
+                                                                    <Text align="center">
+                                                                        Uploading
+                                                                        Image,
+                                                                        please
+                                                                        wait....
+                                                                    </Text>
+                                                                    <Spinner size="sm" />
+                                                                </Flex>
+                                                            ) : (
+                                                                <Icon
+                                                                    as={
+                                                                        LuUploadCloud
+                                                                    }
+                                                                    boxSize={
+                                                                        "5rem"
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </Flex>
                                                     </Flex>
+
                                                     {err && (
                                                         <Text
                                                             fontSize="12px"
@@ -213,12 +346,15 @@ const EditBlogModal = ({ blogData }) => {
                                             ) : (
                                                 <Box>
                                                     <Image
-                                                        src={image}
+                                                        src={
+                                                            uploadedImage?.imageUrl
+                                                        }
                                                         alt="Preview"
                                                         style={{
                                                             maxWidth: "100%",
                                                             maxHeight: "200px",
                                                         }}
+                                                        fallbackSrc="https://via.placeholder.com/150"
                                                     />
                                                     <button
                                                         onClick={
@@ -272,8 +408,13 @@ const EditBlogModal = ({ blogData }) => {
                                                 boxShadow={
                                                     "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                                                 }
+                                                isDisabled={isLoading}
                                             >
-                                                Send message
+                                                {isLoading ? (
+                                                    <Spinner />
+                                                ) : (
+                                                    "Submit"
+                                                )}
                                             </Button>
                                         </Box>
                                     </Stack>

@@ -30,9 +30,11 @@ const AdminCaseStudy = () => {
 
             <Box mt="2rem">
                 {addProject ? (
-                    <CaseStudyForm />
+                    <>
+                        <CaseStudyForm />
+                    </>
                 ) : (
-                    <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+                    <SimpleGrid columns={[1, 2, null, 3]} spacing={4}>
                         {data.map((project) => (
                             <Box key={project.id}>
                                 <AdminCaseStudyCard

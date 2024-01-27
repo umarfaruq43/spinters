@@ -9,6 +9,8 @@ const Dashboard = () => {
         <DashNav activeNav={"blog"}>
             {/* <TopNav /> */}
             <Blog />
+            {/* <AuthGuard>
+            </AuthGuard> */}
         </DashNav>
     );
 };

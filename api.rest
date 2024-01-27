@@ -5,7 +5,7 @@
 
 @api = {{server}}/v1
 
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiI2NWFmYWZhOGY3OWNiYjFjOWQ0MDJlYjMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDYxMTA3NDcsImV4cCI6MTg3ODkxMDc0NywiYXVkIjoid2ViLXVzZXIiLCJpc3MiOiJzcHJpbnRlcnMtZGV2ZWxvcG1lbnQifQ.AdGZzfQqPkxsrJn5aFgc8JF4Ya4b8FYWF4GsPmxexNQ
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiI2NWFmZTY2MTJlYzEyM2ZhNjk1YjJkOWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDYyOTM5MTAsImV4cCI6MTg3OTA5MzkxMCwiYXVkIjoid2ViLXVzZXIiLCJpc3MiOiJzcHJpbnRlcnMtcHJvZHVjdGlvbiJ9.z7X8VYi6wS1hdd4cK3gtkC-ArrB4ayA7wdV9nyarNwk
 
 ###
 GET {{server}}
@@ -82,7 +82,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Edit blog
-PATCH  {{api}}/blog/update/65afb187ef36a9f83fdd05b5
+PATCH  {{api}}/blog/update/65b1af65815e81e648eadd4b
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
