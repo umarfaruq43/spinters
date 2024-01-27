@@ -24,25 +24,69 @@ import { bearerToken, endpointUrl } from "@/lib/data";
 
 const CaseStudyForm = () => {
     const toast = useToast();
-    const [image, setImage] = useState(null);
+
     const fileInputRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [err, setErr] = useState(false);
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+    async function upLoadImage(file) {
+        setIsLoadingImage(true);
+        const url = `${endpointUrl}/blog/upload/image`;
+        const payload = new FormData();
+        payload.append("blogImage", file);
+
+        try {
+            const options = {
+                method: "POST",
+                body: payload,
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                setUploadedImage(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoadingImage(false);
+        }
+    }
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
 
-        reader.onloadend = () => {
-            setImage(reader.result);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
+        if (file && allowedTypes.includes(file.type)) {
+            upLoadImage(file);
+        } else {
+            toast({
+                title: "Invalid Image",
+                position: "top-left",
+                status: "error",
+                description: "Please select a valid PNG, JPG or JPEG file",
+            });
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        setUploadedImage(null);
     };
 
     const handleUploadIconClick = () => {
@@ -66,11 +110,7 @@ const CaseStudyForm = () => {
             projectTimeline: values?.projectTimeline,
             projectCategory: values?.projectCategory,
             servicesProvides: values?.servicesProvided,
-            coverPhoto: {
-                imageId: "sprinters/ec90aab48e9c60f9",
-                imageUrl:
-                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706014500/sprinters/ec90aab48e9c60f9.jpg",
-            },
+            coverPhoto: values?.imageUrl,
         };
 
         const url = `${endpointUrl}/case-study`;
@@ -154,14 +194,18 @@ const CaseStudyForm = () => {
                 if (!values.servicesProvided) {
                     errors.servicesProvided = "Required";
                 }
-                // if (!values.imageUrl) {
-                //     errors.imageUrl = "Required";
-                // }
+                if (!uploadedImage) {
+                    errors.imageUrl = "image is required is required";
+                    setErr(true);
+                } else {
+                    setErr(false);
+                }
 
                 return errors;
             }}
             onSubmit={(values) => {
                 console.log(values);
+                values.imageUrl = uploadedImage;
                 UploadProject(values);
             }}
         >
@@ -258,7 +302,8 @@ const CaseStudyForm = () => {
                             >
                                 Upload Cover Photo
                             </FormLabel>
-                            {!image ? (
+
+                            {!uploadedImage ? (
                                 <>
                                     <Input
                                         type="file"
@@ -275,7 +320,7 @@ const CaseStudyForm = () => {
                                         bgColor="white"
                                         color="black"
                                         border="1px"
-                                        borderColor="gray_5"
+                                        borderColor={err ? "red.500" : "gray_5"}
                                         borderStyle={"dashed"}
                                         borderRadius={"0.5rem"}
                                         boxShadow={
@@ -285,18 +330,39 @@ const CaseStudyForm = () => {
                                         justify="center"
                                         align="center"
                                     >
-                                        <Box>
-                                            <Icon
-                                                as={LuUploadCloud}
-                                                boxSize={"5rem"}
-                                            />
-                                        </Box>
+                                        <Flex align="center">
+                                            {isLoadingImage ? (
+                                                <Flex align="center" gap="1rem">
+                                                    <Text align="center">
+                                                        Uploading Image, please
+                                                        wait....
+                                                    </Text>
+                                                    <Spinner size="sm" />
+                                                </Flex>
+                                            ) : (
+                                                <Icon
+                                                    as={LuUploadCloud}
+                                                    boxSize={"5rem"}
+                                                />
+                                            )}
+                                        </Flex>
                                     </Flex>
+
+                                    {err && (
+                                        <Text
+                                            fontSize="12px"
+                                            color="red.500"
+                                            mt="0.7rem"
+                                        >
+                                            {" "}
+                                            Cover photo is required{" "}
+                                        </Text>
+                                    )}
                                 </>
                             ) : (
                                 <Box>
                                     <Image
-                                        src={image}
+                                        src={uploadedImage?.imageUrl}
                                         alt="Preview"
                                         style={{
                                             maxWidth: "100%",

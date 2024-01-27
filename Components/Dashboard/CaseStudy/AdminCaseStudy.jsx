@@ -1,12 +1,57 @@
-import { Box, Button, Flex, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+    Box,
+    Button,
+    Flex,
+    SimpleGrid,
+    Skeleton,
+    Stack,
+    Text,
+    useToast,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import AdminBlogCard from "./AdminCaseStudyCard";
 // import BlogForm from "./BlogForm";
 import AdminCaseStudyCard from "./AdminCaseStudyCard";
 import CaseStudyForm from "./CaseStudyForm";
+import { endpointUrl } from "@/lib/data";
 
 const AdminCaseStudy = () => {
     const [addProject, setAddProject] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [project, setProject] = useState([]);
+    const toast = useToast();
+
+    async function fetchProjects() {
+        setIsLoading(true);
+        const url = `${endpointUrl}/case-study`;
+
+        try {
+            const options = {
+                method: "GET",
+            };
+            const response = await fetch(url, options);
+            const data = await response.json(); // Parse the JSON response
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                setProject(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchProjects();
+    }, []);
+
     return (
         <Box py="2rem">
             <Flex align="center" justify="space-between">
@@ -30,28 +75,41 @@ const AdminCaseStudy = () => {
 
             <Box mt="2rem">
                 {addProject ? (
-                    <>
-                        <CaseStudyForm />
-                    </>
+                    <CaseStudyForm />
                 ) : (
-                    <SimpleGrid columns={[1, 2, null, 3]} spacing={4}>
-                        {data.map((project) => (
-                            <Box key={project.id}>
-                                <AdminCaseStudyCard
-                                    caseStudyData={project}
-                                    onDelete={() =>
-                                        console.log(
-                                            "Delete project:",
-                                            project.id
-                                        )
-                                    }
-                                    onEdit={() => {
-                                        // setAddProject(true);
-                                    }}
-                                />
+                    <>
+                        {isLoading ? (
+                            <Box mt="2rem">
+                                <SimpleGrid
+                                    columns={[1, 2, null, 3]}
+                                    spacing={4}
+                                >
+                                    <Skeleton height="10rem" />
+                                    <Skeleton height="10rem" />
+                                    <Skeleton height="10rem" />
+                                </SimpleGrid>
                             </Box>
-                        ))}
-                    </SimpleGrid>
+                        ) : (
+                            <SimpleGrid columns={[1, 2, null, 3]} spacing={4}>
+                                {data.map((project) => (
+                                    <Box key={project.id}>
+                                        <AdminCaseStudyCard
+                                            caseStudyData={project}
+                                            onDelete={() =>
+                                                console.log(
+                                                    "Delete project:",
+                                                    project.id
+                                                )
+                                            }
+                                            // onEdit={() => {
+                                            //     // setAddProject(true);
+                                            // }}
+                                        />
+                                    </Box>
+                                ))}
+                            </SimpleGrid>
+                        )}
+                    </>
                 )}
             </Box>
         </Box>
