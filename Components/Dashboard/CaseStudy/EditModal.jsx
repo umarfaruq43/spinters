@@ -19,42 +19,144 @@ import {
     Input,
     Stack,
     Text,
+    useToast,
+    Spinner,
 } from "@chakra-ui/react";
 import { BiPencil } from "react-icons/bi";
 import { Formik } from "formik";
 import CustomInput from "../../common/CutomInputs";
 import { LuUploadCloud } from "react-icons/lu";
-import RichEditor from "@/Components/common/RichEditor";
+
 import CustomTextarea from "@/Components/common/CustomTextarea";
+import { bearerToken, endpointUrl } from "@/lib/data";
 
-const EditModal = ({ caseStudyData }) => {
+const EditModal = ({ caseStudyData, fetchProjects }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [value, setValue] = useState("");
 
-    const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
+    const toast = useToast();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(
+        caseStudyData?.coverPhoto
+    );
+    const [err, setErr] = useState(false);
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+    async function upLoadImage(file) {
+        setIsLoadingImage(true);
+        const url = `${endpointUrl}/case-study/upload/image`;
+        const payload = new FormData();
+        payload.append("cover-photo", file);
+
+        try {
+            const options = {
+                method: "POST",
+                body: payload,
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                setUploadedImage(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoadingImage(false);
+        }
+    }
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
 
-        reader.onloadend = () => {
-            setImage(reader.result);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
+        if (file && allowedTypes.includes(file.type)) {
+            upLoadImage(file);
+        } else {
+            toast({
+                title: "Invalid Image",
+                position: "top-left",
+                status: "error",
+                description: "Please select a valid PNG, JPG or JPEG file",
+            });
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        setUploadedImage(null);
     };
 
     const handleUploadIconClick = () => {
         // Trigger the file input click when the upload icon is clicked
         if (fileInputRef.current) {
             fileInputRef.current.click();
+        }
+    };
+
+    const updateProject = async (values) => {
+        setIsLoading(true);
+
+        const payload = {
+            projectTitle: values?.projectTitle,
+            projectSubtitle: values?.projectSubTitle,
+            projectDescription: values?.projectDescription,
+            projectOverview: values?.projectOverview,
+            problem: values?.projectPro,
+            solution: values?.projectSolution,
+            clientName: values?.clientName,
+            projectTimeline: values?.projectTimeline,
+            projectCategory: values?.projectCategory,
+            servicesProvides: values?.servicesProvided,
+            coverPhoto: values?.imageUrl,
+        };
+
+        const url = `${endpointUrl}/case-study/update/${caseStudyData?._id}`;
+
+        try {
+            const options = {
+                method: "PATCH",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                toast({
+                    title: data.message,
+                    status: "success",
+                    position: "top-left",
+                });
+                fetchProjects();
+                onClose();
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -72,63 +174,67 @@ const EditModal = ({ caseStudyData }) => {
                             initialValues={{
                                 projectTitle: caseStudyData?.projectTitle || "",
                                 projectSubTitle:
-                                    caseStudyData?.projectSubTitle || "",
+                                    caseStudyData?.projectSubtitle || "",
                                 projectDescription:
                                     caseStudyData?.projectDescription || "",
                                 projectOverview:
                                     caseStudyData?.projectOverview || "",
-                                projectPro: caseStudyData?.projectPro || "",
-                                projectSolution:
-                                    caseStudyData?.projectSolution || "",
+                                projectPro: caseStudyData?.problem || "",
+                                projectSolution: caseStudyData?.solution || "",
                                 clientName: caseStudyData?.clientName || "",
                                 projectTimeline:
                                     caseStudyData?.projectTimeline || "",
                                 projectCategory:
                                     caseStudyData?.projectCategory || "",
                                 servicesProvided:
-                                    caseStudyData?.servicesProvided || "",
-                                imageUrl: caseStudyData?.imageUrl || "",
+                                    caseStudyData?.servicesProvides || "",
+                                imageUrl: caseStudyData?.coverPhoto || "",
                             }}
                             validate={(values) => {
                                 let errors = {};
                                 if (!values.projectTitle) {
-                                    errors.projectTitle = "required";
+                                    errors.projectTitle = "Required";
                                 }
                                 if (!values.projectSubTitle) {
-                                    errors.projectSubTitle = "required";
+                                    errors.projectSubTitle = "Required";
                                 }
                                 if (!values.projectDescription) {
-                                    errors.projectDescription = "required";
+                                    errors.projectDescription = "Required";
                                 }
                                 if (!values.projectOverview) {
-                                    errors.projectOverview = "required";
+                                    errors.projectOverview = "Required";
                                 }
                                 if (!values.projectPro) {
-                                    errors.projectPro = "required";
+                                    errors.projectPro = "Required";
                                 }
                                 if (!values.projectSolution) {
-                                    errors.projectSolution = "required";
+                                    errors.projectSolution = "Required";
                                 }
                                 if (!values.clientName) {
-                                    errors.clientName = "required";
+                                    errors.clientName = "Required";
                                 }
                                 if (!values.projectTimeline) {
-                                    errors.projectTimeline = "required";
+                                    errors.projectTimeline = "Required";
                                 }
                                 if (!values.projectCategory) {
-                                    errors.projectCategory = "required";
+                                    errors.projectCategory = "Required";
                                 }
                                 if (!values.servicesProvided) {
-                                    errors.servicesProvided = "required";
+                                    errors.servicesProvided = "Required";
                                 }
-                                if (!values.imageUrl) {
-                                    errors.imageUrl = "required";
+                                if (!uploadedImage) {
+                                    errors.imageUrl =
+                                        "image is required is required";
+                                    setErr(true);
+                                } else {
+                                    setErr(false);
                                 }
 
                                 return errors;
                             }}
                             onSubmit={(values) => {
-                                console.log(values);
+                                values.imageUrl = uploadedImage;
+                                updateProject(values);
                             }}
                         >
                             {({
@@ -235,7 +341,7 @@ const EditModal = ({ caseStudyData }) => {
                                             >
                                                 Upload Cover Photo
                                             </FormLabel>
-                                            {!image ? (
+                                            {!uploadedImage ? (
                                                 <>
                                                     <Input
                                                         type="file"
@@ -258,7 +364,11 @@ const EditModal = ({ caseStudyData }) => {
                                                         bgColor="white"
                                                         color="black"
                                                         border="1px"
-                                                        borderColor="gray_5"
+                                                        borderColor={
+                                                            err
+                                                                ? "red.500"
+                                                                : "gray_5"
+                                                        }
                                                         borderStyle={"dashed"}
                                                         borderRadius={"0.5rem"}
                                                         boxShadow={
@@ -268,25 +378,57 @@ const EditModal = ({ caseStudyData }) => {
                                                         justify="center"
                                                         align="center"
                                                     >
-                                                        <Box>
-                                                            <Icon
-                                                                as={
-                                                                    LuUploadCloud
-                                                                }
-                                                                boxSize={"5rem"}
-                                                            />
-                                                        </Box>
+                                                        <Flex align="center">
+                                                            {isLoadingImage ? (
+                                                                <Flex
+                                                                    align="center"
+                                                                    gap="1rem"
+                                                                >
+                                                                    <Text align="center">
+                                                                        Uploading
+                                                                        Image,
+                                                                        please
+                                                                        wait....
+                                                                    </Text>
+                                                                    <Spinner size="sm" />
+                                                                </Flex>
+                                                            ) : (
+                                                                <Icon
+                                                                    as={
+                                                                        LuUploadCloud
+                                                                    }
+                                                                    boxSize={
+                                                                        "5rem"
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </Flex>
                                                     </Flex>
+
+                                                    {err && (
+                                                        <Text
+                                                            fontSize="12px"
+                                                            color="red.500"
+                                                            mt="0.7rem"
+                                                        >
+                                                            {" "}
+                                                            Cover photo is
+                                                            required{" "}
+                                                        </Text>
+                                                    )}
                                                 </>
                                             ) : (
                                                 <Box>
                                                     <Image
-                                                        src={image}
+                                                        src={
+                                                            uploadedImage?.imageUrl
+                                                        }
                                                         alt="Preview"
                                                         style={{
                                                             maxWidth: "100%",
                                                             maxHeight: "200px",
                                                         }}
+                                                        fallbackSrc="https://via.placeholder.com/150"
                                                     />
                                                     <button
                                                         onClick={
@@ -316,8 +458,13 @@ const EditModal = ({ caseStudyData }) => {
                                                 boxShadow={
                                                     "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
                                                 }
+                                                isDisabled={isLoading}
                                             >
-                                                Send message
+                                                {isLoading ? (
+                                                    <Spinner />
+                                                ) : (
+                                                    "Submit"
+                                                )}
                                             </Button>
                                         </Box>
                                     </Stack>

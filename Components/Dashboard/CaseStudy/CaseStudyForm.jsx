@@ -19,10 +19,7 @@ import RichEditor from "@/Components/common/RichEditor";
 import CustomTextarea from "@/Components/common/CustomTextarea";
 import { bearerToken, endpointUrl } from "@/lib/data";
 
-// import CKEditor from "@ckeditor/ckeditor5-react";
-// // import Editor from "ckeditor5-custom-build";
-
-const CaseStudyForm = () => {
+const CaseStudyForm = ({ setAddProject, fetchProjects }) => {
     const toast = useToast();
 
     const fileInputRef = useRef(null);
@@ -34,9 +31,9 @@ const CaseStudyForm = () => {
 
     async function upLoadImage(file) {
         setIsLoadingImage(true);
-        const url = `${endpointUrl}/blog/upload/image`;
+        const url = `${endpointUrl}/case-study/upload/image`;
         const payload = new FormData();
-        payload.append("blogImage", file);
+        payload.append("cover-photo", file);
 
         try {
             const options = {
@@ -139,6 +136,8 @@ const CaseStudyForm = () => {
                     status: "success",
                     position: "top-left",
                 });
+                setAddProject(false);
+                fetchProjects();
             }
         } catch (error) {
             console.error("Error sending data:", error);
@@ -204,7 +203,6 @@ const CaseStudyForm = () => {
                 return errors;
             }}
             onSubmit={(values) => {
-                console.log(values);
                 values.imageUrl = uploadedImage;
                 UploadProject(values);
             }}

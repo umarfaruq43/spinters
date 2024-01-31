@@ -29,7 +29,9 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
         try {
             const options = {
                 method: "DELETE",
-                Authorization: `Bearer ${bearerToken}`,
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
             };
             const response = await fetch(url, options);
             const data = await response.json(); // Parse the JSON response

@@ -5,7 +5,7 @@
 
 @api = {{server}}/v1
 
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiI2NWFmZTY2MTJlYzEyM2ZhNjk1YjJkOWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDYyOTM5MTAsImV4cCI6MTg3OTA5MzkxMCwiYXVkIjoid2ViLXVzZXIiLCJpc3MiOiJzcHJpbnRlcnMtcHJvZHVjdGlvbiJ9.z7X8VYi6wS1hdd4cK3gtkC-ArrB4ayA7wdV9nyarNwk
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiI2NWFmZTY2MTJlYzEyM2ZhNjk1YjJkOWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDY3Mjc2MzUsImV4cCI6MTg3OTUyNzYzNSwiYXVkIjoid2ViLXVzZXIiLCJpc3MiOiJzcHJpbnRlcnMtcHJvZHVjdGlvbiJ9.oUxwYxS5g3NZDLxG_Omio8baKDRlzuSCEcqvMnYQvGs
 
 ###
 GET {{server}}
@@ -152,7 +152,7 @@ GET {{api}}/case-study
 GET {{api}}/case-study?caseStudyId=65b13373b29d880c58aae899
 
 ### delete case study
-DELETE {{api}}/case-study/65b13373b29d880c58aae899
+DELETE {{api}}/case-study/65b53f20c1c3cfb3d408655f
 Authorization: Bearer {{token}}
 
 ### upload case study cover letter
