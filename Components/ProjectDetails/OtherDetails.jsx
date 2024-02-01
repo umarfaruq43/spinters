@@ -60,7 +60,7 @@ const OtherDetails = ({ data }) => {
                             maxW="44rem"
                             w="100%"
                         >
-                            {data?.projectProblem}
+                            {data?.problem}
                         </Text>
                     </Flex>
                     {/* projectSolution */}
@@ -88,7 +88,7 @@ const OtherDetails = ({ data }) => {
                             maxW="44rem"
                             w="100%"
                         >
-                            {data?.projectSolution}
+                            {data?.solution}
                         </Text>
                     </Flex>
                     {/* Client Name  */}
@@ -198,7 +198,7 @@ const OtherDetails = ({ data }) => {
                             maxW="44rem"
                             w="100%"
                         >
-                            {data?.serviceProvided}
+                            {data?.servicesProvides}
                         </Text>
                     </Flex>
                 </Stack>

@@ -6,28 +6,68 @@ import {
     Flex,
     SimpleGrid,
     Button,
+    useToast,
+    Skeleton,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
-import { ProjectData } from "@/lib/data";
+import { endpointUrl } from "@/lib/data";
 import { useRouter } from "next/router";
 
 const CaseStudies = ({ theme = "light" }) => {
+    const toast = useToast();
+    const [isLoading, setIsLoading] = useState(true);
     const [activeNav, setActiveNav] = useState(1);
+    const [ProjectData, setProjectData] = useState([]);
     const router = useRouter();
 
-    const [filteredData, setFilteredData] = useState(ProjectData);
+    const [filteredData, setFilteredData] = useState([]);
+
+    async function fetchProjects() {
+        setIsLoading(true);
+        const url = `${endpointUrl}/case-study`;
+
+        try {
+            const options = {
+                method: "GET",
+            };
+            const response = await fetch(url, options);
+            const data = await response.json(); // Parse the JSON response
+            console.log("data", data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                setFilteredData(data?.data);
+                setProjectData(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchProjects();
+        theme === "dark" && setFilteredData(filteredData.slice(0, 3));
+    }, []);
 
     const handleActiveNav = (navName, navValue) => {
         if (navName === "All") {
             setFilteredData(ProjectData);
             setActiveNav(1);
+            theme === "dark" && setFilteredData(filteredData.slice(0, 3));
         } else {
             const newData = ProjectData.filter((item) =>
-                item.tags.includes(navName)
+                item.projectCategory.includes(navName)
             );
             setActiveNav(navValue);
             setFilteredData(newData);
+            theme === "dark" && setFilteredData(filteredData.slice(0, 3));
         }
     };
 
@@ -159,60 +199,103 @@ const CaseStudies = ({ theme = "light" }) => {
                     {/*  */}
 
                     <Box mt="3rem">
-                        <SimpleGrid columns={["1", "2"]} spacing={["2rem"]}>
-                            {filteredData.map((item) => {
-                                const { title, des, projectLink, imgUrl } =
-                                    item;
-                                return (
-                                    <Box
-                                        key={item.title}
-                                        onClick={() => router.push(projectLink)}
-                                        cursor="pointer"
+                        {isLoading ? (
+                            <Skeleton h="400px" />
+                        ) : (
+                            <>
+                                {" "}
+                                {filteredData?.length < 1 ? (
+                                    <Flex
+                                        minH="40vh"
+                                        align="center"
+                                        justify="center"
                                     >
-                                        <Image
-                                            src={imgUrl}
-                                            alt="img"
-                                            w="100%"
-                                            // h="100%"
-                                            // maxH="37.4rem"
-                                            maxW="100%"
-                                            borderRadius={"2rem"}
-                                            objectFit={"cover"}
-                                        />
-                                        <Box mt={["2.5rem"]}>
-                                            <Text
-                                                fontSize={"2.25rem"}
-                                                fontWeight={700}
-                                                color={
-                                                    theme === "dark"
-                                                        ? "light_1"
-                                                        : "primary_10"
-                                                }
-                                            >
-                                                {title}
-                                            </Text>
-                                            <Text mt="1rem">{des}</Text>
-                                            {/* {theme === "dark" && ( */}
-                                            <Button
-                                                mt="2.5rem"
-                                                boxShadow={
-                                                    "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
-                                                }
-                                                bgColor="gray_1"
-                                                color="white"
-                                                _hover={{ opacity: 0.8 }}
-                                                _active={{}}
-                                                as="a"
-                                                href={projectLink}
-                                            >
-                                                Read Case Study
-                                            </Button>
-                                            {/* )} */}
-                                        </Box>
-                                    </Box>
-                                );
-                            })}
-                        </SimpleGrid>
+                                        <Text> Not available </Text>
+                                    </Flex>
+                                ) : (
+                                    <SimpleGrid
+                                        columns={["1", "2"]}
+                                        spacing={["2rem"]}
+                                    >
+                                        {filteredData.map((item) => {
+                                            return (
+                                                <Box
+                                                    key={item?._id}
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/case_study/${item?._id}`
+                                                        )
+                                                    }
+                                                    // h="100%"
+                                                    w="100%"
+                                                    cursor="pointer"
+                                                >
+                                                    <Box>
+                                                        <Image
+                                                            src={
+                                                                item?.coverPhoto
+                                                                    ?.imageUrl
+                                                            }
+                                                            alt="img"
+                                                            w="100%"
+                                                            // h="100%"
+                                                            // maxH={[
+                                                            //     "20rem",
+                                                            //     null,
+                                                            //     "30rem",
+                                                            //     "37.4rem",
+                                                            // ]}
+                                                            boxSize="37rem"
+                                                            maxW="100%"
+                                                            borderRadius={
+                                                                "2rem"
+                                                            }
+                                                            objectFit={"cover"}
+                                                        />
+                                                    </Box>
+                                                    <Box mt={["2.5rem"]}>
+                                                        <Text
+                                                            fontSize={"2.25rem"}
+                                                            fontWeight={700}
+                                                            color={
+                                                                theme === "dark"
+                                                                    ? "light_1"
+                                                                    : "primary_10"
+                                                            }
+                                                        >
+                                                            {item?.projectTitle}
+                                                        </Text>
+                                                        <Text mt="1rem">
+                                                            {
+                                                                item?.projectDescription
+                                                            }
+                                                        </Text>
+                                                        {/* {theme === "dark" && ( */}
+                                                        <Button
+                                                            mt="2.5rem"
+                                                            boxShadow={
+                                                                "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
+                                                            }
+                                                            bgColor="gray_1"
+                                                            color="white"
+                                                            _hover={{
+                                                                opacity: 0.8,
+                                                            }}
+                                                            _active={{}}
+                                                            as="a"
+                                                            href={`/case_study/${item?._id}`}
+                                                        >
+                                                            Read Case Study
+                                                        </Button>
+                                                        {/* )} */}
+                                                    </Box>
+                                                </Box>
+                                            );
+                                        })}
+                                    </SimpleGrid>
+                                )}
+                            </>
+                        )}
                     </Box>
                 </Box>
             </Container>

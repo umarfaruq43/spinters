@@ -7,7 +7,7 @@ import React from "react";
 import { endpointUrl } from "@/lib/data";
 
 const index = ({ blog }) => {
-
+    console.log(blog);
     return (
         <Layout>
             <Box>
@@ -19,22 +19,25 @@ const index = ({ blog }) => {
 
 export default index;
 
-// export async function getServerSideProps(context) {
-//     // Get blog ID from query params
-//     const blogId = context.query.index;
+export async function getServerSideProps(context) {
+    // Get blog ID from query params
+    const blogId = context?.query?.index;
+    // const { id } = context.params;
 
-//     // Fetch the specific blog using the ID
-//     const res = await fetch(`https://sprinters-api.onrender.com/v1/blog?blog_id=${blogId}`);
-//     const data = await res.json();
+    // Fetch the specific blog using the ID
+    const res = await fetch(
+        `https://sprinters-api.onrender.com/v1/blog?blog_id=${blogId}`
+    );
+    const data = await res.json();
 
-//     if (!data) {
-//         // Handle blog not found case
-//         return { notFound: true };
-//     }
+    if (!data) {
+        // Handle blog not found case
+        return { notFound: true };
+    }
 
-//     return {
-//         props: {
-//             blog: data,
-//         },
-//     };
-// }
+    return {
+        props: {
+            blog: data,
+        },
+    };
+}

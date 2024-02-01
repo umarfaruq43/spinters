@@ -11,7 +11,9 @@ const CaseStudy = () => {
     return (
         <Box>
             <Hero heroData={HeroData.caseStudy} type="caseStudy" />
-            <CaseStudies />
+            <Box>
+                <CaseStudies />
+            </Box>
             <ContactLabel />
             <Footer />
         </Box>
