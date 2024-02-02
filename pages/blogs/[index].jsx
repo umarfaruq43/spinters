@@ -10,9 +10,7 @@ const index = ({ blog }) => {
     console.log(blog);
     return (
         <Layout>
-            <Box>
-                <SingleBlog blogData={blog?.data} />
-            </Box>
+            <Box>{/* <SingleBlog blogData={blog?.data} /> */}</Box>
         </Layout>
     );
 };
