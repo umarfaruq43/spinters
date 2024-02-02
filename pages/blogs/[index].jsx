@@ -1,13 +1,16 @@
+import SingleBlog from "@/Components/Blogs/SingleBlog";
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
 const index = (props) => {
     const { blogData } = props;
-    console.log(blogData);
+
     return (
         <>
             {/* // <Layout> */}
-            <Box>{/* <SingleBlog blogData={blog?.data} /> */}</Box>
+            <Box>
+                <SingleBlog blogData={blogData?.data} />
+            </Box>
             {/* // </Layout> */}
         </>
     );
