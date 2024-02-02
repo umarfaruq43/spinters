@@ -66,7 +66,7 @@ Authorization: Bearer {{token}}
 GET {{api}}/blog
 
 ### Get blog by Id
-GET {{api}}/blog?blog_id=65b1af65815e81e648eadd4b
+GET {{api}}/blog?blog_id=65bab8988911596b534f6513
 
 ### delete Blog
 DELETE {{api}}/blog/65b132b4b29d880c58aae887

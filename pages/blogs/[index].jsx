@@ -9,9 +9,11 @@ import { endpointUrl } from "@/lib/data";
 const index = ({ blog }) => {
     console.log(blog);
     return (
-        <Layout>
+        <>
+            {/* // <Layout> */}
             <Box>{/* <SingleBlog blogData={blog?.data} /> */}</Box>
-        </Layout>
+            {/* // </Layout> */}
+        </>
     );
 };
 
@@ -35,7 +37,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            blog: data,
+            blogData: data,
         },
     };
 }

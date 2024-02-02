@@ -42,7 +42,12 @@ const CaseStudies = ({ theme = "light" }) => {
                 });
             } else {
                 setFilteredData(data?.data);
+
                 setProjectData(data?.data);
+
+                if (theme === "dark") {
+                    setFilteredData(data?.data?.slice(0, 4));
+                }
             }
         } catch (error) {
             console.error("Error sending data:", error);
@@ -53,21 +58,24 @@ const CaseStudies = ({ theme = "light" }) => {
 
     useEffect(() => {
         fetchProjects();
-        theme === "dark" && setFilteredData(filteredData.slice(0, 3));
     }, []);
 
     const handleActiveNav = (navName, navValue) => {
         if (navName === "All") {
             setFilteredData(ProjectData);
             setActiveNav(1);
-            theme === "dark" && setFilteredData(filteredData.slice(0, 3));
+            if (theme === "dark") {
+                setFilteredData(filteredData?.slice(0, 3));
+            }
         } else {
             const newData = ProjectData.filter((item) =>
                 item.projectCategory.includes(navName)
             );
             setActiveNav(navValue);
             setFilteredData(newData);
-            theme === "dark" && setFilteredData(filteredData.slice(0, 3));
+            if (theme === "dark") {
+                setFilteredData(filteredData?.slice(0, 3));
+            }
         }
     };
 
@@ -200,7 +208,14 @@ const CaseStudies = ({ theme = "light" }) => {
 
                     <Box mt="3rem">
                         {isLoading ? (
-                            <Skeleton h="400px" />
+                            <SimpleGrid
+                                columns={["1", "2", "3"]}
+                                spacing={["2rem"]}
+                            >
+                                <Skeleton h="400px" rounded="2rem" />
+                                <Skeleton h="400px" rounded="2rem" />
+                                <Skeleton h="400px" rounded="2rem" />
+                            </SimpleGrid>
                         ) : (
                             <>
                                 {" "}
