@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { endpointUrl } from "@/lib/data";
 
-const index = ({ blogData }) => {
+const index = (props) => {
+    const { blogData } = props;
     console.log(blogData);
     return (
         <>
