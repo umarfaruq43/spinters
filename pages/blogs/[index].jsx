@@ -1,10 +1,5 @@
-// import { getServerSideProps } from "next";
-import SingleBlog from "@/Components/Blogs/SingleBlog";
-import Layout from "@/Layout/Layout";
 import { Box } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import React from "react";
-import { endpointUrl } from "@/lib/data";
 
 const index = (props) => {
     const { blogData } = props;
@@ -23,7 +18,6 @@ export default index;
 export async function getServerSideProps(context) {
     // Get blog ID from query params
     const blogId = context?.query?.index;
-    // const { id } = context.params;
 
     // Fetch the specific blog using the ID
     const res = await fetch(
