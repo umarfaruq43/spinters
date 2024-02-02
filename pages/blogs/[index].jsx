@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { endpointUrl } from "@/lib/data";
 
-const index = ({ blog }) => {
-    console.log(blog);
+const index = ({ blogData }) => {
+    console.log(blogData);
     return (
         <>
             {/* // <Layout> */}
