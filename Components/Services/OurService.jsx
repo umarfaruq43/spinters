@@ -1,12 +1,4 @@
-import {
-    Box,
-    Button,
-    Flex,
-    Icon,
-    Image,
-    SimpleGrid,
-    Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,7 +7,6 @@ import CustomPagination from "../common/CustomPagination";
 import Container from "../common/Container";
 import { ServiceDetailData } from "@/lib/data";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
 
 const CustomArrow = ({ onClick, icon, ...props }) => (
     <Button

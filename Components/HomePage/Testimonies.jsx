@@ -1,12 +1,40 @@
 import { Box, Flex, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Container from "../common/Container";
 import { clientsData } from "@/lib/data";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import TestimoniesNav from "./TestimoniesNav";
 
 const Testimonies = () => {
     const [activeClient, setActiveClient] = useState(1);
     const [activeData, setActiveData] = useState(clientsData[0]);
     console.log(activeData);
+
+    const [activeSlide, setActiveSlide] = useState(3);
+    const sliderRef = useRef();
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        afterChange: (currentSlide) => setActiveSlide(currentSlide),
+        autoplay: false,
+        // autoplaySpeed: 100,
+        // speed: 1000,
+        pauseOnFocus: false,
+        pauseOnHover: true,
+        arrows: true,
+    };
+
+    const goToSlide = (slideIndex) => {
+        if (sliderRef.current) {
+            sliderRef.current.slickGoTo(slideIndex);
+            setActiveSlide(slideIndex);
+        }
+    };
 
     return (
         <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
@@ -31,7 +59,7 @@ const Testimonies = () => {
                             borderBottom={"1px"}
                             borderBottomColor={"rgba(189, 189, 189, 0.50)"}
                         >
-                            {clientsData?.map((item) => {
+                            {/* {clientsData?.map((item) => {
                                 return (
                                     <Flex
                                         key={item.activeNo}
@@ -79,7 +107,7 @@ const Testimonies = () => {
                                             <Box
                                                 w={
                                                     activeClient ===
-                                                        item.activeNo
+                                                    item.activeNo
                                                         ? "100%"
                                                         : "0%"
                                                 }
@@ -95,45 +123,66 @@ const Testimonies = () => {
                                         }
                                     </Flex>
                                 );
-                            })}
+                            })} */}
+
+                            <TestimoniesNav
+                                totalSlides={clientsData?.length}
+                                activeSlide={activeSlide}
+                                goToSlide={goToSlide}
+                            />
                         </Flex>
                     </Box>
                 </Box>
 
                 <Box mt="4.5rem">
-                    <Flex
-                        gap={["1rem", "2rem", "4.3rem"]}
-                        flexDir={["column", null, "row"]}
-                    >
-                        <Image
-                            w="100%"
-                            // src="/images/t_1.svg"
-                            src={activeData.imgUrl}
-                            alt="images"
-                            rounded="2rem"
-                            objectFit={"cover"}
-                            maxW={["24rem"]}
-                            maxH={["22.4rem"]}
-                            mx="auto"
-                        />
+                    <Slider ref={sliderRef} {...settings}>
+                        {clientsData.map((item) => {
+                            return (
+                                <Box key={item?.name}>
+                                    <Flex
+                                        gap={["1rem", "2rem", "4.3rem"]}
+                                        flexDir={["column", null, "row"]}
+                                    >
+                                        <Image
+                                            w="100%"
+                                            // src="/images/t_1.svg"
+                                            src={item.imgUrl}
+                                            alt="images"
+                                            rounded="2rem"
+                                            objectFit={"cover"}
+                                            maxW={["24rem"]}
+                                            maxH={["22.4rem"]}
+                                            mx="auto"
+                                        />
 
-                        <Flex
-                            align={"flex-start"}
-                            gap={["1rem", null, "2.4rem"]}
-                        >
-                            <Image
-                                src="/images/quote.svg"
-                                alt="qoutation mark"
-                                boxSize={["3rem", "5rem"]}
-                            />
-                            <Box maxW="36.8rem" fontSize={["1.2rem", "1.5rem"]}>
-                                <Text mt="1rem">{activeData?.comment}</Text>
+                                        <Flex
+                                            align={"flex-start"}
+                                            gap={["1rem", null, "2.4rem"]}
+                                        >
+                                            <Image
+                                                src="/images/quote.svg"
+                                                alt="qoutation mark"
+                                                boxSize={["3rem", "5rem"]}
+                                            />
+                                            <Box
+                                                maxW="36.8rem"
+                                                fontSize={["1.2rem", "1.5rem"]}
+                                            >
+                                                <Text mt="1rem">
+                                                    {item?.comment}
+                                                </Text>
 
-                                <Text mt="1rem">Best regards</Text>
-                                <Text>{activeData?.name}</Text>
-                            </Box>
-                        </Flex>
-                    </Flex>
+                                                <Text mt="1rem">
+                                                    Best regards
+                                                </Text>
+                                                <Text>{item?.name}</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Flex>
+                                </Box>
+                            );
+                        })}
+                    </Slider>
                 </Box>
             </Container>
         </Box>
