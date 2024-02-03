@@ -19,10 +19,10 @@ import { FaBars } from "react-icons/fa";
 
 const CustomArrow = ({ onClick, icon, ...props }) => (
     <Button
-        w="100%"
+        // w="100%"
         onClick={onClick}
         bg="transparent"
-        color="primary_10"
+        color="neutral_30"
         _hover={{ bg: "transparent", color: "primary_20" }}
         fontSize={["1rem", null, "1.5rem"]}
         cursor="pointer"
@@ -85,9 +85,7 @@ const OurService = () => {
                             mx="auto"
                             flexShrink={1}
                             w="100%"
-
                         >
-
                             {/* <CustomArrow icon={FaBars} /> */}
                             <Slider ref={sliderRef} {...settings}>
                                 {ServiceDetailData.map(
@@ -102,9 +100,18 @@ const OurService = () => {
                                     }) => {
                                         return (
                                             <Box key={title} px="1rem">
-                                                <CustomArrow icon={FaBars} />
-                                                <Box>
-
+                                                <Flex
+                                                    align="center"
+                                                    gap="0.9rem"
+                                                >
+                                                    <CustomArrow
+                                                        onClick={() =>
+                                                            goToSlide(
+                                                                activeSlide - 1
+                                                            )
+                                                        }
+                                                        icon={<FiArrowLeft />}
+                                                    />
                                                     <Flex
                                                         mt="1.5rem"
                                                         align="center"
@@ -133,7 +140,6 @@ const OurService = () => {
                                                                 mx="auto"
                                                             />
                                                         </Box>
-
                                                         <Box w="100%">
                                                             <Text
                                                                 fontSize={[
@@ -165,7 +171,7 @@ const OurService = () => {
                                                                 color={
                                                                     "light_5"
                                                                 }
-                                                            // textAlign={"center"}
+                                                                // textAlign={"center"}
                                                             >
                                                                 {des}
                                                             </Text>
@@ -180,13 +186,29 @@ const OurService = () => {
                                                                 color={
                                                                     "light_5"
                                                                 }
-                                                            // textAlign={"center"}
+                                                                // textAlign={"center"}
                                                             >
                                                                 {des2}
                                                             </Text>
                                                         </Box>
                                                     </Flex>
-                                                </Box>
+                                                    <CustomArrow
+                                                        onClick={() =>
+                                                            goToSlide(
+                                                                activeSlide + 1
+                                                            )
+                                                        }
+                                                        icon={<FiArrowRight />}
+                                                    />
+                                                </Flex>
+                                                <CustomArrow
+                                                    onClick={() =>
+                                                        goToSlide(
+                                                            activeSlide + 1
+                                                        )
+                                                    }
+                                                    icon={FiArrowRight}
+                                                />
                                             </Box>
                                         );
                                     }
