@@ -1,10 +1,54 @@
-import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import React from "react";
+import {
+    Box,
+    Button,
+    Flex,
+    SimpleGrid,
+    Skeleton,
+    Text,
+    useToast,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import BlogCard from "../common/BlogCard";
-import { blogData } from "@/lib/data";
+import { endpointUrl } from "@/lib/data";
 
 const Blogs = () => {
+    const toast = useToast();
+
+    const [blogData, setBlogData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function fetchBlogs() {
+        setIsLoading(true);
+        const url = `${endpointUrl}/blog`;
+
+        try {
+            const options = {
+                method: "GET",
+            };
+            const response = await fetch(url, options);
+            const data = await response.json(); // Parse the JSON response
+            console.log("data", data);
+            if (!response.ok) {
+                toast({
+                    title: data.message,
+                    status: "error",
+                    position: "top-left",
+                });
+            } else {
+                setBlogData(data?.data);
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
+
     return (
         <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
@@ -30,33 +74,72 @@ const Blogs = () => {
                         from skill development to business growth.
                     </Text>
                 </Box>
-                <Box mt={["2rem", "3rem"]}>
-                    <SimpleGrid columns={[1, 2, null, 3]} spacing="2rem">
-                        {blogData.map((item) => {
-                            return <BlogCard blogData={item} key={item.id} />;
-                        })}
-                    </SimpleGrid>
-                </Box>
+                <Box>
+                    <Box mt={["2rem", "3rem"]}>
+                        {isLoading ? (
+                            <Box>
+                                <SimpleGrid
+                                    columns={[1, 2, null, 3]}
+                                    spacing="2rem"
+                                >
+                                    <Skeleton height="25rem" rounded="2rem" />
+                                    <Skeleton height="25rem" rounded="2rem" />
+                                    <Skeleton height="25rem" rounded="2rem" />
+                                </SimpleGrid>
+                            </Box>
+                        ) : (
+                            <>
+                                {blogData.length < 1 ? (
+                                    <Flex
+                                        minH="300px"
+                                        align="center"
+                                        justify="center"
+                                    >
+                                        <Text>No data available 🥲</Text>
+                                    </Flex>
+                                ) : (
+                                    <>
+                                        <SimpleGrid
+                                            columns={[1, 2, null, 3]}
+                                            spacing="2rem"
+                                        >
+                                            {blogData
+                                                ?.slice(0, 3)
+                                                ?.map((item) => {
+                                                    return (
+                                                        <BlogCard
+                                                            blogData={item}
+                                                            key={item.id}
+                                                        />
+                                                    );
+                                                })}
+                                        </SimpleGrid>
 
-                {blogData.lenght > 3 && <Flex justify={"center"} mt="3rem"  >
-                    <Button
-                        color="primary_10"
-                        border="1px"
-                        borderColor="primary_10"
-                        rounded="0.5rem"
-                        h="auto"
-                        py="0.75rem"
-                        px="1.25rem"
-                        bgColor={"transparent"}
-                        _hover={{}}
-                        _focus={{}}
-                        _active={{}}
-                        as="a"
-                        href="/blogs"
-                    >
-                        See more
-                    </Button>
-                </Flex>}
+                                        <Flex justify={"center"} mt="3rem">
+                                            <Button
+                                                color="primary_10"
+                                                border="1px"
+                                                borderColor="primary_10"
+                                                rounded="0.5rem"
+                                                h="auto"
+                                                py="0.75rem"
+                                                px="1.25rem"
+                                                bgColor={"transparent"}
+                                                _hover={{}}
+                                                _focus={{}}
+                                                _active={{}}
+                                                as="a"
+                                                href="/blogs"
+                                            >
+                                                See All
+                                            </Button>
+                                        </Flex>
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </Box>
+                </Box>
             </Container>
         </Box>
     );

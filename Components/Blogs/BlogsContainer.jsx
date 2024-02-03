@@ -21,6 +21,8 @@ const BlogsContainer = () => {
     const [filterBlog, setFilterBlog] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [blogNo, setBlogNo] = useState(3);
+
     const handleChange = (e) => {
         setSearchQuery(e.target.value);
     };
@@ -111,7 +113,7 @@ const BlogsContainer = () => {
                             <Flex minH="40vh" align="center" justify={"center"}>
                                 <Text fontSize="2rem" fontWeight={"700"}>
                                     {" "}
-                                    Blog not available at the Moment 🥲{" "}
+                                    Blogs not available at the Moment 🥲{" "}
                                 </Text>
                             </Flex>
                         ) : (
@@ -119,7 +121,7 @@ const BlogsContainer = () => {
                                 columns={[1, 2, null, 3]}
                                 spacing="2rem"
                             >
-                                {filterBlog?.map((item) => {
+                                {filterBlog?.slice(0, blogNo)?.map((item) => {
                                     return (
                                         <BlogCard
                                             key={item.id}
@@ -135,7 +137,7 @@ const BlogsContainer = () => {
                 <Flex
                     justify={"center"}
                     mt="3rem"
-                    display={fetchedBlogs > 3 ? "flex" : "none"}
+                    display={filterBlog?.length > blogNo ? "flex" : "none"}
                 >
                     <Button
                         color="primary_10"
@@ -149,8 +151,15 @@ const BlogsContainer = () => {
                         _hover={{}}
                         _focus={{}}
                         _active={{}}
+                        onClick={() => {
+                            if (filterBlog?.length > blogNo) {
+                                setBlogNo(blogNo + 3);
+                            }
+                        }}
                     >
-                        Load more
+                        {filterBlog?.length > blogNo
+                            ? "Load more"
+                            : "End of blogs"}
                     </Button>
                 </Flex>
             </Container>

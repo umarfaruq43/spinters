@@ -87,7 +87,7 @@ const SidebarContent = ({ onClose, activeNav, ...rest }) => {
                 justifyContent="space-between"
             >
                 <Box as="a" href="/" pt="2rem">
-                    <Image src="/images/greenLogo.svg" alt="logo" />
+                    <Image src="/images/greenLogo.png" alt="logo" />
                 </Box>
                 <CloseButton
                     display={{ base: "flex", md: "none" }}
@@ -171,7 +171,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 color="white"
             />
 
-            <Image src="/images/greenLogo.svg" alt="logo" w="5rem" />
+            <Image src="/images/greenLogo.png" alt="logo" w="5rem" />
         </Flex>
     );
 };

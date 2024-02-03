@@ -30,8 +30,8 @@ const Navbar = ({ activeNav, theme }) => {
                     <Image
                         src={`${
                             theme === "dark"
-                                ? "/images/greenLogo.svg"
-                                : "/images/greenDarkLogo.svg"
+                                ? "/images/greenLogo.png"
+                                : "/images/greenDarkLogo.png"
                         }`}
                         alt="Spinters Logo"
                         w={["5rem", "6rem", "7rem"]}

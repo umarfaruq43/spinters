@@ -3,6 +3,7 @@ import React from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 
 const BlogCard = ({ blogData }) => {
+    console.log("blogData", blogData);
     return (
         <Box
             rounded="0.9375rem"
@@ -12,16 +13,19 @@ const BlogCard = ({ blogData }) => {
             pos="relative"
         >
             <Box>
-                <Image
-                    src={blogData?.image?.imageUrl}
-                    alt=""
-                    w="100%"
-                    minH="15rem"
-                    h="100%"
-                    rounded="0.4375rem"
-                    objectFit="cover"
-                    fallbackSrc="https://via.placeholder.com/150"
-                />
+                <Box>
+                    <Image
+                        src={blogData?.image?.imageUrl}
+                        alt=""
+                        w="100%"
+                        // minH="15rem"
+                        maxH="15rem"
+                        h="100%"
+                        rounded="0.4375rem"
+                        objectFit="cover"
+                        fallbackSrc="https://via.placeholder.com/150"
+                    />
+                </Box>
 
                 <Box pt="2rem">
                     <Text fontSize="0.875rem" fontWeight={600}>
