@@ -1,33 +1,37 @@
 import { clientsData } from "@/lib/data";
 import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 const CustomPagination = ({ totalSlides, activeSlide, goToSlide }) => {
-    const paginationItems = [];
+    const [activeNav, setActiveNav] = useState(0);
+    // const paginationItems = [];
 
-    for (let i = 0; i < totalSlides; i++) {
-        paginationItems.push(
-            <Box
-                key={i}
-                onClick={() => goToSlide(i)}
-                // width={activeSlide === i ? "25px" : "15px"}
-                boxSize="1rem"
-                borderRadius={activeSlide === i ? "100px" : "50%"}
-                background={activeSlide === i ? "primary_10" : "#f1f1f1"}
-                cursor="pointer"
-                transition={"ease-in-out"}
-                transitionDuration={".6s"}
-            ></Box>
-        );
-    }
+    // for (let i = 0; i < totalSlides; i++) {
+    //     paginationItems.push(
+    //         <Box
+    //             key={i}
+    //             onClick={() => goToSlide(i)}
+    //             // width={activeSlide === i ? "25px" : "15px"}
+    //             boxSize="1rem"
+    //             borderRadius={activeSlide === i ? "100px" : "50%"}
+    //             background={activeSlide === i ? "primary_10" : "#f1f1f1"}
+    //             cursor="pointer"
+    //             transition={"ease-in-out"}
+    //             transitionDuration={".6s"}
+    //         ></Box>
+    //     );
+    // }
 
     return (
         <>
-            {clientsData.map((item, i) => {
+            {clientsData.map((item) => {
                 return (
                     <Flex
-                        key={i}
-                        onClick={() => goToSlide(i)}
+                        key={item.id}
+                        onClick={() => {
+                            setActiveNav(item.id);
+                            goToSlide(item.id);
+                        }}
                         transition={"ease-in-out"}
                         transitionDuration={".6s"}
                         // key={item.activeNo}
@@ -66,13 +70,13 @@ const CustomPagination = ({ totalSlides, activeSlide, goToSlide }) => {
                         </Stack>
                         {
                             <Box
-                                w={activeSlide === i ? "100%" : "0%"}
+                                w={activeNav === item.id ? "100%" : "0%"}
                                 h="0.25rem"
                                 bgColor="primary_10"
                                 pos="absolute"
                                 bottom="0"
                                 borderRadius={"0.1875rem 0.1875rem 0rem 0rem"}
-                                // className="indicator"
+                                className="indicator"
                             />
                         }
                     </Flex>

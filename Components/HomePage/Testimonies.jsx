@@ -8,9 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import TestimoniesNav from "./TestimoniesNav";
 
 const Testimonies = () => {
-    const [activeClient, setActiveClient] = useState(1);
-    const [activeData, setActiveData] = useState(clientsData[0]);
-    console.log(activeData);
+    // const [activeClient, setActiveClient] = useState(1);
+    // const [activeData, setActiveData] = useState(clientsData[0]);
 
     const [activeSlide, setActiveSlide] = useState(3);
     const sliderRef = useRef();
