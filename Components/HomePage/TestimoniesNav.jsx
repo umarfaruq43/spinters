@@ -1,9 +1,12 @@
 import { clientsData } from "@/lib/data";
 import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const CustomPagination = ({ totalSlides, activeSlide, goToSlide }) => {
     const [activeNav, setActiveNav] = useState(0);
+    useEffect(() => {
+        setActiveNav(activeSlide);
+    }, [activeSlide]);
     // const paginationItems = [];
 
     // for (let i = 0; i < totalSlides; i++) {

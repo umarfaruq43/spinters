@@ -20,11 +20,11 @@ const Testimonies = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         afterChange: (currentSlide) => setActiveSlide(currentSlide),
-        autoplay: false,
-        // autoplaySpeed: 100,
+        autoplay: true,
+        autoplaySpeed: 3000,
         // speed: 1000,
         pauseOnFocus: false,
-        pauseOnHover: true,
+        pauseOnHover: false,
         arrows: true,
     };
 
