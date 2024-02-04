@@ -38,7 +38,7 @@ const Testimonies = () => {
     return (
         <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
             <Container>
-                <Box>
+                <Box data-aos="fade-down">
                     <Text
                         fontSize={["2rem", null, "3rem"]}
                         fontWeight="700"

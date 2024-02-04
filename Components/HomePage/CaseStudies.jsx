@@ -96,7 +96,7 @@ const CaseStudies = ({ theme = "light" }) => {
             <Container>
                 <Box color={theme === "dark" ? "white" : "dark_2"}>
                     {theme === "dark" && (
-                        <Box>
+                        <Box data-aos="fade-down">
                             <Text
                                 fontSize={["2rem", null, "3rem"]}
                                 fontWeight="700"
@@ -236,16 +236,15 @@ const CaseStudies = ({ theme = "light" }) => {
                                             return (
                                                 <Box
                                                     key={item?._id}
-                                                    onClick={() =>
-                                                        router.push(
-                                                            `/case_study/${item?._id}`
-                                                        )
-                                                    }
                                                     // h="100%"
                                                     w="100%"
                                                     cursor="pointer"
                                                 >
-                                                    <Box>
+                                                    <Box
+                                                        pos="relative"
+                                                        borderRadius={"2rem"}
+                                                        overflow={"hidden"}
+                                                    >
                                                         <Image
                                                             src={
                                                                 item?.coverPhoto
@@ -267,6 +266,20 @@ const CaseStudies = ({ theme = "light" }) => {
                                                             }
                                                             objectFit={"cover"}
                                                         />
+
+                                                        <Box
+                                                            pos="absolute"
+                                                            top="0"
+                                                            left="0"
+                                                            bottom="0"
+                                                            right="0"
+                                                            _hover={{
+                                                                bgColor:
+                                                                    "rgba(0,0,0,0.7)",
+                                                            }}
+                                                            as={"a"}
+                                                            href={`/case_study/${item?._id}`}
+                                                        ></Box>
                                                     </Box>
                                                     <Box mt={["2.5rem"]}>
                                                         <Text
@@ -294,7 +307,8 @@ const CaseStudies = ({ theme = "light" }) => {
                                                             bgColor="gray_1"
                                                             color="white"
                                                             _hover={{
-                                                                opacity: 0.8,
+                                                                bgColor:
+                                                                    "primary_10",
                                                             }}
                                                             _active={{}}
                                                             as="a"

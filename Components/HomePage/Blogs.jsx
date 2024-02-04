@@ -57,6 +57,7 @@ const Blogs = () => {
                         fontSize={["2rem", null, "3rem"]}
                         fontWeight="700"
                         textAlign={"center"}
+                        data-aos="fade-down"
                     >
                         <Text as="span" color="primary_10">
                             Our Blog

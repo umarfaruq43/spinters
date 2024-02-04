@@ -7,7 +7,7 @@ const Hero = ({ heroData, type = "normal" }) => {
     return (
         <Box bgColor={heroData?.theme === "dark" ? "dark_2" : "light_1"}>
             <Container>
-                <Box py={["2rem", "3rem", "4rem"]}>
+                <Box py={["2rem", "3rem", "4rem"]} data-aos="slide-down">
                     <Navbar
                         activeNav={heroData?.activeNav}
                         theme={heroData?.theme}
@@ -28,7 +28,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                             maxW="70rem"
                             mx="auto"
                             textAlign={"center"}
-                        // lineHeight={"5.625rem"}
+                            // lineHeight={"5.625rem"}
                         >
                             {/* <Text>Welcome to Sprinters,</Text> */}
                             {type === "normal" && (
@@ -41,21 +41,24 @@ const Hero = ({ heroData, type = "normal" }) => {
                                 </Text>
                             )}
 
-                            {type === "caseStudy" && <Text letterSpacing={"-0.09rem"}>
-                                <Text as="i" color="primary_10">
-                                    {heroData?.projectTitle}{" "}
+                            {type === "caseStudy" && (
+                                <Text letterSpacing={"-0.09rem"}>
+                                    <Text as="i" color="primary_10">
+                                        {heroData?.projectTitle}{" "}
+                                    </Text>
+                                    - {heroData?.projectSubTitle}
                                 </Text>
-                                - {heroData?.projectSubTitle}
-                            </Text>}
+                            )}
 
-                            {type === "homePage" && <Text letterSpacing={"-0.09rem"}>
-
-                                Welcome to Sprinters,  <br />   Your
-                                <Text as="i" color="primary_10">
-                                    Tech Solutions {" "}
+                            {type === "homePage" && (
+                                <Text letterSpacing={"-0.09rem"}>
+                                    Welcome to Sprinters, <br /> Your
+                                    <Text as="i" color="primary_10">
+                                        Tech Solutions{" "}
+                                    </Text>
+                                    Partner
                                 </Text>
-                                Partner
-                            </Text>}
+                            )}
                         </Box>
 
                         <Text

@@ -85,26 +85,28 @@ const NewsLetter = ({ data }) => {
                 px={["2rem"]}
             >
                 <Box maxW="48rem" mx="auto">
-                    <Text
-                        fontSize={["2rem", null, "3rem"]}
-                        fontWeight="700"
-                        color={"white"}
-                        textAlign={"center"}
-                    >
-                        <Text as="span" color="dark_2">
-                            Sign up for our newsletter
+                    <Box data-aos="fade-down">
+                        <Text
+                            fontSize={["2rem", null, "3rem"]}
+                            fontWeight="700"
+                            color={"white"}
+                            textAlign={"center"}
+                        >
+                            <Text as="span" color="dark_2">
+                                Sign up for our newsletter
+                            </Text>
                         </Text>
-                    </Text>
 
-                    <Text
-                        mt="1.2rem"
-                        fontSize="1.125rem"
-                        textAlign="center"
-                        color="dark_1"
-                    >
-                        Be the first to know about releases and industry news
-                        and insights.
-                    </Text>
+                        <Text
+                            mt="1.2rem"
+                            fontSize="1.125rem"
+                            textAlign="center"
+                            color="dark_1"
+                        >
+                            Be the first to know about releases and industry
+                            news and insights.
+                        </Text>
+                    </Box>
                     <form onSubmit={handleSubmit}>
                         <Flex
                             gap="1rem"

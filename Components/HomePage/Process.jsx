@@ -11,6 +11,7 @@ const Process = ({ bg }) => {
                         fontSize={["2rem", null, "3rem"]}
                         fontWeight="700"
                         textAlign={"center"}
+                        data-aos="fade-up"
                     >
                         Our seamless{" "}
                         <Text as="i" color="primary_10">
@@ -19,6 +20,7 @@ const Process = ({ bg }) => {
                     </Text>
 
                     <Text
+                        data-aos="fade-up"
                         mt="1.5rem"
                         color="dark_1"
                         maxW="63.5rem"

@@ -6,7 +6,7 @@ const WhyChooseUs = () => {
     return (
         <Box py={["4rem", "5rem", "6rem"]} bgColor="primary_30">
             <Container>
-                <Box>
+                <Box data-aos="fade-up">
                     <Text
                         fontSize={["2rem", null, "3rem"]}
                         fontWeight="700"

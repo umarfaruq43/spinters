@@ -50,7 +50,7 @@ const Service = () => {
     return (
         <Box pb={["4rem", "5rem", "6rem"]}>
             <Container>
-                <Box>
+                <Box data-aos="fade-down">
                     <Text
                         fontSize={["2rem", null, "3rem"]}
                         fontWeight="700"
@@ -137,10 +137,18 @@ const Service = () => {
                                             h="auto"
                                             px="1.75rem"
                                             fontSize={"1rem"}
-                                            bgColor={"primary_20"}
-                                            color="white"
+                                            bgColor={"transparent"}
+                                            // bgColor={"primary_20"}
+                                            // color="white"
+
+                                            color="primary_20"
+                                            border={"1px"}
+                                            borderColor="primary_20"
                                             _focus={{}}
-                                            _hover={{ opacity: "0.9" }}
+                                            _hover={{
+                                                bgColor: "primary_20",
+                                                color: "white",
+                                            }}
                                             _active={{ opacity: "0.8" }}
                                             rounded="0.5rem"
                                             as="a"

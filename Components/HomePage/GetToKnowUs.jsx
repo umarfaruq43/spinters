@@ -11,10 +11,10 @@ const GetToKnowUs = () => {
                     flexDir={["column", null, "row"]}
                     gap={["2rem", null, "3rem", null, "8rem"]}
                 >
-                    <Box w={["100%"]}>
+                    <Box w={["100%"]} data-aos="slide-right">
                         <Image src="/images/about.png" alt="about us Image" />
                     </Box>
-                    <Stack w={["100%"]} spacing="1.5rem">
+                    <Stack w={["100%"]} spacing="1.5rem" data-aos="slide-left">
                         <Text
                             fontSize={["2rem", null, "3rem"]}
                             fontWeight="700"
