@@ -76,7 +76,7 @@ const Navbar = ({ activeNav, theme }) => {
                             color="white"
                             px="1.25rem"
                             display={"block"}
-                            _hover={{}}
+                            _hover={{ bgColor: "primary_20" }}
                             _focus={{}}
                             _active={{}}
                             fontSize={[""]}

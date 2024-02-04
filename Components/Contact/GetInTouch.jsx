@@ -5,7 +5,7 @@ import ContactForm from "./ContactForm";
 
 const GetInTouch = () => {
     return (
-        <Box bgColor="light_7">
+        <Box bgColor="light_7" id="form">
             <Box py={["4rem", "5rem", "7rem"]}>
                 <Container>
                     <Flex

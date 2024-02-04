@@ -112,7 +112,12 @@ const Faq = ({ theme = "dark", homePage }) => {
                                                         </AccordionButton>
                                                     </h2>
                                                     <AccordionPanel color="neutral_30">
-                                                        {ans}
+                                                        {/* {ans} */}
+                                                        <p
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: ans,
+                                                            }}
+                                                        />
                                                     </AccordionPanel>
                                                 </>
                                             )}
