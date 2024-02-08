@@ -232,10 +232,11 @@ const Policies = () => {
                             personal information by contacting us at{" "}
                             <Text
                                 as="a"
-                                href="mailto:sprinters.techagency@gmail.com"
+                                href="mailto:info@sprinterstechnologies.com"
                                 fontWeight="700"
+                                color="primary_20"
                             >
-                                sprinters.techagency@gmail.com
+                                info@sprinterstechnologies.com
                             </Text>
                             .
                         </Text>
@@ -273,10 +274,11 @@ const Policies = () => {
                             contact us at{" "}
                             <Text
                                 as="a"
-                                href="mailto:sprinters.techagency@gmail.com"
+                                href="mailto:info@sprinterstechnologies.com"
                                 fontWeight="700"
+                                color="primary_20"
                             >
-                                sprinters.techagency@gmail.com
+                                info@sprinterstechnologies.com
                             </Text>
                             .
                         </Text>

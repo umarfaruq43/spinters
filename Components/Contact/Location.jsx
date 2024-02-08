@@ -28,12 +28,12 @@ const Location = () => {
                         </Text>{" "}
                         <Text
                             as="a"
-                            href="mailto:sprinters.techagency@gmail.com"
+                            href="mailto:info@sprinterstechnologies.com"
                             fontSize={["1rem", null, "1.5rem"]}
                             color="dark_1"
                             fontWeight={"500"}
                         >
-                            sprinters.techagency@gmail.com
+                            info@sprinterstechnologies.com
                         </Text>{" "}
                         <Text
                             as="a"

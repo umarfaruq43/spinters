@@ -198,7 +198,13 @@ const Terms = () => {
                         </Text>
                         <UnorderedList spacing={".5rem"} mt="1rem">
                             <ListItem>
-                                Email: sprinters.techagency@gmail.com
+                                Email:{" "}
+                                <Link
+                                    href="mailto:info@sprinterstechnologies.com"
+                                    color={"primary_20"}
+                                >
+                                    info@sprinterstechnologies.com
+                                </Link>
                             </ListItem>
                             <ListItem>
                                 Address: 54, Moleye Street, Alagomeji, Yaba,
