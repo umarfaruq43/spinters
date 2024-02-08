@@ -36,7 +36,7 @@ const Process = ({ bg }) => {
                         what’s possible in the digital world.
                     </Text>
                 </Box>
-                <Box mt={["2rem", "4.5rem"]} data-aos="zoom-out-up">
+                <Box mt={["2rem", "4.5rem"]} data-aos="zoom-out-right">
                     <Image src="/images/process.svg" alt="process image" />
                 </Box>
             </Container>
