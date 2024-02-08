@@ -24,42 +24,47 @@ const ContactLabel = ({ data }) => {
                     rounded={"0.9375rem"}
                     py={["3.19rem", null, "5rem"]}
                     px={["2rem"]}
+                    data-aos="flip-up"
                 >
                     <Box maxW="37.2rem" mx="auto">
-                        <Text
-                            fontSize={["2rem", null, "3rem"]}
-                            fontWeight="700"
-                            color={"white"}
-                            textAlign={"center"}
+                        <Box
+                        // data-aos="zoom-in"
                         >
-                            {data === "faq"
-                                ? "Still have"
-                                : "Want to Build Something"}{" "}
-                            <Text as="span" color="primary_10">
-                                {data === "faq" ? "Questions?" : ""}{" "}
-                            </Text>
-                        </Text>
-                        {data !== "faq" && (
                             <Text
                                 fontSize={["2rem", null, "3rem"]}
                                 fontWeight="700"
+                                color={"white"}
                                 textAlign={"center"}
-                                color="primary_10"
                             >
-                                <i>Great Together? </i>
+                                {data === "faq"
+                                    ? "Still have"
+                                    : "Want to Build Something"}{" "}
+                                <Text as="span" color="primary_10">
+                                    {data === "faq" ? "Questions?" : ""}{" "}
+                                </Text>
                             </Text>
-                        )}
+                            {data !== "faq" && (
+                                <Text
+                                    fontSize={["2rem", null, "3rem"]}
+                                    fontWeight="700"
+                                    textAlign={"center"}
+                                    color="primary_10"
+                                >
+                                    <i>Great Together? </i>
+                                </Text>
+                            )}
 
-                        {data === "faq" && (
-                            <Text
-                                color="light_1"
-                                fontSize="1.125rem"
-                                textAlign="center"
-                            >
-                                Can’t find the answer you’re looking for? Please
-                                contact our friendly team.
-                            </Text>
-                        )}
+                            {data === "faq" && (
+                                <Text
+                                    color="light_1"
+                                    fontSize="1.125rem"
+                                    textAlign="center"
+                                >
+                                    Can’t find the answer you’re looking for?
+                                    Please contact our friendly team.
+                                </Text>
+                            )}
+                        </Box>
 
                         <Button
                             mt={["1.81rem", null, "2.81rem"]}
