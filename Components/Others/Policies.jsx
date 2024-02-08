@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Link, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Hero from "../HomePage/Hero";
 
@@ -23,18 +23,28 @@ const Policies = () => {
                     <Wapper title={"1. Introduction"}>
                         <Box>
                             <Text>
-                                {`This Privacy Policy (the "Policy") describes how
-                            Sprinters Technologies ("Company", "we", "us", or
-                            "our") collects, uses, and discloses your personal
-                            information when you visit or use our website, (the "Website"). It
-                            alsodescribes the categories of information we
-                            collect, and our processes and policiesregarding the
-                            use and protection of that information. We collect
-                            information to provide our services, which include
-                            creation and maintenance of technological
-                            applications and softwares, and to perform other
-                            functions related to those services (collectively,
-                            the“Services”).`}
+                                This Privacy Policy {`(the "Policy")`} describes
+                                how Sprinters Technologies{" "}
+                                {`("Company", "we", "us", or
+                            "our")`}{" "}
+                                collects, uses, and discloses your personal
+                                information when you visit or use our website,{" "}
+                                <Link
+                                    href="https://sprinterstechnologies.com/"
+                                    color="primary_20"
+                                >
+                                    {" "}
+                                    www.sprinterstechnologies.com
+                                </Link>
+                                . It alsodescribes the categories of information
+                                we collect, and our processes and
+                                policiesregarding the use and protection of that
+                                information. We collect information to provide
+                                our services, which include creation and
+                                maintenance of technological applications and
+                                softwares, and to perform other functions
+                                related to those services (collectively,
+                                the“Services”).
                             </Text>
                             <Text>
                                 We respect the privacy of the information that

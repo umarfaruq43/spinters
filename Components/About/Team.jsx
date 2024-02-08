@@ -35,7 +35,7 @@ const Team = () => {
                     </Box>
                     <Box mt="4rem">
                         <SimpleGrid
-                            columns={[2, 3]}
+                            columns={[2, 4]}
                             spacing={["1rem", "2rem", "3rem", "4rem"]}
                         >
                             {teamData.map(({ name, role, img }) => {
@@ -46,7 +46,7 @@ const Team = () => {
                                         key={name}
                                     >
                                         <Image
-                                            src="/images/t_1.svg"
+                                            src={img}
                                             alt="t1"
                                             boxSize="5rem"
                                             rounded={"full"}

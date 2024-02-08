@@ -1,4 +1,11 @@
-import { Box, ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
+import {
+    Box,
+    Link,
+    ListItem,
+    Stack,
+    Text,
+    UnorderedList,
+} from "@chakra-ui/react";
 import React from "react";
 import Hero from "../HomePage/Hero";
 
@@ -22,9 +29,17 @@ const Terms = () => {
                     <Wapper title={"1. Acceptance of Terms"}>
                         <Text>
                             By accessing or using the Sprinters Technologies
-                            website (the {"Website"}), you agree to comply with
-                            and be bound by these Terms of Use. If you do not
-                            agree to these terms, please do not use the website.
+                            website{" "}
+                            <Link
+                                href="https://sprinterstechnologies.com/"
+                                color="primary_20"
+                            >
+                                {" "}
+                                www.sprinterstechnologies.com
+                            </Link>
+                            , you agree to comply with and be bound by these
+                            Terms of Use. If you do not agree to these terms,
+                            please do not use the website.
                         </Text>
                     </Wapper>
 
