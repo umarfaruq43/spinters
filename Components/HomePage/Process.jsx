@@ -37,7 +37,11 @@ const Process = ({ bg }) => {
                     </Text>
                 </Box>
                 <Box mt={["2rem", "4.5rem"]}>
-                    <Image src="/images/process.svg" alt="process image" />
+                    <Image
+                        src="/images/process.svg"
+                        alt="process image"
+                        data-aos="flip-up"
+                    />
                 </Box>
             </Container>
         </Box>
