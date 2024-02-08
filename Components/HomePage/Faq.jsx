@@ -70,6 +70,7 @@ const Faq = ({ theme = "dark", homePage }) => {
                                                 borderTopColor: "light_3",
                                             }}
                                             pb={["1rem", null]}
+                                            data-aos="fade-up"
                                         >
                                             {({ isExpanded }) => (
                                                 <>
