@@ -1,12 +1,4 @@
-import {
-    Box,
-    Button,
-    Flex,
-    Image,
-    SimpleGrid,
-    Stack,
-    Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "../common/Container";
 

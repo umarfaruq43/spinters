@@ -5,7 +5,6 @@ import {
     AccordionItem,
     AccordionButton,
     AccordionPanel,
-    AccordionIcon,
     Icon,
     Stack,
 } from "@chakra-ui/react";
@@ -113,7 +112,6 @@ const Faq = ({ theme = "dark", homePage }) => {
                                                         </AccordionButton>
                                                     </h2>
                                                     <AccordionPanel color="neutral_30">
-                                                        {/* {ans} */}
                                                         <p
                                                             dangerouslySetInnerHTML={{
                                                                 __html: ans,
