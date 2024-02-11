@@ -66,13 +66,6 @@ const BlogCard = ({ blogData }) => {
                         pos="absolute"
                         bottom="2rem"
                     >
-                        <Image
-                            src="/images/t_1.svg"
-                            alt="Blog author"
-                            boxSize="2.5rem"
-                            rounded="full"
-                            objectFit="cover"
-                        />
                         <Box>
                             <Text fontWeight={"600"} fontSize={"0.875rem"}>
                                 {blogData?.authorName}

@@ -16,7 +16,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                         mt={["3rem", "4rem", "5rem", "6rem"]}
                         bgColor={""}
                         spacing="1.5rem"
-                        maxW="70rem"
+                        // maxW="70rem"
                         mx="auto"
                     >
                         <Box
@@ -49,17 +49,28 @@ const Hero = ({ heroData, type = "normal" }) => {
                                     - {heroData?.projectSubTitle}
                                 </Text>
                             )}
-
-                            {type === "homePage" && (
-                                <Text letterSpacing={"-0.09rem"}>
-                                    Welcome to Sprinters, <br /> Your
-                                    <Text as="i" color="primary_10">
-                                        Tech Solutions{" "}
-                                    </Text>
-                                    Partner
-                                </Text>
-                            )}
                         </Box>
+                        {type === "homePage" && (
+                            <Text
+                                letterSpacing={"-0.09rem"}
+                                fontSize={["2rem", "3rem", "4.5rem"]}
+                                color={
+                                    heroData?.theme === "dark"
+                                        ? "white"
+                                        : "dark_2"
+                                }
+                                fontWeight={"700"}
+                                // maxW="70rem"
+                                mx="auto"
+                                textAlign={"center"}
+                            >
+                                Welcome to Sprinters, Technologies <br /> Your
+                                <Text as="i" color="primary_10">
+                                    Tech Solutions{" "}
+                                </Text>
+                                Partner
+                            </Text>
+                        )}
 
                         <Text
                             color={
@@ -71,7 +82,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                             fontSize={["", "", "1.125rem"]}
                             opacity="0.85"
                             pb="1rem"
-                            maxW="50.5rem"
+                            maxW={type === "homePage" ? "78rem" : "50.5rem"}
                             mx="auto"
                         >
                             {heroData?.des}

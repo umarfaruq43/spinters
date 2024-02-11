@@ -46,7 +46,7 @@ const Terms = () => {
                     <Wapper title="2. Use of the Website">
                         <Text>
                             By accessing and using this website, you agree to
-                            comply with and be bound by theseTerms of Use. You
+                            comply with and be bound by these Terms of Use. You
                             agree to use the website only for lawful purposes
                             and in a manner consistent with all applicable laws
                             and regulations. Sprinters Technologies reserves the

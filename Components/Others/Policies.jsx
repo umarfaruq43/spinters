@@ -36,11 +36,11 @@ const Policies = () => {
                                     {" "}
                                     www.sprinterstechnologies.com
                                 </Link>
-                                . It alsodescribes the categories of information
-                                we collect, and our processes and
-                                policiesregarding the use and protection of that
-                                information. We collect information to provide
-                                our services, which include creation and
+                                . It also describes the categories of
+                                information we collect, and our processes and
+                                policies regarding the use and protection of
+                                that information. We collect information to
+                                provide our services, which include creation and
                                 maintenance of technological applications and
                                 softwares, and to perform other functions
                                 related to those services (collectively,

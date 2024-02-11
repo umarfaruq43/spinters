@@ -27,12 +27,13 @@ const WhyChooseUs = () => {
                         mx="auto"
                         textAlign={"center"}
                     >
-                        At Sprinters Technologies, we are more than just a
-                        technology agency. With our team of design thinkers,
-                        software engineers, data analysts, and full-stack
-                        developers, we collaborate with you to get to know your
-                        business and bring your big ideas to life, pushing the
-                        boundaries of what’s possible in the digital world
+                        {` At Sprinters Technologies, we don't just build websites,
+                        apps, or data systems; we build relationships. We are
+                        committed to your success. Whether you are a startup
+                        with big ambitions or an established enterprise seeking
+                        a technology partner, we're here to support you every
+                        step of the way. We work tirelessly to deliver on our
+                        promises and exceed your expectations.`}
                     </Text>
                 </Box>
                 <Box mt="4.5rem">

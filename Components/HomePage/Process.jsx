@@ -28,12 +28,12 @@ const Process = ({ bg }) => {
                         mx="auto"
                         textAlign={"center"}
                     >
-                        At Sprinters Agency, we are more than just a technology
-                        agency. With our team of design thinkers, software
-                        engineers, data analysts, and full-stack developers, we
-                        collaborate with you to get to know your business and
-                        bring your big ideas to life, pushing the boundaries of
-                        what’s possible in the digital world.
+                        At Sprinters Technologies, we are more than just a
+                        technology agency. With our team of design thinkers,
+                        software engineers, data analysts, and full-stack
+                        developers, we collaborate with you to get to know your
+                        business and bring your big ideas to life, pushing the
+                        boundaries of what’s possible in the digital world.
                     </Text>
                 </Box>
                 <Box mt={["2rem", "4.5rem"]} data-aos="zoom-out-right">

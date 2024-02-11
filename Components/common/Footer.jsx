@@ -38,7 +38,9 @@ const Footer = () => {
                                 <Socials />
                             </Box>
                             <Box>
-                                <Text>© Copyright 2024 Sprinters Agency</Text>
+                                <Text>
+                                    © Copyright 2024 Sprinters Technologies
+                                </Text>
                             </Box>
                         </Stack>
 

@@ -71,8 +71,8 @@ const Service = () => {
                         color="dark_1"
                         fontSize={"1.125rem"}
                     >
-                        Discover Our Tech Services at Sprinters Agency! – We’ve
-                        Got You Covered!
+                        Discover Our Tech Services at Sprinters Technologies! –
+                        We’ve Got You Covered!
                     </Text>
                 </Box>
 
