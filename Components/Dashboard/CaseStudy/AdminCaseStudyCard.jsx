@@ -27,7 +27,8 @@ const AdminCaseStudyCard = ({
     const toast = useToast();
     const deleteProject = async (projectId) => {
         setIsDeleting(true);
-        const url = `${endpointUrl}/case-study/${projectId}`;
+        const url = `${endpointUrl}/case-study?caseStudyId=${projectId}&imageId=sprinters/${caseStudyData?.image?.imageId}`;
+        // const url = `${endpointUrl}/case-study/${projectId}`;
 
         try {
             const options = {

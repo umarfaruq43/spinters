@@ -21,11 +21,11 @@ import { bearerToken, endpointUrl } from "@/lib/data";
 const AdminBlogCard = ({ blogData, fetchBlogs }) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const toast = useToast();
-
+    console.log(blogData);
     const deleteBlog = async (blogId) => {
         setIsDeleting(true);
-        const url = `${endpointUrl}/blog/${blogId}`;
-
+        const url = `${endpointUrl}/blog?blogId=${blogId}&imagId=${blogData?.image?.imageId}`;
+        console.log(url);
         try {
             const options = {
                 method: "DELETE",

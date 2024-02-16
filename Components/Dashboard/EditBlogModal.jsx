@@ -31,24 +31,25 @@ import CustomInput from "../common/CutomInputs";
 import { bearerToken, endpointUrl } from "@/lib/data";
 
 const EditBlogModal = ({ blogData, fetchBlogs }) => {
-    console.log(blogData);
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLoading, setIsLoading] = useState(false);
     const [contents, setContents] = useState(blogData?.content || "");
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
-    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(blogData?.image);
+
     const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
-    const [image, setImage] = useState(blogData?.imageUrl || null);
     const fileInputRef = useRef(null);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
 
         if (file && allowedTypes.includes(file.type)) {
-            upLoadImage(file);
+            const preview = URL.createObjectURL(file);
+            setUploadedImage(file);
+            setPreviewUrl(preview);
         } else {
             toast({
                 title: "Invalid Image",
@@ -61,6 +62,7 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
 
     const handleRemoveImage = () => {
         setUploadedImage(null);
+        setPreviewUrl(null);
     };
 
     const handleUploadIconClick = () => {
@@ -73,43 +75,6 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
     const tagsToString = blogData?.tags?.join(", "); // Join elements with a space as a separator
 
     // ****************** edit IMAGE
-    async function upLoadImage(file) {
-        setIsLoadingImage(true);
-        const url = `${endpointUrl}/blog/upload/image`;
-        const payload = new FormData();
-        payload.append("blogImage", file);
-
-        try {
-            const options = {
-                method: "POST",
-                body: payload,
-                headers: {
-                    Authorization: `Bearer ${bearerToken}`,
-                },
-            };
-            const response = await fetch(url, options);
-            const data = await response.json();
-            console.log(data);
-            if (!response.ok) {
-                toast({
-                    title: data.message,
-                    status: "error",
-                    position: "top-left",
-                });
-            } else {
-                toast({
-                    title: data.message,
-                    status: "success",
-                    position: "top-left",
-                });
-                setUploadedImage(data?.data);
-            }
-        } catch (error) {
-            console.error("Error sending data:", error);
-        } finally {
-            setIsLoadingImage(false);
-        }
-    }
 
     // ****************** edit Blog
 
@@ -117,27 +82,26 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
         setIsLoading(true);
 
         let formatedBlogTags = values?.blogTags?.split(",");
-        const payload = {
-            title: values?.blogTitle,
-            description: values?.blogDes,
-            tags: formatedBlogTags,
-            content: values?.blogContent,
-            image: {
-                imageId: "sprinters/b4129df28e55301c",
-                imageUrl:
-                    "https://res.cloudinary.com/dprg3f2vd/image/upload/v1706013508/sprinters/b4129df28e55301c.jpg",
-            },
-        };
-        console.log(payload);
 
-        const url = `${endpointUrl}/blog/update/${blogData._id}`;
+        const payload = new FormData();
+        payload.append("title", values?.blogTitle);
+        payload.append("description", values?.blogDes);
+        formatedBlogTags?.forEach((tag, index) => {
+            payload.append(`tags[${index}]`, tag);
+        });
+        payload.append("content", values?.blogContent);
+        payload.append("blog_image", uploadedImage);
+        payload.append("imageId", blogData?.image?.imageId);
+        payload.append("blogId", blogData?._id);
+
+        const url = `${endpointUrl}/blog/update`;
 
         try {
             const options = {
                 method: "PATCH",
-                body: JSON.stringify(payload),
+                body: payload,
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
                     Authorization: `Bearer ${bearerToken}`,
                 },
             };
@@ -305,29 +269,12 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                                         align="center"
                                                     >
                                                         <Flex align="center">
-                                                            {isLoadingImage ? (
-                                                                <Flex
-                                                                    align="center"
-                                                                    gap="1rem"
-                                                                >
-                                                                    <Text align="center">
-                                                                        Uploading
-                                                                        Image,
-                                                                        please
-                                                                        wait....
-                                                                    </Text>
-                                                                    <Spinner size="sm" />
-                                                                </Flex>
-                                                            ) : (
-                                                                <Icon
-                                                                    as={
-                                                                        LuUploadCloud
-                                                                    }
-                                                                    boxSize={
-                                                                        "5rem"
-                                                                    }
-                                                                />
-                                                            )}
+                                                            <Icon
+                                                                as={
+                                                                    LuUploadCloud
+                                                                }
+                                                                boxSize={"5rem"}
+                                                            />
                                                         </Flex>
                                                     </Flex>
 
@@ -347,7 +294,8 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                                 <Box>
                                                     <Image
                                                         src={
-                                                            uploadedImage?.imageUrl
+                                                            uploadedImage?.imageUrl ||
+                                                            previewUrl
                                                         }
                                                         alt="Preview"
                                                         style={{
