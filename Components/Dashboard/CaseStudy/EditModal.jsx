@@ -36,56 +36,20 @@ const EditModal = ({ caseStudyData, fetchProjects }) => {
     const fileInputRef = useRef(null);
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingImage, setIsLoadingImage] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(
         caseStudyData?.coverPhoto
     );
     const [err, setErr] = useState(false);
     const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
 
-    async function upLoadImage(file) {
-        setIsLoadingImage(true);
-        const url = `${endpointUrl}/case-study/upload/image`;
-        const payload = new FormData();
-        payload.append("cover-photo", file);
-
-        try {
-            const options = {
-                method: "POST",
-                body: payload,
-                headers: {
-                    Authorization: `Bearer ${bearerToken}`,
-                },
-            };
-            const response = await fetch(url, options);
-            const data = await response.json();
-            console.log(data);
-            if (!response.ok) {
-                toast({
-                    title: data.message,
-                    status: "error",
-                    position: "top-left",
-                });
-            } else {
-                toast({
-                    title: data.message,
-                    status: "success",
-                    position: "top-left",
-                });
-                setUploadedImage(data?.data);
-            }
-        } catch (error) {
-            console.error("Error sending data:", error);
-        } finally {
-            setIsLoadingImage(false);
-        }
-    }
-
     const handleImageChange = (event) => {
         const file = event.target.files[0];
 
         if (file && allowedTypes.includes(file.type)) {
-            upLoadImage(file);
+            const preview = URL.createObjectURL(file);
+            setUploadedImage(file);
+            setPreviewUrl(preview);
         } else {
             toast({
                 title: "Invalid Image",
@@ -110,28 +74,43 @@ const EditModal = ({ caseStudyData, fetchProjects }) => {
     const updateProject = async (values) => {
         setIsLoading(true);
 
-        const payload = {
-            projectTitle: values?.projectTitle,
-            projectSubtitle: values?.projectSubTitle,
-            projectDescription: values?.projectDescription,
-            projectOverview: values?.projectOverview,
-            problem: values?.projectPro,
-            solution: values?.projectSolution,
-            clientName: values?.clientName,
-            projectTimeline: values?.projectTimeline,
-            projectCategory: values?.projectCategory,
-            servicesProvides: values?.servicesProvided,
-            coverPhoto: values?.imageUrl,
-        };
+        // const payload = {
+        //     projectTitle: values?.projectTitle,
+        //     projectSubtitle: values?.projectSubTitle,
+        //     projectDescription: values?.projectDescription,
+        //     projectOverview: values?.projectOverview,
+        //     problem: values?.projectPro,
+        //     solution: values?.projectSolution,
+        //     clientName: values?.clientName,
+        //     projectTimeline: values?.projectTimeline,
+        //     projectCategory: values?.projectCategory,
+        //     servicesProvides: values?.servicesProvided,
+        //     coverPhoto: values?.imageUrl,
+        // };
 
-        const url = `${endpointUrl}/case-study/update/${caseStudyData?._id}`;
+        const payload = new FormData();
+        payload.append("projectTitle", values?.projectTitle);
+        payload.append("projectSubtitle", values?.projectSubTitle);
+        payload.append("projectDescription", values?.projectDescription);
+        payload.append("projectOverview", values?.projectOverview);
+        payload.append("problem", values?.projectPro);
+        payload.append("solution", values?.projectSolution);
+        payload.append("clientName", values?.clientName);
+        payload.append("projectTimeline", values?.projectTimeline);
+        payload.append("projectCategory", values?.projectCategory);
+        payload.append("servicesProvides", values?.servicesProvided);
+        payload.append("cover_photo", values?.imageUrl);
+        payload.append("imageId", caseStudyData?.coverPhoto?.imageId);
+        payload.append("caseStudyId", caseStudyData?._id);
+
+        const url = `${endpointUrl}/case-study/update`;
 
         try {
             const options = {
                 method: "PATCH",
-                body: JSON.stringify(payload),
+                body: payload,
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
                     Authorization: `Bearer ${bearerToken}`,
                 },
             };
@@ -248,7 +227,7 @@ const EditModal = ({ caseStudyData, fetchProjects }) => {
                                     <Stack
                                         maxW="56rem"
                                         mx="auto"
-                                        spacingY={"2rem"}
+                                        // spacingY={"2rem"}
                                         pb="2rem"
                                     >
                                         <CustomInput
@@ -379,29 +358,12 @@ const EditModal = ({ caseStudyData, fetchProjects }) => {
                                                         align="center"
                                                     >
                                                         <Flex align="center">
-                                                            {isLoadingImage ? (
-                                                                <Flex
-                                                                    align="center"
-                                                                    gap="1rem"
-                                                                >
-                                                                    <Text align="center">
-                                                                        Uploading
-                                                                        Image,
-                                                                        please
-                                                                        wait....
-                                                                    </Text>
-                                                                    <Spinner size="sm" />
-                                                                </Flex>
-                                                            ) : (
-                                                                <Icon
-                                                                    as={
-                                                                        LuUploadCloud
-                                                                    }
-                                                                    boxSize={
-                                                                        "5rem"
-                                                                    }
-                                                                />
-                                                            )}
+                                                            <Icon
+                                                                as={
+                                                                    LuUploadCloud
+                                                                }
+                                                                boxSize={"5rem"}
+                                                            />
                                                         </Flex>
                                                     </Flex>
 
@@ -421,7 +383,8 @@ const EditModal = ({ caseStudyData, fetchProjects }) => {
                                                 <Box>
                                                     <Image
                                                         src={
-                                                            uploadedImage?.imageUrl
+                                                            uploadedImage?.imageUrl ||
+                                                            previewUrl
                                                         }
                                                         alt="Preview"
                                                         style={{

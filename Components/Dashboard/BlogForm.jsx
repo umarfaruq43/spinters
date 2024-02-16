@@ -24,56 +24,22 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
     const [contentsErr, setContentsErr] = useState("");
     const [err, setErr] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingImage, setIsLoadingImage] = useState(false);
-    const [uploadedImage, setUploadedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
     const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
 
     const fileInputRef = useRef(null);
 
-    async function upLoadImage(file) {
-        setIsLoadingImage(true);
-        const url = `${endpointUrl}/blog/upload/image`;
-        const payload = new FormData();
-        payload.append("blogImage", file);
-
-        try {
-            const options = {
-                method: "POST",
-                body: payload,
-                headers: {
-                    Authorization: `Bearer ${bearerToken}`,
-                },
-            };
-            const response = await fetch(url, options);
-            const data = await response.json();
-            console.log(data);
-            if (!response.ok) {
-                toast({
-                    title: data.message,
-                    status: "error",
-                    position: "top-left",
-                });
-            } else {
-                toast({
-                    title: data.message,
-                    status: "success",
-                    position: "top-left",
-                });
-                setUploadedImage(data?.data);
-            }
-        } catch (error) {
-            console.error("Error sending data:", error);
-        } finally {
-            setIsLoadingImage(false);
-        }
-    }
-
     const handleImageChange = (event) => {
         const file = event.target.files[0];
 
         if (file && allowedTypes.includes(file.type)) {
-            upLoadImage(file);
+            // upLoadImage(file);
+            const preview = URL.createObjectURL(file);
+
+            setSelectedImage(file);
+            setPreviewUrl(preview);
         } else {
             toast({
                 title: "Invalid Image",
@@ -85,7 +51,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
     };
 
     const handleRemoveImage = () => {
-        setUploadedImage(null);
+        setSelectedImage(null);
     };
 
     const handleUploadIconClick = () => {
@@ -100,29 +66,28 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
         setIsLoading(true);
 
         let formatedBlogTags = values?.blogTags?.split(",");
-        const payload = {
-            title: values?.blogTitle,
-            description: values?.blogDes,
-            tags: formatedBlogTags,
-            content: values?.blogContent,
-            image: values?.imageUrl,
-        };
-        console.log(payload);
+        // Payload section
+        const payload = new FormData();
+        payload.append("title", values?.blogTitle);
+        payload.append("description", values?.blogDes);
+        formatedBlogTags?.forEach((tag, index) => {
+            payload.append(`tags[${index}]`, tag);
+        });
+        payload.append("content", values?.blogContent);
+        payload.append("blog_image", values?.imageUrl);
 
         const url = `${endpointUrl}/blog`;
 
         try {
             const options = {
                 method: "POST",
-                body: JSON.stringify(payload),
+                body: payload,
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${bearerToken}`,
                 },
             };
             const response = await fetch(url, options);
             const data = await response.json();
-            console.log(data);
             if (!response.ok) {
                 toast({
                     title: data.message,
@@ -152,6 +117,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                 blogDes: "",
                 blogContent: "",
                 blogTags: "",
+                authorName: "",
                 imageUrl: "",
             }}
             validate={(values) => {
@@ -166,6 +132,9 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                 if (!values.blogTags) {
                     errors.blogTags = "Blog Tags are required";
                 }
+                if (!values.authorName) {
+                    errors.authorName = "Author Name is required";
+                }
                 if (!contents) {
                     errors.blogContent = "Blog Content  is required";
                     setContentsErr(true);
@@ -173,7 +142,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                     setContentsErr(false);
                 }
 
-                if (!uploadedImage) {
+                if (!selectedImage) {
                     errors.imageUrl = "image is required is required";
                     setErr(true);
                 } else {
@@ -184,7 +153,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
             }}
             onSubmit={(values) => {
                 values.blogContent = contents;
-                values.imageUrl = uploadedImage;
+                values.imageUrl = selectedImage;
                 UploadBlog(values);
             }}
         >
@@ -214,6 +183,14 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                             placeholder="Design, Book, Stage"
                             errors={errors}
                             touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Author Name"
+                            name="authorName"
+                            type="text"
+                            placeholder="Olivia Rhye"
+                            errors={errors}
+                            touched={touched}
                         />
                         {/* Photo Upload */}
                         <Box>
@@ -226,7 +203,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                 Upload Cover Photo
                             </FormLabel>
 
-                            {!uploadedImage ? (
+                            {!selectedImage ? (
                                 <>
                                     <Input
                                         type="file"
@@ -254,7 +231,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                         align="center"
                                     >
                                         <Flex align="center">
-                                            {isLoadingImage ? (
+                                            {/* {isLoadingImage ? (
                                                 <Flex align="center" gap="1rem">
                                                     <Text align="center">
                                                         Uploading Image, please
@@ -262,12 +239,12 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                                     </Text>
                                                     <Spinner size="sm" />
                                                 </Flex>
-                                            ) : (
-                                                <Icon
-                                                    as={LuUploadCloud}
-                                                    boxSize={"5rem"}
-                                                />
-                                            )}
+                                            ) : ( */}
+                                            <Icon
+                                                as={LuUploadCloud}
+                                                boxSize={"5rem"}
+                                            />
+                                            {/* )} */}
                                         </Flex>
                                     </Flex>
 
@@ -285,7 +262,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                             ) : (
                                 <Box>
                                     <Image
-                                        src={uploadedImage?.imageUrl}
+                                        src={previewUrl}
                                         alt="Preview"
                                         style={{
                                             maxWidth: "100%",

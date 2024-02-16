@@ -64,7 +64,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                                 mx="auto"
                                 textAlign={"center"}
                             >
-                                Welcome to Sprinters, Technologies <br /> Your
+                                Welcome to Sprinters Technologies, <br /> Your
                                 <Text as="i" color="primary_10">
                                     Tech Solutions{" "}
                                 </Text>
