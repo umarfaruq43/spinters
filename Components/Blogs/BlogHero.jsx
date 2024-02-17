@@ -114,7 +114,7 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                     </Stack>
 
                     <Box pt="4rem">
-                        {/* <Image
+                        <Image
                             src={heroData?.image?.imageUrl}
                             alt="hero image"
                             w="100%"
@@ -122,7 +122,7 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                             maxH="36.43rem"
                             objectFit={"cover"}
                             rounded={type === "normal" ? "0.9375rem" : "2rem"}
-                        /> */}
+                        />
                     </Box>
                 </Box>
             </Container>

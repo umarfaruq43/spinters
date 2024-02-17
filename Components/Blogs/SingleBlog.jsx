@@ -13,14 +13,16 @@ const SingleBlog = ({ blogData }) => {
     return (
         <div>
             <Box>
-                <BlogHero heroData={blogData} />
+                <BlogHero heroData={blogData?.Blog} />
                 <Container py="3rem">
                     <Box maxW="45rem" mx="auto">
-                        <BlogContent blogData={blogData} />
-                        <ShareBlog />
+                        <BlogContent blogData={blogData?.Blog} />
+                        <ShareBlog blogData={blogData?.Blog} />
                     </Box>
                 </Container>
-                <RelatedBlogs />
+                {blogData?.otherBlogs?.length > 0 && (
+                    <RelatedBlogs blogData={blogData?.otherBlogs} />
+                )}
                 <NewsLetter />
                 <ContactLabel data={"homepage"} />
 

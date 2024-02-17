@@ -4,6 +4,7 @@ import Container from "../common/Container";
 import Navbar from "../common/Navbar";
 
 const Hero = ({ heroData, type = "normal" }) => {
+    // console.log(heroData);
     const theme = "light";
     return (
         <Box bgColor={theme === "dark" ? "dark_2" : "light_1"}>

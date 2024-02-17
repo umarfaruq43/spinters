@@ -12,10 +12,10 @@ import Hero from "./Hero";
 const ProjectDetails = ({ projectData }) => {
     return (
         <Box>
-            <Hero heroData={projectData} type="caseStudy" />
-            <OtherDetails data={projectData} />
+            <Hero heroData={projectData?.caseStudy} type="caseStudy" />
+            <OtherDetails data={projectData?.caseStudy} />
             <Process bg="primary_30" />
-            <OtherProject />
+            <OtherProject projectData={projectData?.otherCasestudy} />
             <ContactLabel data={"homepage"} />
 
             <Footer />

@@ -3,7 +3,8 @@ import React from "react";
 import Container from "../common/Container";
 import BlogCard from "../common/BlogCard";
 
-const RelatedBlogs = () => {
+const RelatedBlogs = ({ blogData }) => {
+    console.log(blogData);
     return (
         <Box py={["4rem", "5rem", "6rem"]}>
             <Container>
@@ -59,30 +60,3 @@ const RelatedBlogs = () => {
 };
 
 export default RelatedBlogs;
-
-const blogData = [
-    {
-        id: 1,
-        tag: "Management",
-        title: "Bill Walsh leadership lessons",
-        des: "Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?",
-        authorImg: "",
-        authorName: "Alec Whitten",
-    },
-    {
-        id: 2,
-        tag: "Product",
-        title: "PM mental models",
-        des: "Mental models are simple expressions of complex processes or relationships.",
-        authorImg: "",
-        authorName: "Demi WIlkinson",
-    },
-    {
-        id: 3,
-        tag: "Design",
-        title: "What is Wireframing?",
-        des: "Introduction to Wireframing and its Principles. Learn from the best in the industry.",
-        authorImg: "",
-        authorName: "Candice Wu",
-    },
-];

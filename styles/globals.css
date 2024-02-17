@@ -161,7 +161,9 @@ image {
     transform: translate3d(0, 0, 0) !important;
     -webkit-transform: translate3d(0, 0, 0) !important;
 }
-
+.otherProject {
+    overflow: hidden;
+}
 .otherProject:hover {
 }
 .otherProject_overlay {
