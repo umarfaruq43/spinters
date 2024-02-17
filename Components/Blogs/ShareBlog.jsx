@@ -15,7 +15,7 @@ import {
 } from "react-icons/bi";
 import { LuCopy } from "react-icons/lu";
 
-const ShareBlog = () => {
+const ShareBlog = ({ blogData }) => {
     const { onCopy, value, setValue, hasCopied } = useClipboard("");
 
     useEffect(() => {
@@ -66,16 +66,16 @@ const ShareBlog = () => {
             w="100%"
         >
             <Flex gap="0.75rem" align="center">
-                <Image
+                {/* <Image
                     src="/images/t_1.svg"
                     alt="Blog author"
                     boxSize="2.5rem"
                     rounded="full"
                     objectFit="cover"
-                />
+                /> */}
                 <Box>
                     <Text fontWeight={"600"} fontSize={"1.125rem"}>
-                        Rhye
+                        {blogData?.authorName}
                     </Text>
                     <Text color="light_6" fontSize="1rem">
                         Product Designer, Untitled

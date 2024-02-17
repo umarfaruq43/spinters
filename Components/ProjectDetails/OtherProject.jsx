@@ -1,8 +1,8 @@
-import { Box, Flex, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "../common/Container";
 
-const OtherProject = () => {
+const OtherProject = ({ projectData }) => {
     return (
         <Box>
             <Box py={["4rem", "5rem", "6rem"]} bgColor="white">
@@ -23,43 +23,46 @@ const OtherProject = () => {
                         columns={[1, 2, null, 3]}
                         spacing="2.3rem"
                     >
-                        {data.map((item) => {
+                        {projectData.map((item) => {
                             return (
-                                <Box
-                                    key={item.id}
-                                    pos="relative"
-                                    className="otherProject"
-                                >
-                                    <Image
-                                        src={item.img}
-                                        alt="img"
-                                        w="100%"
-                                        h="100%"
-                                        maxW="100%"
-                                        borderRadius={"2rem"}
-                                        objectFit={"cover"}
-                                    />
-                                    <Flex
-                                        pos="absolute"
-                                        bg={"rgba_1"}
-                                        top="0"
-                                        bottom="0"
-                                        w="100%"
-                                        borderRadius={"2rem"}
-                                        px="1.5rem"
-                                        // pb="3.19rem"
-                                        color="white"
-                                        alignItems={"flex-end"}
-                                        className="otherProject_overlay"
+                                <Box key={item.id}>
+                                    <Box
+                                        pos="relative"
+                                        className="otherProject"
                                     >
-                                        <Text
-                                            className="otherProject_text"
-                                            fontSize="1.5rem"
-                                            fontWeight="700"
+                                        <Image
+                                            src={item?.coverPhoto?.imageUrl}
+                                            alt="img"
+                                            w="100%"
+                                            // h="100%"
+                                            maxW="100%"
+                                            borderRadius={"2rem"}
+                                            objectFit={"cover"}
+                                            h={["24.5rem"]}
+                                        />
+                                        <Flex
+                                            pos="absolute"
+                                            bg={"rgba_1"}
+                                            top="0"
+                                            bottom="0"
+                                            w="100%"
+                                            borderRadius={"2rem"}
+                                            px="1.5rem"
+                                            // pb="3.19rem"
+                                            color="white"
+                                            alignItems={"flex-end"}
+                                            className="otherProject_overlay"
                                         >
-                                            {item.title}
-                                        </Text>
-                                    </Flex>
+                                            <Link
+                                                href={`/case_study/${item?._id}`}
+                                                className="otherProject_text"
+                                                fontSize="1.5rem"
+                                                fontWeight="700"
+                                            >
+                                                {item?.projectTitle}
+                                            </Link>
+                                        </Flex>
+                                    </Box>
                                 </Box>
                             );
                         })}

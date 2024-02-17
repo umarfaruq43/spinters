@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 
@@ -13,18 +13,28 @@ const BlogCard = ({ blogData }) => {
             pos="relative"
         >
             <Box>
-                <Box>
+                <Box pos="relative" w="100%" minH="15rem">
                     <Image
                         src={blogData?.image?.imageUrl}
                         alt=""
                         w="100%"
-                        // minH="15rem"
+                        minH="15rem"
                         maxH="15rem"
+                        // maxH="100%"
                         h="100%"
                         rounded="0.4375rem"
                         objectFit="cover"
                         fallbackSrc="https://via.placeholder.com/150"
                     />
+                    <Link
+                        href={`/blogs/${blogData?._id}`}
+                        pos="absolute"
+                        // bgColor="red"
+                        top="0"
+                        bottom="0"
+                        left="0"
+                        right="0"
+                    ></Link>
                 </Box>
 
                 <Box pt="2rem">
