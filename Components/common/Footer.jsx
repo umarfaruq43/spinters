@@ -24,9 +24,9 @@ const Footer = () => {
                     >
                         <Stack spacing={"1rem"} maxW="28.5rem" w="100%">
                             <Image
-                                src="/images/greenLogo.png"
+                                src="/images/greenLogo.svg"
                                 alt="logo"
-                                w="13rem"
+                                w="12.625rem"
                             />
                             <Text fontSize={"1.125rem"}>
                                 We specialize in Tech consultation, web

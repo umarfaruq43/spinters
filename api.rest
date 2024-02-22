@@ -132,7 +132,7 @@ Authorization: Bearer {{token}}
 GET {{api}}/case-study
 
 ### get case study
-GET {{api}}/case-study?caseStudyId=65b13373b29d880c58aae899
+GET {{api}}/case-study?caseStudyId=65cfd3a1cf3bfd5fe6d43731
 
 ### delete case study
 DELETE {{api}}/case-study?caseStudyId=65ced7ad513bee5e25aa29ff&imageId=sprinters/59b100d39fe7ba12
