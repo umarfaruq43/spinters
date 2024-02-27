@@ -67,13 +67,13 @@ const Blog = () => {
                     fontSize=".9rem"
                     onClick={() => setAddBlog(!addBlog)}
                 >
-                    {addBlog ? "Cancle" : "Add Blog"}
+                    {addBlog ? "Cancel" : "Add Blog"}
                 </Button>
             </Flex>
 
             {isLoading ? (
                 <Box mt="2rem">
-                    <SimpleGrid columns={[1, 2, null,3]} spacing={4}>
+                    <SimpleGrid columns={[1, 2, null, 3]} spacing={4}>
                         <Skeleton height="10rem" />
                         <Skeleton height="10rem" />
                         <Skeleton height="10rem" />

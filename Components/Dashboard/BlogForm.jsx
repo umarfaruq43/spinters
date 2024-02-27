@@ -311,7 +311,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                                 _disabled={{ opacity: ".6" }}
                                 isDisabled={isLoading}
                             >
-                                {isLoading ? <Spinner /> : "Send message"}
+                                {isLoading ? <Spinner /> : "Upload blog"}
                             </Button>
                         </Box>
                     </Stack>
