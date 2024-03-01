@@ -8,7 +8,7 @@ const AuthGuard = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(null);
 
     useEffect(() => {
-        const isLoggedInCheck = Cookies.get("token");
+        const isLoggedInCheck = Cookies.get("sprinters_token");
         setIsLoggedIn(isLoggedInCheck);
         !isLoggedInCheck && navigate.push("/auth/login");
     }, []);

@@ -91,7 +91,15 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
                             icon={
                                 isDeleting ? <Spinner /> : <Icon as={BiTrash} />
                             }
-                            onClick={() => deleteBlog(blogData?._id)}
+                            onClick={() => {
+                                if (
+                                    confirm(
+                                        "Are you sure you want to delete this"
+                                    )
+                                ) {
+                                    deleteBlog(blogData?._id);
+                                }
+                            }}
                         />
                         {/* <IconButton
                             icon={<Icon as={BiPencil} />}

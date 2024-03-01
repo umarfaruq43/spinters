@@ -75,6 +75,8 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
         });
         payload.append("content", values?.blogContent);
         payload.append("blog_image", values?.imageUrl);
+        payload.append("destination", values?.destination);
+        payload.append("authorName", values?.authorName);
 
         const url = `${endpointUrl}/blog`;
 
@@ -118,6 +120,7 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                 blogContent: "",
                 blogTags: "",
                 authorName: "",
+                destination: "",
                 imageUrl: "",
             }}
             validate={(values) => {
@@ -134,6 +137,9 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                 }
                 if (!values.authorName) {
                     errors.authorName = "Author Name is required";
+                }
+                if (!values.destination) {
+                    errors.destination = "Destination is required";
                 }
                 if (!contents) {
                     errors.blogContent = "Blog Content  is required";
@@ -189,6 +195,14 @@ const BlogForm = ({ setAddBlog, fetchBlogs }) => {
                             name="authorName"
                             type="text"
                             placeholder="Olivia Rhye"
+                            errors={errors}
+                            touched={touched}
+                        />{" "}
+                        <CustomInput
+                            label="Destination"
+                            name="destination"
+                            type="text"
+                            placeholder="UI/UX design team"
                             errors={errors}
                             touched={touched}
                         />

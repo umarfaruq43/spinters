@@ -13,6 +13,8 @@ import {
     DrawerContent,
     useDisclosure,
     Image,
+    DrawerFooter,
+    Button,
 } from "@chakra-ui/react";
 import {
     FiHome,
@@ -22,6 +24,8 @@ import {
     FiSettings,
     FiMenu,
 } from "react-icons/fi";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const LinkItems = [
     {
@@ -57,6 +61,7 @@ export default function DashNav({ activeNav, children }) {
                 <DrawerContent>
                     <SidebarContent onClose={onClose} activeNav={activeNav} />
                 </DrawerContent>
+                <DrawerFooter></DrawerFooter>
             </Drawer>
             {/* mobilenav */}
             <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
@@ -69,6 +74,7 @@ export default function DashNav({ activeNav, children }) {
 }
 
 const SidebarContent = ({ onClose, activeNav, ...rest }) => {
+    const router = useRouter();
     return (
         <Box
             bg={"gray.900"}
@@ -107,6 +113,32 @@ const SidebarContent = ({ onClose, activeNav, ...rest }) => {
                     </NavItem>
                 ))}
             </Box>
+
+            {/* LogOut button */}
+            <Flex
+                mt="12.5rem"
+                w="100%"
+                maxW="181px"
+                align="left"
+                p="4"
+                mx="4"
+                borderRadius="lg"
+                role="group"
+                cursor="pointer"
+                bg="red"
+                _hover={{
+                    bg: "red.500",
+                    color: "white",
+                }}
+                {...rest}
+                as="button"
+                onClick={() => {
+                    router.push("/auth/login");
+                    Cookies.remove("sprinters_token");
+                }}
+            >
+                Logout
+            </Flex>
         </Box>
     );
 };

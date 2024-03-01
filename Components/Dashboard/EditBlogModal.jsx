@@ -90,6 +90,9 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
             payload.append(`tags[${index}]`, tag);
         });
         payload.append("content", values?.blogContent);
+        payload.append("authorName", values?.authorName);
+        payload.append("destination", values?.destination);
+        payload.append("blog_image", uploadedImage);
         payload.append("blog_image", uploadedImage);
         payload.append("imageId", blogData?.image?.imageId);
         payload.append("blogId", blogData?._id);
@@ -146,6 +149,8 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                 blogContent: blogData?.content || "",
                                 blogTags: tagsToString || "",
                                 imageUrl: blogData?.imageUrl || "",
+                                destination: blogData?.destination || "",
+                                authorName: blogData?.authorName || "",
                             }}
                             validate={(values) => {
                                 let errors = {};
@@ -156,6 +161,14 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                 if (!values.blogDes) {
                                     errors.blogDes =
                                         "Blog description is required";
+                                }
+                                if (!values.destination) {
+                                    errors.destination =
+                                        "Blog destination is required";
+                                }
+                                if (!values.authorName) {
+                                    errors.authorName =
+                                        "Author Name is required";
                                 }
                                 if (!values.blogTags) {
                                     errors.blogTags = "Blog Tags are required";
@@ -217,6 +230,22 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                             name="blogTags"
                                             type="text"
                                             placeholder="Design, Book, Stage"
+                                            errors={errors}
+                                            touched={touched}
+                                        />
+                                        <CustomInput
+                                            label="Author Name"
+                                            name="authorName"
+                                            type="text"
+                                            placeholder="Author Name"
+                                            errors={errors}
+                                            touched={touched}
+                                        />
+                                        <CustomInput
+                                            label="Destination"
+                                            name="destination"
+                                            type="text"
+                                            placeholder="Destination"
                                             errors={errors}
                                             touched={touched}
                                         />
