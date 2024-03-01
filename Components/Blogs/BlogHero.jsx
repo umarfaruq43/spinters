@@ -120,7 +120,7 @@ const BlogHero = ({ heroData, type = "normal" }) => {
                             w="100%"
                             h={["20rem", "35.1875rem", "100%"]}
                             maxH="36.43rem"
-                            objectFit={"cover"}
+                            // objectFit={"cover"}
                             rounded={type === "normal" ? "0.9375rem" : "2rem"}
                         />
                     </Box>
