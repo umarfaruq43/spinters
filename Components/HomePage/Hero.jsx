@@ -2,12 +2,16 @@ import { Box, Button, Flex, Stack, Text, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Container from "../common/Container";
 import Navbar from "../common/Navbar";
+import { motion } from "framer-motion";
 
 const Hero = ({ heroData, type = "normal" }) => {
     return (
-        <Box bgColor={heroData?.theme === "dark" ? "dark_2" : "light_1"}>
+        <Box
+            bgColor={heroData?.theme === "dark" ? "dark_2" : "light_1"}
+            position="relative"
+        >
             <Container>
-                <Box py={["2rem", "3rem", "4rem"]} data-aos="slide-down">
+                <Box py={["2rem", "3rem", "4rem"]} className="hero">
                     <Navbar
                         activeNav={heroData?.activeNav}
                         theme={heroData?.theme}
@@ -52,6 +56,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                         </Box>
                         {type === "homePage" && (
                             <Text
+                                data-aos="zoom-in"
                                 letterSpacing={"-0.09rem"}
                                 fontSize={["2rem", "3rem", "4.5rem"]}
                                 color={
@@ -73,6 +78,7 @@ const Hero = ({ heroData, type = "normal" }) => {
                         )}
 
                         <Text
+                            data-aos="zoom-in"
                             color={
                                 heroData?.theme === "dark"
                                     ? "light_1"
@@ -90,6 +96,7 @@ const Hero = ({ heroData, type = "normal" }) => {
 
                         {heroData?.btnfunc && (
                             <Button
+                                data-aos="zoom-in"
                                 display={"block"}
                                 mx="auto"
                                 py="1rem"
@@ -110,11 +117,12 @@ const Hero = ({ heroData, type = "normal" }) => {
                         )}
                     </Stack>
 
-                    <Box pt="4rem">
+                    <Box pt="4rem" data-aos="zoom-in">
                         <Image
                             src={heroData?.img || "/images/heroimg.png"}
                             alt="hero image"
                             w="100%"
+                            maxW="100%"
                             h={["20rem", "35.1875rem", "100%"]}
                             objectFit={"cover"}
                             rounded={type === "normal" ? "0.9375rem" : "2rem"}

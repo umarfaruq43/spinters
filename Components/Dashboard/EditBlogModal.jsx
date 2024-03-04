@@ -93,7 +93,7 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
         payload.append("authorName", values?.authorName);
         payload.append("destination", values?.destination);
         payload.append("blog_image", uploadedImage);
-        payload.append("blog_image", uploadedImage);
+        // payload.append("blog_image", uploadedImage);
         payload.append("imageId", blogData?.image?.imageId);
         payload.append("blogId", blogData?._id);
 

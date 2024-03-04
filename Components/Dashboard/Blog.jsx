@@ -71,60 +71,69 @@ const Blog = () => {
                 </Button>
             </Flex>
 
-            {isLoading ? (
-                <Box mt="2rem">
-                    <SimpleGrid columns={[1, 2, null, 3]} spacing={4}>
-                        <Skeleton height="10rem" />
-                        <Skeleton height="10rem" />
-                        <Skeleton height="10rem" />
-                    </SimpleGrid>
-                </Box>
-            ) : (
-                <Box mt="2rem">
-                    {addBlog ? (
-                        <BlogForm
-                            addBlog={addBlog}
-                            setAddBlog={setAddBlog}
-                            fetchBlogs={fetchBlogs}
-                        />
-                    ) : (
-                        <Box>
-                            {blogs?.length < 1 ? (
-                                <Flex
-                                    minH="40vh"
-                                    align="center"
-                                    justify="center"
-                                    // border="1px"
-                                    // borderColor={"black.100"}
+            {/* {isLoading ? (
+               
+            ) : ( */}
+            <Box mt="2rem">
+                {addBlog ? (
+                    <BlogForm
+                        addBlog={addBlog}
+                        setAddBlog={setAddBlog}
+                        fetchBlogs={fetchBlogs}
+                    />
+                ) : (
+                    <>
+                        {isLoading ? (
+                            <Box mt="2rem">
+                                <SimpleGrid
+                                    columns={[1, 2, null, 3]}
+                                    spacing={4}
                                 >
-                                    <Text>Blog is Empty</Text>
-                                </Flex>
-                            ) : (
-                                <Box>
-                                    <SimpleGrid
-                                        columns={[1, 2, null, 3]}
-                                        spacing={4}
+                                    <Skeleton height="10rem" />
+                                    <Skeleton height="10rem" />
+                                    <Skeleton height="10rem" />
+                                </SimpleGrid>
+                            </Box>
+                        ) : (
+                            <Box>
+                                {blogs?.length < 1 ? (
+                                    <Flex
+                                        minH="40vh"
+                                        align="center"
+                                        justify="center"
+                                        // border="1px"
+                                        // borderColor={"black.100"}
                                     >
-                                        {blogs.map((blog) => (
-                                            <AdminBlogCard
-                                                key={blog?.id}
-                                                blogData={blog}
-                                                fetchBlogs={fetchBlogs}
-                                                onEdit={() =>
-                                                    console.log(
-                                                        "Edit blog:",
-                                                        blog?.id
-                                                    )
-                                                }
-                                            />
-                                        ))}
-                                    </SimpleGrid>
-                                </Box>
-                            )}
-                        </Box>
-                    )}
-                </Box>
-            )}
+                                        <Text>Blog is Empty</Text>
+                                    </Flex>
+                                ) : (
+                                    <Box>
+                                        <SimpleGrid
+                                            columns={[1, 2, null, 3]}
+                                            spacing={4}
+                                        >
+                                            {blogs.map((blog) => (
+                                                <AdminBlogCard
+                                                    key={blog?.id}
+                                                    blogData={blog}
+                                                    fetchBlogs={fetchBlogs}
+                                                    onEdit={() =>
+                                                        console.log(
+                                                            "Edit blog:",
+                                                            blog?.id
+                                                        )
+                                                    }
+                                                />
+                                            ))}
+                                        </SimpleGrid>
+                                    </Box>
+                                )}
+                            </Box>
+                        )}{" "}
+                    </>
+                )}
+            </Box>
+            {/* )} */}
         </Box>
     );
 };

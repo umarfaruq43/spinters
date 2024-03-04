@@ -78,7 +78,7 @@ const ShareBlog = ({ blogData }) => {
                         {blogData?.authorName}
                     </Text>
                     <Text color="light_6" fontSize="1rem">
-                        Product Designer, Untitled
+                        {blogData?.destination}
                     </Text>
                 </Box>
             </Flex>

@@ -1,9 +1,11 @@
 import { Box, Flex, Icon, Image, Link, Text } from "@chakra-ui/react";
+import { format, parseISO } from "date-fns";
 import React from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 
 const BlogCard = ({ blogData }) => {
     console.log("blogData", blogData);
+    const newDate = format(parseISO(blogData?.createdAt), "dd MMM yyyy");
     return (
         <Box
             rounded="0.9375rem"
@@ -81,7 +83,8 @@ const BlogCard = ({ blogData }) => {
                                 {blogData?.authorName}
                             </Text>
                             <Text color="light_6" fontSize="0.875rem">
-                                17 Jan 2022
+                                {/* 17 Jan 2022 */}
+                                {newDate && newDate}
                             </Text>
                         </Box>
                     </Flex>
