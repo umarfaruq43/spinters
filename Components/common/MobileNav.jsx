@@ -58,12 +58,12 @@ export default function MobileNav({ theme, activeNav }) {
                             <Link href="/" _focusVisible={{}}>
                                 <Image
                                     src={`${
-                                        theme !== "dark"
-                                            ? "/images/greenLogo.png"
-                                            : "/images/greenDarkLogo.png"
+                                        theme === "dark"
+                                            ? "/logo/blackLogo.png"
+                                            : "/logo/whiteLogo.png"
                                     }`}
                                     alt="Spinters Logo"
-                                    w={["5rem", "6rem", "7rem"]}
+                                    w="7rem"
                                 />
                             </Link>
                             <DrawerCloseButton

@@ -24,7 +24,7 @@ const Footer = () => {
                     >
                         <Stack spacing={"1rem"} maxW="28.5rem" w="100%">
                             <Image
-                                src="/images/greenLogo.svg"
+                                src="/logo/whiteLogo.png"
                                 alt="logo"
                                 w="12.625rem"
                             />
