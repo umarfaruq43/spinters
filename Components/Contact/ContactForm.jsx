@@ -32,7 +32,7 @@ const ContactForm = () => {
 
     async function getIntouch(payload) {
         setIsLoading(true);
-        const url = `${endpointUrl}/users/get-in-touch`;
+        const url = `https://api.web3forms.com/submit`;
         try {
             const options = {
                 method: "POST",
@@ -102,6 +102,8 @@ const ContactForm = () => {
                 }}
                 onSubmit={(values) => {
                     values.phoneNo = `+${phoneNo}`;
+                    values.access_key = "902658ed-366e-4cb4-9dcf-37e8a6dcacfe";
+
                     getIntouch(values);
                 }}
             >
