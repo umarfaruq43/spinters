@@ -30,10 +30,10 @@ export async function getServerSideProps(context) {
     );
     const data = await res.json();
 
-    if (!data) {
-        // Handle blog not found case
-        return { notFound: true };
-    }
+    // if (!data) {
+    //     // Handle blog not found case
+    //     return { notFound: true };
+    // }
 
     return {
         props: {
