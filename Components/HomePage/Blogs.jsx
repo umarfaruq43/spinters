@@ -106,11 +106,11 @@ const Blogs = () => {
                                         >
                                             {blogData
                                                 ?.slice(0, 3)
-                                                ?.map((item) => {
+                                                ?.map((item, i) => {
                                                     return (
                                                         <BlogCard
                                                             blogData={item}
-                                                            key={item.id}
+                                                            key={i}
                                                         />
                                                     );
                                                 })}

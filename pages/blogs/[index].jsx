@@ -5,6 +5,7 @@ import { parseCookies } from "nookies";
 
 const index = (props) => {
     const { blogData } = props;
+    console.log("blogData", blogData);
 
     return (
         <>

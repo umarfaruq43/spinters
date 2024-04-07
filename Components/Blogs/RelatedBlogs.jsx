@@ -20,10 +20,8 @@ const RelatedBlogs = ({ blogData }) => {
                 <Box>
                     <Box mt={["2rem", "3rem"]}>
                         <SimpleGrid columns={[1, 2, null, 3]} spacing="2rem">
-                            {blogData.map((item) => {
-                                return (
-                                    <BlogCard blogData={item} key={item.id} />
-                                );
+                            {blogData.map((item, i) => {
+                                return <BlogCard blogData={item} key={i} />;
                             })}
                         </SimpleGrid>
                     </Box>
