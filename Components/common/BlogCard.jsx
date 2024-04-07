@@ -1,11 +1,18 @@
 import { Box, Flex, Icon, Image, Link, Text } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
+import { setCookie } from "nookies";
 import React from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 
 const BlogCard = ({ blogData }) => {
-    console.log("blogData", blogData);
     const newDate = format(parseISO(blogData?.createdAt), "dd MMM yyyy");
+
+    const storeCookies = () => {
+        setCookie(null, "blogId", blogData?._id, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/",
+        });
+    };
     return (
         <Box
             rounded="0.9375rem"
@@ -13,6 +20,9 @@ const BlogCard = ({ blogData }) => {
             p="1.5rem"
             boxShadow="0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)"
             pos="relative"
+            onClick={() => {
+                storeCookies();
+            }}
         >
             <Box>
                 <Box pos="relative" w="100%" minH="15rem">
