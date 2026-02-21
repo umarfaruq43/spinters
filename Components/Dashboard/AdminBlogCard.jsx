@@ -21,12 +21,13 @@ import { bearerToken, endpointUrl } from "@/lib/data";
 const AdminBlogCard = ({ blogData, fetchBlogs }) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const toast = useToast();
-    console.log(blogData);
+    // console.log(blogData);
     const deleteBlog = async (blogId) => {
         setIsDeleting(true);
         const url = `${endpointUrl}/blog?blogId=${blogId}&imagId=${blogData?.image?.imageId}`;
         console.log(url);
         try {
+            console.log("bearerToken", bearerToken);
             const options = {
                 method: "DELETE",
                 headers: {
@@ -35,7 +36,6 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
             };
             const response = await fetch(url, options);
             const data = await response.json(); // Parse the JSON response
-            console.log(data);
             if (!response.ok) {
                 toast({
                     title: data.message,
@@ -94,7 +94,7 @@ const AdminBlogCard = ({ blogData, fetchBlogs }) => {
                             onClick={() => {
                                 if (
                                     confirm(
-                                        "Are you sure you want to delete this"
+                                        "Are you sure you want to delete this",
                                     )
                                 ) {
                                     deleteBlog(blogData?._id);
