@@ -1,4 +1,4 @@
-import { Box, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Container from "../common/Container";
 import { teamData } from "@/lib/data";
@@ -34,9 +34,12 @@ const Team = () => {
                         </Text>
                     </Box>
                     <Box mt="4rem">
-                        <SimpleGrid
+                        <Flex
                             columns={[2, 4]}
-                            spacing={["1rem", "2rem", "3rem", "4rem"]}
+                            rowGap={["2rem", "5rem"]}
+                            columnGap={["1rem", "2rem"]}
+                            flexWrap={"wrap"}
+                            justifyContent={"space-between"}
                         >
                             {teamData.map(({ name, role, img }) => {
                                 return (
@@ -44,6 +47,8 @@ const Team = () => {
                                         textAlign={"center"}
                                         spacing="0px"
                                         key={name}
+                                        display={"block"}
+                                        w={["100%", "35%", "23%"]}
                                     >
                                         <Image
                                             src={img}
@@ -71,7 +76,7 @@ const Team = () => {
                                     </Stack>
                                 );
                             })}
-                        </SimpleGrid>
+                        </Flex>
                     </Box>
                 </Box>
             </Container>

@@ -39,7 +39,8 @@ const Footer = () => {
                             </Box>
                             <Box>
                                 <Text>
-                                    © Copyright 2024 Sprinters Technologies
+                                    © Copyright {new Date().getFullYear()}{" "}
+                                    Sprinters Technologies
                                 </Text>
                             </Box>
                         </Stack>
