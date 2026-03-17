@@ -99,6 +99,8 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
 
         const url = `${endpointUrl}/blog/update`;
 
+        // console.log("bearerToken", bearerToken);
+
         try {
             const options = {
                 method: "PATCH",
@@ -366,7 +368,8 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
                                                 mt="0.5rem"
                                             >
                                                 {" "}
-                                                Blog Content cannot be empty{" "}
+                                                Blog Content cannot be
+                                                empty{" "}
                                             </Text>
                                         )}
                                         {/* Submit  */}

@@ -47,9 +47,7 @@ export default function Login() {
                     status: "success",
                     position: "top-left",
                 });
-                Cookies.set("sprinters_token", data?.data?.token, {
-                    expires: 1,
-                });
+                Cookies.set("sprinters_token", data?.data?.token);
                 navigate.push("/dashboard");
             }
         } catch (error) {
