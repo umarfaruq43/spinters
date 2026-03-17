@@ -99,7 +99,7 @@ const EditBlogModal = ({ blogData, fetchBlogs }) => {
 
         const url = `${endpointUrl}/blog/update`;
 
-        // console.log("bearerToken", bearerToken);
+        console.log("bearerToken", bearerToken);
 
         try {
             const options = {
